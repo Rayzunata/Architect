@@ -9,13 +9,6 @@ export const regions = {
     defaultRegion : createRegion({settlements:["defaultCity2"]}),
     defaultMountain : createMountainRegion({description:"Defaultmountainregion",name:"Defaultmountain",npcs:["npcDefaultNpc"]}),
     defaultDesert : createDesertRegion({description:"Defaultdesertregion",name: "Defaultdesert"}),
-    
-    simon : createRegion({name:"Simon"}),
-    theboy : createRegion({name:"Der Junge"}),
-    charlie : createRegion({name:"Charlie"}),
-    control : createRegion({name:"Kontrolle"}),
-    soldier : createRegion({name:"Soldat"}),
-    focus : createRegion({name:"Fokus"}),
 
     mainRegion: createRegion ({
         id: "mainregion",

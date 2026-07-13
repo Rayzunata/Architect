@@ -43,27 +43,5 @@ export const worlds = {
             season: "spring"
         }
     },
-    system: {
-        id: "system",
-        name: "Das System",
-        description: "Eine Welt zwischen dem Innen und dem Aussen",
-
-        regions: [
-            // "simon",
-            // "theboy",
-            // "charlie",
-            // "control",
-            // "soldier",
-            // "focus",
-        ],
-
-        factions: [],
-
-        events: [],
-
-        state: {
-            year: 1,
-            season: "spring"
-        }
-    },
+    
 };
