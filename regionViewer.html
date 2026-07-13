@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+        /*##################### GERÜST - START  #####################*/
+        body{
+            background-color: black;
+            color: #d8bfd8;
+            font-family:Arial, sans-serif;
+            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 12px;
+        }
+
+        .headContainer{
+            border: 1px solid rgb(217, 21, 150);
+            /* padding: 5px; */
+            margin-bottom: 5px;
+            display: grid;
+            grid-template-columns: 20% 60% 20%;
+            /* gap: 20px; */
+
+        }
+
+        .logoContainer{
+            border: 1px solid rgb(217, 21, 150);
+            margin: 5px;
+            margin-left: 0px;
+            
+        }
+
+        .testelementContainer{
+            border: 1px solid rgb(217, 21, 150);
+            margin: 5px;
+
+        }
+
+        .gameContainer{
+            display: grid;
+            grid-template-columns: 20% 60% 20%;
+            /* gap: 20px; */
+            /* border: 1px solid rgb(217, 21, 150); */
+            height: 650px
+            
+        }
+
+        .leftContainer{
+            border: 1px solid rgb(217, 21, 150);
+            margin: 5px;
+            margin-left: 0px;
+        }
+
+        .midContainer{
+            border: 1px solid rgb(217, 21, 150);
+            margin: 5px;
+        }
+        .entryMidContainer{
+            height: 635px;
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+            overflow-y: auto;
+        }
+
+        .rightContainer{
+            border: 1px solid rgb(217, 21, 150);
+            margin: 5px;
+            margin-right: 0px;
+        }
+
+        .bottomContainer{
+            border: 1px solid rgb(217, 21, 150);
+            margin: 5px;
+        }
+
+        .footContainer{
+            border: 1px solid rgb(217, 21, 150);
+            margin-top: 5px;
+
+        }
+
+        /*##################### GERÜST - END  #####################*/
+
+        .testEintrag{
+            margin: 5px;
+            padding: 5px;
+            /* color: rgb(182, 138, 167); */
+            background-color: #15071a;
+            border: 1px solid rgb(217, 21, 150);
+            border-radius: 5px;
+            border-left: 7px solid rgb(217, 21, 150);
+        }
+        .testEintrag p{
+            margin: 5px;
+            
+        }
+
+        /*##################### EINGEHÄNGTES CSS - START  #####################*/
+        .materialDiv{
+            margin: 5px;
+            height: 225px;
+            /* width: 290px; */
+            border: 1px solid rgb(217, 21, 150);
+            border-left: 7px solid rgb(217, 21, 150);
+            border-radius:5px;
+            background-color: #220a2b;
+            padding:10px;
+            /* box-shadow:0 0 6px rgba(217,21,150,.15); */
+        }
+        .materialDiv div{
+            border-bottom: 1px solid rgb(217, 21, 150);
+            box-shadow: 0px 2px 0px rgba(217,21,150,.15);
+        }
+
+        .button{
+            background:#220a2b;
+            color:#d8bfd8;
+
+            width: 287px;
+            height: 25px;
+            border-radius:4px;
+            cursor:pointer;
+            /* transition: 0.5s; */
+            text-align: left;
+        }
+        .button:hover{
+            border-left: 7px solid rgb(245, 135, 207);
+
+            background:#3b103f;
+            
+        }
+
+        .regionSelectDiv{
+            width: 300px;
+            border-right: 1px solid rgb(217, 21, 150);
+            border-radius: 5px;
+        }
+        .regionDetailDiv{
+            border-right: 1px solid rgb(217, 21, 150);
+            border-radius: 5px;
+
+        }
+
+        /*##################### EINGEHÄNGTES CSS - ENDE  #####################*/
+        
+    </style>
+</head>
+<body>
+
+    <div class="headContainer" id="headContainer">
+        <div class="logoContainer" id="logoContainer"><p>LOGO</p></div>
+        <div class="testelementContainer" id="testelementContainer"><p>TESTEINTRAG</p></div>
+    </div>
+    <div class="gameContainer" id="gameContainer">
+
+        <div class="leftContainer" id="leftContainer">
+
+            <div class="entryLeftContainer" id="entryLeftContainer">
+
+                <!-- <div class="testEintrag"><p>testEintrag</p>
+                    
+                </div> -->
+
+                <button class="testEintrag button" id="button1" title="startet/stopt itemGen">setInterval()</button>
+                <button class="testEintrag button" id="button2" title="clear test">clearEntryMidContainer()</button>
+                <button class="testEintrag button" id="button3" title="clear test">regionSelection()</button>
+
+            </div>
+
+        </div>
+        <div class="midContainer" id="midContainer">
+
+            <div class="entryMidContainer" id="entryMidContainer">
+
+                <!-- <div class="testEintrag"><p>testEintrag</p>
+
+                </div> -->
+
+            </div>
+
+        </div>
+        <div class="rightContainer" id="rightContainer">
+
+            <div class="entryRightContainer" id="entryRightContainer">
+
+                <!-- <div class="testEintrag"><p>testEintrag</p>
+
+                </div> -->
+
+            </div>
+
+        </div>
+
+
+    </div>
+    
+    <div class="footContainer" id="footContainer"><p>foot</p></div>
+
+    <script type="module">
+
+        import { materials as materialsRegistry } from "./data/registries/economy/items/materials.js";
+        import { regions as regionRegistry } from "./data/registries/world/regions.js"
+
+        const inventoryContainer = document.getElementById("entryMidContainer");
+        const logContainer = document.getElementById("entryRightContainer");
+        
+        // ------------------------------------------------------------
+        // Definitionen
+        // ------------------------------------------------------------
+
+        const forms = [
+            "Erz",
+            "Barren",
+            "Platte",
+            "Schwert",
+            "Axt",
+            "Dolch",
+            "Schild"
+        ];
+
+        const prefixes = [
+            "",
+            "Scharfes",
+            "Massives",
+            "Leichtes",
+            "Altes",
+            "Verziertes"
+        ];
+
+        const suffixes = [
+            "",
+            "des Soldaten",
+            "des Schmieds",
+            "des Königs",
+            "der Nacht"
+        ];
+
+        const inventory = [];
+
+        // ------------------------------------------------------------
+        // Helper
+        // ------------------------------------------------------------
+
+        function random(array){
+
+            return array[Math.floor(Math.random() * array.length)];
+
+        }
+
+        function buildItemName(item){
+
+            return [
+                item.prefix,
+                item.materialName + item.form,
+                item.suffix
+            ]
+            .filter(text => text !== "")
+            .join(" ");
+
+        }
+
+        function randomColor(){
+
+            const r = Math.floor(Math.random() * 256);
+            const g = Math.floor(Math.random() * 256);
+            const b = Math.floor(Math.random() * 256);
+
+            return `rgb(${r}, ${g}, ${b})`;
+
+        }
+
+        // ------------------------------------------------------------
+        // Item erzeugen
+        // ------------------------------------------------------------
+
+        function generateItem(){
+
+            const materialKeys = Object.keys(materialsRegistry);
+
+            const material =
+                materialsRegistry[random(materialKeys)];
+
+            const item = {
+
+                material: material.id,
+                materialName: material.name,
+                materialColor: material.color,
+                prefix: random(prefixes),
+
+                form: random(forms),
+
+                suffix: random(suffixes),
+
+                value:
+                    material.value +
+                    Math.floor(Math.random() * 20)
+
+            };
+
+            inventory.push(item);
+            
+            drawInventory();
+
+        }
+
+        // ------------------------------------------------------------
+        // Anzeige
+        // ------------------------------------------------------------
+
+        function drawInventory(){
+
+            inventoryContainer.innerHTML = "";
+
+            for(const item of inventory){
+
+                const div = document.createElement("div");
+
+                div.className = "materialDiv";
+
+                div.innerHTML = `
+
+                    <div><h3 style="color:${item.materialColor}">${buildItemName(item)}</h3></div>
+
+                    <p><b>Prefix:</b> ${item.prefix || "-"}</p>
+
+                    <p><b>Material:</b> ${item.material}</p>
+
+                    <p><b>Materialname:</b> ${item.materialName}</p>
+
+                    <p><b>Form:</b> ${item.form}</p>
+
+                    <p><b>Suffix:</b> ${item.suffix || "-"}</p>
+
+                    <p><b>Wert:</b> ${item.value}</p>
+
+                `;
+
+                inventoryContainer.appendChild(div);
+
+            }
+
+        }
+
+        // ------------------------------------------------------------
+        // Start
+        // ------------------------------------------------------------
+
+        // generateItem();
+
+        let intervalId = null;
+
+        function startInterval() {
+
+            if (intervalId === null) {
+                intervalId = setInterval(generateItem, 6000);
+                button1.innerText = "stopInterval()";
+
+                logText.innerText = "setInterval()";
+            logText.className = "testEintrag";
+            document.getElementById("entryRightContainer").appendChild(logText);
+            }else{
+                clearInterval(intervalId);
+                intervalId = null;
+                button1.innerText = "setInterval()";
+                logText.innerText = "stopInterval()";
+            }
+
+        }
+
+        const button1 = document.getElementById("button1");
+        button1.addEventListener("click", startInterval);
+
+        function clearEntryMidContainer(){
+            document.getElementById("entryMidContainer").innerHTML = ``;
+
+        }
+
+        const button2 = document.getElementById("button2");
+        button2.addEventListener("click", clearEntryMidContainer);
+
+        function regionSelection(){
+            if(document.getElementById("regionDetailDiv")){
+                console.log("hi");
+                return;
+            };
+            const regionSelectDiv = document.createElement("div");
+            regionSelectDiv.className = "regionSelectDiv";
+
+            for(const regionID in regionRegistry){
+                const region = regionRegistry[regionID];
+
+                const regionDiv = document.createElement("button");
+                regionDiv.className = "testEintrag button";
+                regionDiv.innerHTML= `
+                    ${region.name}
+                `;
+                regionDiv.addEventListener("click", () => {
+                    regionDetails(regionID);
+                });
+
+                regionSelectDiv.appendChild(regionDiv);
+            }
+            inventoryContainer.appendChild(regionSelectDiv);
+
+            const regionDetailDiv = document.createElement("div");
+            regionDetailDiv.className = "regionDetailDiv";
+            regionDetailDiv.id = "regionDetailDiv";
+            inventoryContainer.appendChild(regionDetailDiv);
+        }
+
+        function regionDetails(regionID) {
+            regionDetailDiv.innerHTML = ``;
+            const regionDetail = regionRegistry[regionID];
+            
+            const regionName = document.createElement("h3");
+            regionName.innerHTML = `${regionDetail.name}`;
+            regionDetailDiv.appendChild(regionName);
+
+
+            
+        }
+
+        const button3 = document.getElementById("button3");
+        button3.addEventListener("click", regionSelection);
+        
+        
+    </script>
+</body>
+</html>
