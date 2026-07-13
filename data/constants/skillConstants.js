@@ -1,0 +1,17 @@
+export const SKILL_TYPES = {
+    DEFAULT: "default",
+    MINING: "mining",
+    SMELTING: "smelting",
+    WOODCUTTING: "woodcutting",
+    FISHING: "fishing",
+    HUNTING: "hunting",
+    FARMING: "farming",
+    HERBALISM: "herbalism",
+    SCAVENGE: "scavenge",
+    QUARRYING: "quarrying",
+    SMITHING: "smithing",
+    CARPENTRY: "carpentry",
+    STONEMASONRY: "stonemasonry",
+    ALCHEMY: "alchemy",
+    COOKING: "cooking",
+};
