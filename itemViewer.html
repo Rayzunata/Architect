@@ -165,7 +165,6 @@
 
                 <button class="testEintrag button" id="button1" title="startet/stopt itemGen">setInterval()</button>
                 <button class="testEintrag button" id="button2" title="clear test">clearEntryMidContainer()</button>
-                <button class="testEintrag button" id="button3" title="clear test">regionSelection()</button>
 
             </div>
 
@@ -201,7 +200,6 @@
     <script type="module">
 
         import { materials as materialsRegistry } from "./data/registries/economy/items/materials.js";
-        import { regions as regionRegistry } from "./data/registries/world/regions.js"
 
         const inventoryContainer = document.getElementById("entryMidContainer");
         const logContainer = document.getElementById("entryRightContainer");
@@ -376,54 +374,6 @@
             document.getElementById("entryMidContainer").innerHTML = ``;
 
         }
-
-        const button2 = document.getElementById("button2");
-        button2.addEventListener("click", clearEntryMidContainer);
-
-        function regionSelection(){
-            if(document.getElementById("regionDetailDiv")){
-                console.log("hi");
-                return;
-            };
-            const regionSelectDiv = document.createElement("div");
-            regionSelectDiv.className = "regionSelectDiv";
-
-            for(const regionID in regionRegistry){
-                const region = regionRegistry[regionID];
-
-                const regionDiv = document.createElement("button");
-                regionDiv.className = "testEintrag button";
-                regionDiv.innerHTML= `
-                    ${region.name}
-                `;
-                regionDiv.addEventListener("click", () => {
-                    regionDetails(regionID);
-                });
-
-                regionSelectDiv.appendChild(regionDiv);
-            }
-            inventoryContainer.appendChild(regionSelectDiv);
-
-            const regionDetailDiv = document.createElement("div");
-            regionDetailDiv.className = "regionDetailDiv";
-            regionDetailDiv.id = "regionDetailDiv";
-            inventoryContainer.appendChild(regionDetailDiv);
-        }
-
-        function regionDetails(regionID) {
-            regionDetailDiv.innerHTML = ``;
-            const regionDetail = regionRegistry[regionID];
-            
-            const regionName = document.createElement("h3");
-            regionName.innerHTML = `${regionDetail.name}`;
-            regionDetailDiv.appendChild(regionName);
-
-
-            
-        }
-
-        const button3 = document.getElementById("button3");
-        button3.addEventListener("click", regionSelection);
         
         
     </script>
