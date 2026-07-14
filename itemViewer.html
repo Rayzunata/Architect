@@ -58,9 +58,14 @@
             margin: 5px;
         }
         .entryMidContainer{
-            height: 635px;
-            display:grid;
-            grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+            height: auto;
+            /* display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            gap: 10px; */
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
             overflow-y: auto;
         }
 
@@ -144,6 +149,30 @@
         }
 
         /*##################### EINGEHÄNGTES CSS - ENDE  #####################*/
+        .inventorySlot{
+            margin: 5px;
+            
+            border-right: 1px solid rgb(21, 61, 217);
+            border-left: 5px solid rgb(21, 61, 217);
+            border-radius: 5px;
+        }
+        .nameTag{
+            margin: 5px;
+            padding: 5px;
+            color: aqua;
+            border-left: 3px solid rgb(217, 21, 150);
+            border-radius: 5px;
+        }
+        .detailsTag{
+            margin: 10px;
+            padding: 5px;
+            color: bisque;
+            border-left: 3px solid rgb(217, 21, 150);
+            border-radius: 5px;
+        }
+        .detailsTag p{
+            margin: 0px;
+        }
         
     </style>
 </head>
@@ -163,8 +192,8 @@
                     
                 </div> -->
 
-                <button class="testEintrag button" id="button1" title="startet/stopt itemGen">setInterval()</button>
-                <button class="testEintrag button" id="button2" title="clear test">clearEntryMidContainer()</button>
+                <button class="testEintrag button" id="button1" title="zeigt Inventar">renderInventory()</button>
+                <button class="testEintrag button" id="button2" title="clear test">pushRandomItem()</button>
 
             </div>
 
@@ -208,24 +237,67 @@
         // Definitionen
         // -----------------------------------------------------------
 
-        const forms = [
-            "Erz",
-            "Barren",
-            "Platte",
-            "Schwert",
-            "Axt",
-            "Dolch",
-            "Schild"
-        ];
+        const forms = {
+            ore:{
+                name: "erz"
+            },
+            log:{
+                name: "stamm"
+            },
+            fish:{
+                name: "fisch"
+            },
+            herb:{
+                name: "kraut"
+            }
+        }
 
-        const prefixes = [
-            "",
-            "Scharfes",
-            "Massives",
-            "Leichtes",
-            "Altes",
-            "Verziertes"
-        ];
+        const materials = {
+            //ORE
+            copper:{
+                name: "Kupfer",
+            },
+            iron:{
+                name: "Eisen"
+            },
+            tin:{
+                name: "Zinn",
+            },
+
+            //WOOD
+            oak:{
+                name: "Eichen",
+            },
+
+            //FISH
+            hecht:{
+                name: "Hecht",
+            },
+
+            //HERBS
+            nessel:{
+                name: "Nessel",
+            },
+        }
+
+        const prefixes = {
+            none:{
+                name: "",
+            },
+            sharp:{
+                name: "Scharfes",
+            },
+            massive:{
+                name: "Massives",
+            },
+            light:{
+                name: "Leichtes",
+            },
+            old:{
+                name: "Altes",
+            },
+              
+        };
 
         const suffixes = [
             "",
@@ -235,147 +307,173 @@
             "der Nacht"
         ];
 
-        const inventory = [];
+        const inventory = [
+            {
+                material: "copper",
+                form: "ore",
+                prefix: "none",
+                suffix: " ",
+                amount: 10,
+                rarity: "common",
+                quality: 10,
+        
+            },
+            {
+                material: "iron",
+                form: "ore",
+                prefix: "none",
+                suffix: " ",
+                amount: 10,
+                rarity: "common",
+                quality: 10,
+        
+            },
+            {
+                material: "tin",
+                form: "ore",
+                prefix: "none",
+                suffix: " ",
+                amount: 10,
+                rarity: "common",
+                quality: 10,
+        
+            },
+            {
+                material: "oak",
+                form: "log",
+                prefix: "none",
+                suffix: " ",
+                amount: 10,
+                rarity: "common",
+                quality: 10,
+        
+            },
+            {
+                material: "hecht",
+                form: "fish",
+                prefix: "none",
+                suffix: " ",
+                amount: 10,
+                rarity: "common",
+                quality: 10,
+        
+            },
+            {
+                material: "nessel",
+                form: "herb",
+                prefix: "none",
+                suffix: " ",
+                amount: 10,
+                rarity: "common",
+                quality: 10,
+        
+            },
+            {
+                material: random(materials),
+                form: random(forms),
+                prefix: random(prefixes),
+                suffix: " ",
+                amount: 10,
+                rarity: "common",
+                quality: 10,
+        
+            },
+        ];
 
         // ------------------------------------------------------------
         // Helper
         // ------------------------------------------------------------
 
         function random(array){
-
-            return array[Math.floor(Math.random() * array.length)];
-
-        }
-
-        function buildItemName(item){
-
-            return [
-                item.prefix,
-                item.materialName + item.form,
-                item.suffix
-            ]
-            .filter(text => text !== "")
-            .join(" ");
+            
+            const values = Object.entries(array);
+            const [key,random] = values[Math.floor(Math.random() * values.length)];
+            return key;
 
         }
 
-        function randomColor(){
-
-            const r = Math.floor(Math.random() * 256);
-            const g = Math.floor(Math.random() * 256);
-            const b = Math.floor(Math.random() * 256);
-
-            return `rgb(${r}, ${g}, ${b})`;
-
-        }
-
-        // ------------------------------------------------------------
-        // Item erzeugen
-        // ------------------------------------------------------------
-
-        function generateItem(){
-
-            const materialKeys = Object.keys(materialsRegistry);
-
-            const material =
-                materialsRegistry[random(materialKeys)];
+        function pushRandomItem(){
 
             const item = {
-
-                material: material.id,
-                materialName: material.name,
-                materialColor: material.color,
-                prefix: random(prefixes),
-
+                material: random(materials),
                 form: random(forms),
-
-                suffix: random(suffixes),
-
-                value:
-                    material.value +
-                    Math.floor(Math.random() * 20)
-
-            };
-
+                prefix: random(prefixes),
+                suffix: " ",
+                amount: 10,
+                rarity: "common",
+                quality: 10,
+            }
             inventory.push(item);
+            renderInventory();
+        }
+
+        // ------------------------------------------------------------
+        // Funktionen
+        // ------------------------------------------------------------
+
+        function renderInventory() {
+
+            const entry = document.getElementById("entryMidContainer");
+            entry.innerHTML = '';
             
-            drawInventory();
+            for(const inventoryID in inventory){
+                const inventorySlot = document.createElement("div");
+                inventorySlot.className = "inventorySlot";
+                const item = inventory[inventoryID];
 
-        }
+                if(item.form === "fish"){
+                    const itemName = materials[item.material].name;
+                    
+                    
+                    const nameTag = document.createElement("p");
+                    nameTag.className = "nameTag";
+                    nameTag.innerHTML = `${prefixes[item.prefix].name} ${itemName}${item.suffix} (${item.rarity})` ;
 
-        // ------------------------------------------------------------
-        // Anzeige
-        // ------------------------------------------------------------
+                    const detailsTag = document.createElement("p");
+                    detailsTag.className = "detailsTag";
+                    detailsTag.innerHTML = `
+                        <p>Anzahl: ${item.amount}</p>
+                        <p>Qualität: ${item.quality}</p>
+                    `;
 
-        function drawInventory(){
+                    inventorySlot.appendChild(nameTag);
+                    inventorySlot.appendChild(detailsTag);
 
-            inventoryContainer.innerHTML = "";
+                    entry.appendChild(inventorySlot);
 
-            for(const item of inventory){
+                continue;
 
-                const div = document.createElement("div");
+                }
 
-                div.className = "materialDiv";
-
-                div.innerHTML = `
-
-                    <div><h3 style="color:${item.materialColor}">${buildItemName(item)}</h3></div>
-
-                    <p><b>Prefix:</b> ${item.prefix || "-"}</p>
-
-                    <p><b>Material:</b> ${item.material}</p>
-
-                    <p><b>Materialname:</b> ${item.materialName}</p>
-
-                    <p><b>Form:</b> ${item.form}</p>
-
-                    <p><b>Suffix:</b> ${item.suffix || "-"}</p>
-
-                    <p><b>Wert:</b> ${item.value}</p>
-
+                //Itemname
+                const itemName = materials[item.material].name + forms[item.form].name;
+                
+                const nameTag = document.createElement("p");
+                nameTag.className = "nameTag";
+                nameTag.innerHTML = `${prefixes[item.prefix].name} ${itemName}${item.suffix} (${item.rarity})` ;
+                
+                
+                //Itemdetails
+                const detailsTag = document.createElement("p");
+                detailsTag.className = "detailsTag";
+                detailsTag.innerHTML = `
+                    <p>Anzahl: ${item.amount}</p>
+                    <p>Qualität: ${item.quality}</p>
                 `;
+                inventorySlot.appendChild(nameTag);
+                inventorySlot.appendChild(detailsTag);
 
-                inventoryContainer.appendChild(div);
-
+                entry.appendChild(inventorySlot);
+                
             }
 
         }
-
-        // ------------------------------------------------------------
-        // Start
-        // ------------------------------------------------------------
-
-        // generateItem();
-
-        let intervalId = null;
-
-        function startInterval() {
-
-            if (intervalId === null) {
-                intervalId = setInterval(generateItem, 6000);
-                button1.innerText = "stopInterval()";
-
-                logText.innerText = "setInterval()";
-            logText.className = "testEintrag";
-            document.getElementById("entryRightContainer").appendChild(logText);
-            }else{
-                clearInterval(intervalId);
-                intervalId = null;
-                button1.innerText = "setInterval()";
-                logText.innerText = "stopInterval()";
-            }
-
-        }
-
-        const button1 = document.getElementById("button1");
-        button1.addEventListener("click", startInterval);
-
-        function clearEntryMidContainer(){
-            document.getElementById("entryMidContainer").innerHTML = ``;
-
-        }
+        
+        renderInventory();
         
         
+        document.getElementById("button1").addEventListener("click",renderInventory);
+        document.getElementById("button2").addEventListener("click",pushRandomItem);
     </script>
 </body>
 </html>
