@@ -484,6 +484,8 @@
             item.form = random(itemRules[item.type].forms);
             item.prefix = random(itemRules[item.type].prefixes);
             item.suffix = random(itemRules[item.type].suffixes);
+
+            //für rarity eine gewichtungsfunktion einbauen
             item.rarity = random(itemRules[item.type].rarities);
 
             //console.log(item.rarity);
@@ -540,7 +542,7 @@
                 nameTag.style.color = types[item.type].color;
                 nameTag.innerHTML = `${prefixes[item.prefix].name} ${itemName} ${suffixes[item.suffix]} ` ;
                 
-                const rarityTag = document.createElement("p");
+                const rarityTag = document.createElement("span");
                 rarityTag.className = "rarityTag";
                 
                 rarityTag.style.color = rarities[item.rarity].color;
