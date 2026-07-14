@@ -17,11 +17,9 @@
 
         .headContainer{
             border: 1px solid rgb(217, 21, 150);
-            /* padding: 5px; */
             margin-bottom: 5px;
             display: grid;
             grid-template-columns: 20% 60% 20%;
-            /* gap: 20px; */
 
         }
 
@@ -41,8 +39,6 @@
         .gameContainer{
             display: grid;
             grid-template-columns: 20% 60% 20%;
-            /* gap: 20px; */
-            /* border: 1px solid rgb(217, 21, 150); */
             height: 650px
             
         }
@@ -56,15 +52,13 @@
         .midContainer{
             border: 1px solid rgb(217, 21, 150);
             margin: 5px;
+            
         }
         .entryMidContainer{
-            height: auto;
-            /* display: flex;
-            flex-wrap: wrap;
-            justify-content: space-evenly;
-            gap: 10px; */
+            height: 640px;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            grid-template-rows: repeat(auto-fill, minmax(100px, 1fr));
             gap: 10px;
             overflow-y: auto;
         }
@@ -103,21 +97,6 @@
         }
 
         /*##################### EINGEHÄNGTES CSS - START  #####################*/
-        .materialDiv{
-            margin: 5px;
-            height: 225px;
-            /* width: 290px; */
-            border: 1px solid rgb(217, 21, 150);
-            border-left: 7px solid rgb(217, 21, 150);
-            border-radius:5px;
-            background-color: #220a2b;
-            padding:10px;
-            /* box-shadow:0 0 6px rgba(217,21,150,.15); */
-        }
-        .materialDiv div{
-            border-bottom: 1px solid rgb(217, 21, 150);
-            box-shadow: 0px 2px 0px rgba(217,21,150,.15);
-        }
 
         .button{
             background:#220a2b;
@@ -127,7 +106,6 @@
             height: 25px;
             border-radius:4px;
             cursor:pointer;
-            /* transition: 0.5s; */
             text-align: left;
         }
         .button:hover{
@@ -137,21 +115,9 @@
             
         }
 
-        .regionSelectDiv{
-            width: 300px;
-            border-right: 1px solid rgb(217, 21, 150);
-            border-radius: 5px;
-        }
-        .regionDetailDiv{
-            border-right: 1px solid rgb(217, 21, 150);
-            border-radius: 5px;
-
-        }
-
-        /*##################### EINGEHÄNGTES CSS - ENDE  #####################*/
         .inventorySlot{
             margin: 5px;
-            
+            height: max-content;
             border-right: 1px solid rgb(21, 61, 217);
             border-left: 5px solid rgb(21, 61, 217);
             border-radius: 5px;
@@ -159,7 +125,6 @@
         .nameTag{
             margin: 5px;
             padding: 5px;
-            color: aqua;
             border-left: 3px solid rgb(217, 21, 150);
             border-radius: 5px;
         }
@@ -173,6 +138,9 @@
         .detailsTag p{
             margin: 0px;
         }
+
+        /*##################### EINGEHÄNGTES CSS - ENDE  #####################*/
+        
         
     </style>
 </head>
@@ -193,7 +161,8 @@
                 </div> -->
 
                 <button class="testEintrag button" id="button1" title="zeigt Inventar">renderInventory()</button>
-                <button class="testEintrag button" id="button2" title="clear test">pushRandomItem()</button>
+                <button class="testEintrag button" id="button2" title="clear test">createRandomItem()</button>
+                <!-- <button class="testEintrag button" id="button3" title="clear test">createItem()</button> -->
 
             </div>
 
@@ -228,7 +197,7 @@
 
     <script type="module">
 
-        import { materials as materialsRegistry } from "./data/registries/economy/items/materials.js";
+        
 
         const inventoryContainer = document.getElementById("entryMidContainer");
         const logContainer = document.getElementById("entryRightContainer");
@@ -237,48 +206,115 @@
         // Definitionen
         // -----------------------------------------------------------
 
-        const forms = {
-            ore:{
-                name: "erz"
+        const types = {
+            metal: {
+                name: "Metall",
+                color: "grey",
+                icon: ""
             },
-            log:{
-                name: "stamm"
+            wood: {
+                name: "Holz",
+                color: "brown",
+                icon: ""
             },
-            fish:{
-                name: "fisch"
+            fish: {
+                name: "Fisch",
+                color: "blue",
+                icon: ""
             },
-            herb:{
-                name: "kraut"
+            herb: {
+                name: "Kraut",
+                color: "green",
+                icon: ""
             }
-        }
+        };
+        
+        const forms = {
+            metal: {
+                ore: {
+                    name: "Erz",
+                    visible: true,
+                },
+                bar: {
+                    name: "Barren",
+                    visible: true,
+                },
+                plate: {
+                    name: "Platte",
+                    visible: true,
+                },
+                wire: {
+                    name: "Draht",
+                    visible: true,
+                }
+            },
+
+            wood: {
+                log: {
+                    name: "Stamm",
+                    visible: true,
+                }
+            },
+
+            fish: {
+                fish: {
+                    name: "Fisch",
+                    visible: false,
+                }
+            },
+            herb: {
+                herb: {
+                    name: "Kraut",
+                    visible: false,
+                }
+            }
+        };
 
         const materials = {
-            //ORE
-            copper:{
-                name: "Kupfer",
-            },
-            iron:{
-                name: "Eisen"
-            },
-            tin:{
-                name: "Zinn",
-            },
-
-            //WOOD
-            oak:{
-                name: "Eichen",
-            },
-
-            //FISH
-            hecht:{
-                name: "Hecht",
+            metal: {
+                items:{
+                    copper: {
+                        name: "Kupfer",
+                        visible: true,
+                    },
+                    iron: {
+                        name: "Eisen",
+                        visible: true,
+                    },
+                    tin: {
+                        name: "Zinn",
+                        visible: true,
+                    }
+                }
             },
 
-            //HERBS
-            nessel:{
-                name: "Nessel",
+            wood: {
+                items:{
+                    oak: {
+                        name: "Eiche",
+                        visible: true,
+                    }
+                }
             },
-        }
+
+            fish: {
+                items:{
+                    hecht: {
+                        name: "Hecht",
+                        visible: true,
+                    }
+                }
+            },
+
+            herb: {
+                items:{
+                    nessel: {
+                        name: "Nessel",
+                        visible: true,
+                    }
+                }
+            }
+        };
 
         const prefixes = {
             none:{
@@ -299,80 +335,111 @@
               
         };
 
-        const suffixes = [
-            "",
-            "des Soldaten",
-            "des Schmieds",
-            "des Königs",
-            "der Nacht"
-        ];
+        const suffixes = {
+            none: "",
+            soldier: "des Soldaten",
+            smith: "des Schmieds",
+            king: "des Königs",
+            night: "der Nacht"
+        };
+
+        const rarities = {
+            common: {
+                color: "white",
+                qualityBonus: 0
+            },
+            uncommon: {
+                color: "lime",
+                qualityBonus: 10
+            },
+            rare: {
+                color: "dodgerblue",
+                qualityBonus: 25
+            },
+            epic: {
+                color: "purple",
+                qualityBonus: 50
+            }
+        };
+
+        const itemRules = {
+            metal:{
+                prefixes:["none"],
+                suffixes:["none"],
+                forms:["ore","bar","plate"],
+                rarities:["common","epic"]
+            },
+            wood:{
+                prefixes:["none"],
+                suffixes:["none"],
+                forms:["log"],
+                rarities:["common","uncommon"]
+            },
+            fish:{
+                prefixes:["none"],
+                suffixes:["none"],
+                forms:["fish"],
+                rarities:["common","uncommon"]
+            },
+            herb:{
+                prefixes:["none"],
+                suffixes:["none"],
+                forms:["herb"],
+                rarities:["common","uncommon"]
+            }
+        };
 
         const inventory = [
             {
-                material: "copper",
+                type: "metal",
+                id: "copper",
                 form: "ore",
                 prefix: "none",
-                suffix: " ",
+                suffix: "none",
                 amount: 10,
                 rarity: "common",
                 quality: 10,
         
             },
             {
-                material: "iron",
+                type: "metal",
+                id: "iron",
                 form: "ore",
                 prefix: "none",
-                suffix: " ",
+                suffix: "none",
                 amount: 10,
-                rarity: "common",
+                rarity: "uncommon",
                 quality: 10,
         
             },
             {
-                material: "tin",
+                type: "metal",
+                id: "tin",
                 form: "ore",
                 prefix: "none",
-                suffix: " ",
+                suffix: "none",
                 amount: 10,
-                rarity: "common",
+                rarity: "rare",
                 quality: 10,
         
             },
             {
-                material: "oak",
+                type: "wood",
+                id: "oak",
                 form: "log",
                 prefix: "none",
-                suffix: " ",
+                suffix: "none",
                 amount: 10,
-                rarity: "common",
+                rarity: "epic",
                 quality: 10,
         
             },
             {
-                material: "hecht",
+                type: "fish",
+                id: "hecht",
                 form: "fish",
                 prefix: "none",
-                suffix: " ",
-                amount: 10,
-                rarity: "common",
-                quality: 10,
-        
-            },
-            {
-                material: "nessel",
-                form: "herb",
-                prefix: "none",
-                suffix: " ",
-                amount: 10,
-                rarity: "common",
-                quality: 10,
-        
-            },
-            {
-                material: random(materials),
-                form: random(forms),
-                prefix: random(prefixes),
-                suffix: " ",
+                suffix: "none",
                 amount: 10,
                 rarity: "common",
                 quality: 10,
@@ -385,27 +452,65 @@
         // ------------------------------------------------------------
 
         function random(array){
-            
+
+            if(Array.isArray(array)){
+                return array[Math.floor(Math.random() * array.length)];
+
+            }
+
             const values = Object.entries(array);
+            
             const [key,random] = values[Math.floor(Math.random() * values.length)];
+            // console.log(key);
             return key;
 
         }
 
-        function pushRandomItem(){
+        function createRandomItem(){
 
             const item = {
-                material: random(materials),
-                form: random(forms),
+                type: null,
+                id: null,
+                form: null,
                 prefix: random(prefixes),
-                suffix: " ",
+                suffix: random(suffixes),
                 amount: 10,
                 rarity: "common",
                 quality: 10,
             }
+
+            item.type = random(materials);
+            item.id = random(materials[item.type].items);
+            item.form = random(itemRules[item.type].forms);
+            item.prefix = random(itemRules[item.type].prefixes);
+            item.suffix = random(itemRules[item.type].suffixes);
+            item.rarity = random(itemRules[item.type].rarities);
+
+            //console.log(item.rarity);
             inventory.push(item);
             renderInventory();
         }
+
+        // function createItem(){
+        //     const itemu = {
+        //         type: "metal",
+        //         id: null,
+        //         form: null,
+        //         prefix: "none",
+        //         suffix: " ",
+        //         amount: 10,
+        //         rarity: "common",
+        //         quality: 10,
+        //     }
+
+        //     itemu.type = prompt("typ?");
+        //     itemu.id = prompt("id?");
+        //     itemu.form =  prompt("form?");
+
+        //     inventory.push(itemu);
+        //     renderInventory();
+
+        // }
 
         // ------------------------------------------------------------
         // Funktionen
@@ -420,46 +525,34 @@
                 const inventorySlot = document.createElement("div");
                 inventorySlot.className = "inventorySlot";
                 const item = inventory[inventoryID];
+                let itemName = "";
 
-                if(item.form === "fish"){
-                    const itemName = materials[item.material].name;
-                    
-                    
-                    const nameTag = document.createElement("p");
-                    nameTag.className = "nameTag";
-                    nameTag.innerHTML = `${prefixes[item.prefix].name} ${itemName}${item.suffix} (${item.rarity})` ;
-
-                    const detailsTag = document.createElement("p");
-                    detailsTag.className = "detailsTag";
-                    detailsTag.innerHTML = `
-                        <p>Anzahl: ${item.amount}</p>
-                        <p>Qualität: ${item.quality}</p>
-                    `;
-
-                    inventorySlot.appendChild(nameTag);
-                    inventorySlot.appendChild(detailsTag);
-
-                    entry.appendChild(inventorySlot);
-
-                continue;
-
-                }
-
-                //Itemname
-                const itemName = materials[item.material].name + forms[item.form].name;
+                if(!forms[item.type][item.form].visible){
+                    itemName = materials[item.type].items[item.id].name;
                 
+                }else{
+                    itemName = materials[item.type].items[item.id].name + forms[item.type][item.form].name;
+                
+                };
+
                 const nameTag = document.createElement("p");
                 nameTag.className = "nameTag";
-                nameTag.innerHTML = `${prefixes[item.prefix].name} ${itemName}${item.suffix} (${item.rarity})` ;
+                nameTag.style.color = types[item.type].color;
+                nameTag.innerHTML = `${prefixes[item.prefix].name} ${itemName} ${suffixes[item.suffix]} ` ;
                 
+                const rarityTag = document.createElement("p");
+                rarityTag.className = "rarityTag";
                 
-                //Itemdetails
+                rarityTag.style.color = rarities[item.rarity].color;
+                rarityTag.innerHTML = `(${item.rarity})`;
+
                 const detailsTag = document.createElement("p");
                 detailsTag.className = "detailsTag";
                 detailsTag.innerHTML = `
                     <p>Anzahl: ${item.amount}</p>
                     <p>Qualität: ${item.quality}</p>
                 `;
+                nameTag.appendChild(rarityTag);
                 inventorySlot.appendChild(nameTag);
                 inventorySlot.appendChild(detailsTag);
 
@@ -471,9 +564,10 @@
         
         renderInventory();
         
-        
         document.getElementById("button1").addEventListener("click",renderInventory);
-        document.getElementById("button2").addEventListener("click",pushRandomItem);
+        document.getElementById("button2").addEventListener("click",createRandomItem);
+        // document.getElementById("button3").addEventListener("click", createItem);
+
     </script>
 </body>
 </html>
