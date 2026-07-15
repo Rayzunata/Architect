@@ -129,6 +129,8 @@
             border-bottom: 1px solid white;
             border-right: 1px solid white;
             border-radius: 5px;
+            margin-left: 3px;
+            margin-top: 3px;
         }
         .nameTag{
             margin: 0px;
@@ -141,6 +143,13 @@
             padding: 5px;
             border-left: 3px solid rgb(217, 21, 150);
             border-radius: 5px;
+        }
+        .titleSpan{
+            border-bottom: 1px solid;
+            margin-bottom: 3px;
+            padding-bottom: 3px;
+            background: #161616;
+            border-radius: 3px;
         }
         .detailsTag{
             margin: 10px;
@@ -575,7 +584,6 @@
                 titleSpan.appendChild(nameTag);
                 titleDiv.appendChild(titleSpan);
                 
-                titleDiv.appendChild(document.createElement("br"));
                 titleDiv.appendChild(rarityTag);
                 
                 inventorySlot.appendChild(titleDiv);
