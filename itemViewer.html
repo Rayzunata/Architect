@@ -541,10 +541,10 @@
                 
                 };
 
-                const nameTag = document.createElement("p");
+                const nameTag = document.createElement("span");
                 nameTag.className = "nameTag";
                 nameTag.style.color = types[item.type].color;
-                nameTag.innerHTML = `${prefixes[item.prefix].name} ${itemName} ${suffixes[item.suffix].name} ` ;
+                nameTag.innerHTML = `${prefixes[item.prefix].name} ${itemName} ${suffixes[item.suffix]} ` ;
                 
                 const rarityTag = document.createElement("span");
                 rarityTag.className = "rarityTag";
