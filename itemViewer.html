@@ -544,7 +544,7 @@
                 const nameTag = document.createElement("p");
                 nameTag.className = "nameTag";
                 nameTag.style.color = types[item.type].color;
-                nameTag.innerHTML = `${prefixes[item.prefix].name} ${itemName} ${suffixes[item.suffix]} ` ;
+                nameTag.innerHTML = `${prefixes[item.prefix].name} ${itemName} ${suffixes[item.suffix].name} ` ;
                 
                 const rarityTag = document.createElement("span");
                 rarityTag.className = "rarityTag";
@@ -564,9 +564,11 @@
 
                 const titleDiv = document.createElement("div");
                 titleDiv.className = "titleDiv";
-                titleDiv.innerHTML = `
-                    ${iconTag}${nameTag}<br>${rarityTag}
-                `;
+
+                titleDiv.appendChild(iconTag);
+                titleDiv.appendChild(nameTag);
+                titleDiv.appendChild(document.createElement("br"));
+                titleDiv.appendChild(rarityTag);
                 
                 inventorySlot.appendChild(titleDiv);
                 
