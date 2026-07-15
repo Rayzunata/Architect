@@ -215,7 +215,7 @@
             wood: {
                 name: "Holz",
                 color: "brown",
-                icon: ""
+                icon: "iconFish.svg"
             },
             fish: {
                 name: "Fisch",
@@ -523,10 +523,10 @@
                 let itemName = "";
 
                 if(!forms[item.type][item.form].visible){
-                    itemName = materials[item.type].items[item.id].name;
+                    itemName = materials[item.type].items[item.id].name + types[item.type].icon;
                 
                 }else{
-                    itemName = materials[item.type].items[item.id].name + forms[item.type][item.form].name;
+                    itemName = materials[item.type].items[item.id].name + forms[item.type][item.form].name + types[item.type].icon;
                 
                 };
 
