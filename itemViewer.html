@@ -126,10 +126,13 @@
         .iconTag{
             width: 24px;
             height: 24px;
+            border-bottom: 1px solid white;
+            border-right: 1px solid white;
+            border-radius: 5px;
         }
         .nameTag{
-            margin: 5px;
-            padding: 5px;
+            margin: 0px;
+            padding: 0px;
             /*border-left: 3px solid rgb(217, 21, 150);
             border-radius: 5px;*/
         }
@@ -565,8 +568,12 @@
                 const titleDiv = document.createElement("div");
                 titleDiv.className = "titleDiv";
 
-                titleDiv.appendChild(iconTag);
-                titleDiv.appendChild(nameTag);
+                const titleSpan = document.createElement("span");
+                titleDiv.className = "titleSpan";
+
+                titleSpan.appendChild(iconTag);
+                titleSpan.appendChild(nameTag);
+                
                 titleDiv.appendChild(document.createElement("br"));
                 titleDiv.appendChild(rarityTag);
                 
