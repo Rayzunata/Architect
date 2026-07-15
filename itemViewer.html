@@ -391,8 +391,9 @@
 
         const inventory = [
             {
+                //id: key erstellt aus itemeigenschaften
                 type: "metal",
-                id: "copper",
+                id: "copper", //<- change to materials:
                 form: "ore",
                 prefix: "none",
                 suffix: "none",
@@ -493,53 +494,18 @@
             renderInventory();
         }
 
-        function createRandomItem2(){
-
-            const item = {
-                type: null,
-                id: null,
-                form: null,
-                prefix: random(prefixes),
-                suffix: random(suffixes),
-                amount: 10,
-                rarity: "common",
-                quality: 10,
-            }
-
-            item.type = random(materials);
-            item.id = random(materials[item.type].items);
-            item.form = random(itemRules[item.type].forms);
-            item.prefix = random(prefixes);
-            item.suffix = random(suffixes);
-
-            //für rarity eine gewichtungsfunktion einbauen
-            item.rarity = random(itemRules[item.type].rarities);
-
-            //console.log(item.rarity);
-            inventory.push(item);
-            renderInventory();
+        function createItem(){
+            //itemcreation mit übergebenen parametern / factory
+            //bspw mine gibt kupfer erz
+            
         }
 
-        // function createItem(){
-        //     const itemu = {
-        //         type: "metal",
-        //         id: null,
-        //         form: null,
-        //         prefix: "none",
-        //         suffix: " ",
-        //         amount: 10,
-        //         rarity: "common",
-        //         quality: 10,
-        //     }
+        function addItemToInventory(){
+            //prüfung ob item bereits vorhanden
 
-        //     itemu.type = prompt("typ?");
-        //     itemu.id = prompt("id?");
-        //     itemu.form =  prompt("form?");
-
-        //     inventory.push(itemu);
-        //     renderInventory();
-
-        // }
+            //itemAdd
+            
+        }
 
         // ------------------------------------------------------------
         // Funktionen
