@@ -225,7 +225,7 @@
             herb: {
                 name: "Kraut",
                 color: "green",
-                icon: ""
+                icon: "iconHerb.svg"
             }
         };
         
@@ -551,8 +551,9 @@
                     <p>Qualität: ${item.quality}</p>
                 `;
                 nameTag.appendChild(rarityTag);
-                nameTag.appendChild(iconTag);
+                
                 inventorySlot.appendChild(nameTag);
+                inventorySlot.appendChild(iconTag);
                 inventorySlot.appendChild(detailsTag);
 
                 entry.appendChild(inventorySlot);
