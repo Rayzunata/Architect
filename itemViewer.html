@@ -130,6 +130,12 @@
         .nameTag{
             margin: 5px;
             padding: 5px;
+            /*border-left: 3px solid rgb(217, 21, 150);
+            border-radius: 5px;*/
+        }
+        .titleTag{
+            margin: 5px;
+            padding: 5px;
             border-left: 3px solid rgb(217, 21, 150);
             border-radius: 5px;
         }
@@ -555,10 +561,14 @@
                     <p>Anzahl: ${item.amount}</p>
                     <p>Qualität: ${item.quality}</p>
                 `;
-                nameTag.appendChild(iconTag);
+
+                const titleDiv = document.createElement("div");
+                titleDiv.className = "titleDiv";
+                titleDiv.innerHTML = `
+                    ${iconTag}${nameTag}<br>${rarityTag}
+                `;
                 
-                inventorySlot.appendChild(nameTag);
-                inventorySlot.appendChild(rarityTag);
+                inventorySlot.appendChild(titleTag);
                 
                 inventorySlot.appendChild(detailsTag);
 
