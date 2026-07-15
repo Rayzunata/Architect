@@ -555,10 +555,10 @@
                     <p>Anzahl: ${item.amount}</p>
                     <p>Qualität: ${item.quality}</p>
                 `;
-                iconTag.appendChild(nameTag);
-                iconTag.appendChild(rarityTag);
+                nameTag.appendChild(iconTag);
                 
-                inventorySlot.appendChild(iconTag);
+                
+                inventorySlot.appendChild(rarityTag);
                 
                 inventorySlot.appendChild(detailsTag);
 
