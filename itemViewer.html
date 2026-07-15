@@ -215,12 +215,12 @@
             wood: {
                 name: "Holz",
                 color: "brown",
-                icon: "iconFish.svg"
+                icon: ""
             },
             fish: {
                 name: "Fisch",
                 color: "blue",
-                icon: ""
+                icon: "iconFish.svg"
             },
             herb: {
                 name: "Kraut",
@@ -523,10 +523,10 @@
                 let itemName = "";
 
                 if(!forms[item.type][item.form].visible){
-                    itemName = materials[item.type].items[item.id].name + types[item.type].icon;
+                    itemName = materials[item.type].items[item.id].name;
                 
                 }else{
-                    itemName = materials[item.type].items[item.id].name + forms[item.type][item.form].name + types[item.type].icon;
+                    itemName = materials[item.type].items[item.id].name + forms[item.type][item.form].name ;
                 
                 };
 
@@ -537,9 +537,12 @@
                 
                 const rarityTag = document.createElement("span");
                 rarityTag.className = "rarityTag";
-                
                 rarityTag.style.color = rarities[item.rarity].color;
                 rarityTag.innerHTML = `(${item.rarity})`;
+
+                const iconTag = document.createElement("img");
+                iconTag.className = "iconTag";
+                iconTag.src = types[item.type].icon
 
                 const detailsTag = document.createElement("p");
                 detailsTag.className = "detailsTag";
@@ -548,6 +551,7 @@
                     <p>Qualität: ${item.quality}</p>
                 `;
                 nameTag.appendChild(rarityTag);
+                nameTag.appendChild(iconTag);
                 inventorySlot.appendChild(nameTag);
                 inventorySlot.appendChild(detailsTag);
 
