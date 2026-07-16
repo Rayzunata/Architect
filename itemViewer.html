@@ -868,6 +868,27 @@
             ].join(":");
         }
 
+        function addItemToInventory(item){
+            //item.id = createItemId(item);
+
+            let existing = null;
+            
+                for (const i of inventory) {
+                    if (i.id === item.id) {
+                        existing = i;
+                        break;
+                    }
+                }
+                
+                if (existing) {
+                    existing.amount += item.amount;
+                    console.log("Anzahl ++);
+                } else {
+                    inventory.push(item);
+                    console.log("items ++);
+                }
+            }
+
         function createRandomItem(){
 
             const item = {
@@ -892,7 +913,8 @@
             item.rarity = random(itemRules[item.type].rarities);
             item.id = getItemId(item);
             console.log(item.id);
-            inventory.push(item);
+            addItemToInventory(item)
+            //inventory.push(item);
             renderInventory();
         }
 
