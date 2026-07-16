@@ -962,22 +962,7 @@
                 return;
             }
         
-            if (!materials[item.type]?.items[item.material]) {
-            alert("Material existiert nicht.");
-            return;
-            }
             
-            if (!forms[item.type]?.[item.form]) {
-                alert("Form existiert nicht.");
-                return;
-            }
-            
-            if (!prefixes[item.prefix] ||
-                !suffixes[item.suffix] ||
-                !rarities[item.rarity]) {
-                alert("Ungültige Eigenschaft.");
-                return;
-            }
         
             const item = {
                 type: parts[0],
@@ -989,6 +974,23 @@
                 quality: Number(parts[6]),
                 amount: 1
             };
+
+            if (!materials[item.type]?.items[item.material]) {
+            console.log("Material existiert nicht.");
+            return;
+            }
+            
+            if (!forms[item.type]?.[item.form]) {
+                console.log("Form existiert nicht.");
+                return;
+            }
+            
+            if (!prefixes[item.prefix] ||
+                !suffixes[item.suffix] ||
+                !rarities[item.rarity]) {
+                console.log("Ungültige Eigenschaft.");
+                return;
+            }
         
             item.id = createItemId(item);
         
