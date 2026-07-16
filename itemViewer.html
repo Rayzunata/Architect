@@ -1009,12 +1009,17 @@
                 document.getElementById("timer").textContent = "-";
                 return;
             }
-        
+            const id = prompt(
+                "Item-ID eingeben:\n" +
+                "type:material:form:prefix:suffix:rarity:quality",
+                "metal:copper:ore:none:none:common:10"
+            );
+            
             secondsLeft = 10;
             document.getElementById("timer").textContent = secondsLeft;
         
             testInterval = setInterval(() => {
-                testCreateItem();
+                testCreateItem("");
                 secondsLeft = 10;
             }, 10000);
         
