@@ -703,12 +703,22 @@
         };
 
         const suffixes = {
-            none: "",
-            soldier: "des Soldaten",
-            smith: "des Schmieds",
-            king: "des Königs",
-            night: "der Nacht"
-        };
+    none:{
+        name:""
+    },
+    soldier:{
+        name:"des Soldaten"
+    },
+    smith:{
+        name:"des Schmieds"
+    },
+    king:{
+        name:"des Königs"
+    },
+    night:{
+        name:"der Nacht"
+    }
+};
 
         const rarities = {
             common: {
@@ -966,7 +976,7 @@
                 const nameTag = document.createElement("span");
                 nameTag.className = "nameTag";
                 nameTag.style.color = types[item.type].color;
-                nameTag.innerHTML = `${prefixes[item.prefix].name} ${itemName} ${suffixes[item.suffix]} ` ;
+                nameTag.innerHTML = `${prefixes[item.prefix].name} ${itemName} ${suffixes[item.suffix].name} ` ;
                 
                 const rarityTag = document.createElement("span");
                 rarityTag.className = "rarityTag";
