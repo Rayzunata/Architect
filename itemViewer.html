@@ -824,54 +824,10 @@
 
         const inventory = [
             {
-                //id: key erstellt aus itemeigenschaften
+                id:"metal:copper:ore:none:none:common:10" 
                 type: "metal",
-                id: "copper", //<- change to materials:
+                material: "copper",
                 form: "ore",
-                prefix: "none",
-                suffix: "none",
-                amount: 10,
-                rarity: "common",
-                quality: 10,
-        
-            },
-            {
-                type: "metal",
-                id: "iron",
-                form: "ore",
-                prefix: "none",
-                suffix: "none",
-                amount: 10,
-                rarity: "uncommon",
-                quality: 10,
-        
-            },
-            {
-                type: "metal",
-                id: "tin",
-                form: "ore",
-                prefix: "none",
-                suffix: "none",
-                amount: 10,
-                rarity: "rare",
-                quality: 10,
-        
-            },
-            {
-                type: "wood",
-                id: "oak",
-                form: "log",
-                prefix: "none",
-                suffix: "none",
-                amount: 10,
-                rarity: "epic",
-                quality: 10,
-        
-            },
-            {
-                type: "fish",
-                id: "pike",
-                form: "fish",
                 prefix: "none",
                 suffix: "none",
                 amount: 10,
@@ -900,11 +856,24 @@
 
         }
 
+        function getItemId(item){
+            return [
+                item.type,
+                item.material,
+                item.form,
+                item.prefix,
+                item.suffix,
+                item.rarity,
+                item.quality
+            ].join(":");
+        }
+
         function createRandomItem(){
 
             const item = {
-                type: null,
                 id: null,
+                type: null,
+                material: null,
                 form: null,
                 prefix: random(prefixes),
                 suffix: random(suffixes),
@@ -914,15 +883,15 @@
             }
 
             item.type = random(materials);
-            item.id = random(materials[item.type].items);
+            item.material = random(materials[item.type].items);
             item.form = random(itemRules[item.type].forms);
             item.prefix = random(itemRules[item.type].prefixes);
             item.suffix = random(itemRules[item.type].suffixes);
 
             //für rarity eine gewichtungsfunktion einbauen
             item.rarity = random(itemRules[item.type].rarities);
-
-            //console.log(item.rarity);
+            item.id = getItemId(item);
+            console.log(item.id);
             inventory.push(item);
             renderInventory();
         }
