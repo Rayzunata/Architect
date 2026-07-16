@@ -231,54 +231,321 @@
         // -----------------------------------------------------------
 
         const types = {
-            metal: {
-                name: "Metall",
-                color: "grey",
-                icon: "iconMetalBar.svg"
-            },
-            wood: {
-                name: "Holz",
-                color: "brown",
-                icon: "iconWoodLog.svg"
-            },
-            fish: {
-                name: "Fisch",
-                color: "blue",
-                icon: "iconFish.svg"
-            },
-            herb: {
-                name: "Kraut",
-                color: "green",
-                icon: "iconHerb.svg"
-            }
-        };
+    metal: {
+        name: "Metall",
+        color: "grey",
+        icon: "iconMetalBar.svg"
+    },
+
+    wood: {
+        name: "Holz",
+        color: "saddlebrown",
+        icon: "iconWoodLog.svg"
+    },
+
+    stone: {
+        name: "Stein",
+        color: "slategray",
+        icon: "iconStone.svg"
+    },
+
+    gem: {
+        name: "Edelstein",
+        color: "deepskyblue",
+        icon: "iconGem.svg"
+    },
+
+    fish: {
+        name: "Fisch",
+        color: "royalblue",
+        icon: "iconFish.svg"
+    },
+
+    herb: {
+        name: "Kraut",
+        color: "forestgreen",
+        icon: "iconHerb.svg"
+    },
+
+    plant: {
+        name: "Pflanze",
+        color: "olivegreen",
+        icon: "iconPlant.svg"
+    },
+
+    mushroom: {
+        name: "Pilz",
+        color: "darkorange",
+        icon: "iconMushroom.svg"
+    },
+
+    animal: {
+        name: "Tierisch",
+        color: "peru",
+        icon: "iconAnimal.svg"
+    },
+
+    cloth: {
+        name: "Stoff",
+        color: "violet",
+        icon: "iconCloth.svg"
+    },
+
+    alchemy: {
+        name: "Alchemie",
+        color: "crimson",
+        icon: "iconAlchemy.svg"
+    },
+
+    sea: {
+        name: "Meer",
+        color: "teal",
+        icon: "iconSea.svg"
+    },
+
+    monster: {
+        name: "Monster",
+        color: "darkred",
+        icon: "iconMonster.svg"
+    }
+};
         
         const forms = {
-            metal: {
-                ore: {
-                    name: "Erz",
-                    visible: true,
-                },
-                bar: {
-                    name: "Barren",
-                    visible: true,
-                },
-                plate: {
-                    name: "Platte",
-                    visible: true,
-                },
-                wire: {
-                    name: "Draht",
-                    visible: true,
-                }
-            },
+    metal: {
+        ore: {
+            name: "Erz",
+            visible: true,
+        },
+        bar: {
+            name: "Barren",
+            visible: true,
+        },
+        plate: {
+            name: "Platte",
+            visible: true,
+        },
+        wire: {
+            name: "Draht",
+            visible: true,
+        },
+        nugget: {
+            name: "Nugget",
+            visible: true,
+        }
+    },
 
-            wood: {
-                log: {
-                    name: "Stamm",
-                    visible: true,
-                }
-            },
+    wood: {
+        log: {
+            name: "Stamm",
+            visible: true,
+        },
+        plank: {
+            name: "Brett",
+            visible: true,
+        },
+        branch: {
+            name: "Ast",
+            visible: true,
+        },
+        bark: {
+            name: "Rinde",
+            visible: true,
+        }
+    },
+
+    stone: {
+        rock: {
+            name: "Stein",
+            visible: true,
+        },
+        block: {
+            name: "Block",
+            visible: true,
+        },
+        slab: {
+            name: "Platte",
+            visible: true,
+        },
+        shard: {
+            name: "Splitter",
+            visible: true,
+        }
+    },
+
+    gem: {
+        rough: {
+            name: "Roh",
+            visible: true,
+        },
+        cut: {
+            name: "Geschliffen",
+            visible: true,
+        },
+        shard: {
+            name: "Splitter",
+            visible: true,
+        }
+    },
+
+    herb: {
+        herb: {
+            name: "Kraut",
+            visible: false,
+        },
+        bundle: {
+            name: "Bündel",
+            visible: true,
+        },
+        extract: {
+            name: "Extrakt",
+            visible: true,
+        }
+    },
+
+    plant: {
+        fiber: {
+            name: "Faser",
+            visible: true,
+        },
+        bundle: {
+            name: "Bündel",
+            visible: true,
+        },
+        seed: {
+            name: "Samen",
+            visible: true,
+        }
+    },
+
+    mushroom: {
+        mushroom: {
+            name: "Pilz",
+            visible: false,
+        },
+        dried: {
+            name: "Getrocknet",
+            visible: true,
+        },
+        extract: {
+            name: "Extrakt",
+            visible: true,
+        }
+    },
+
+    fish: {
+        fish: {
+            name: "Fisch",
+            visible: false,
+        },
+        fillet: {
+            name: "Filet",
+            visible: true,
+        },
+        roe: {
+            name: "Rogen",
+            visible: true,
+        }
+    },
+
+    animal: {
+        raw: {
+            name: "Roh",
+            visible: true,
+        },
+        leather: {
+            name: "Leder",
+            visible: true,
+        },
+        fur: {
+            name: "Fell",
+            visible: true,
+        },
+        bone: {
+            name: "Knochen",
+            visible: true,
+        }
+    },
+
+    cloth: {
+        fiber: {
+            name: "Faser",
+            visible: true,
+        },
+        thread: {
+            name: "Faden",
+            visible: true,
+        },
+        fabric: {
+            name: "Stoff",
+            visible: true,
+        },
+        roll: {
+            name: "Rolle",
+            visible: true,
+        }
+    },
+
+    alchemy: {
+        raw: {
+            name: "Roh",
+            visible: true,
+        },
+        essence: {
+            name: "Essenz",
+            visible: true,
+        },
+        powder: {
+            name: "Pulver",
+            visible: true,
+        },
+        liquid: {
+            name: "Flüssigkeit",
+            visible: true,
+        }
+    },
+
+    sea: {
+        shell: {
+            name: "Muschel",
+            visible: true,
+        },
+        pearl: {
+            name: "Perle",
+            visible: true,
+        },
+        coral: {
+            name: "Koralle",
+            visible: true,
+        },
+        algae: {
+            name: "Alge",
+            visible: true,
+        }
+    },
+
+    monster: {
+        scale: {
+            name: "Schuppe",
+            visible: true,
+        },
+        hide: {
+            name: "Haut",
+            visible: true,
+        },
+        core: {
+            name: "Kern",
+            visible: true,
+        },
+        horn: {
+            name: "Horn",
+            visible: true,
+        },
+        essence: {
+            name: "Essenz",
+            visible: true,
+        }
+    }
+};
 
             fish: {
                 fish: {
@@ -458,31 +725,97 @@
         };
 
         const itemRules = {
-            metal:{
-                prefixes:["none"],
-                suffixes:["none"],
-                forms:["ore","bar","plate"],
-                rarities:["common","epic"]
-            },
-            wood:{
-                prefixes:["none"],
-                suffixes:["none"],
-                forms:["log"],
-                rarities:["common","uncommon"]
-            },
-            fish:{
-                prefixes:["none"],
-                suffixes:["none"],
-                forms:["fish"],
-                rarities:["common","uncommon"]
-            },
-            herb:{
-                prefixes:["none"],
-                suffixes:["none"],
-                forms:["herb"],
-                rarities:["common","uncommon"]
-            }
-        };
+    metal:{
+        prefixes:["none", "sharp", "massive"],
+        suffixes:["none", "smith", "king"],
+        forms:["ore", "bar", "plate", "wire", "nugget"],
+        rarities:["common", "uncommon", "rare", "epic"]
+    },
+
+    wood:{
+        prefixes:["none", "old", "massive"],
+        suffixes:["none"],
+        forms:["log", "plank", "branch", "bark"],
+        rarities:["common", "uncommon", "rare"]
+    },
+
+    stone:{
+        prefixes:["none", "massive", "old"],
+        suffixes:["none", "king"],
+        forms:["rock", "block", "slab", "shard"],
+        rarities:["common", "uncommon", "rare"]
+    },
+
+    gem:{
+        prefixes:["none", "old", "sharp"],
+        suffixes:["none", "king", "night"],
+        forms:["rough", "cut", "shard"],
+        rarities:["rare", "epic"]
+    },
+
+    fish:{
+        prefixes:["none"],
+        suffixes:["none"],
+        forms:["fish", "fillet", "roe"],
+        rarities:["common", "uncommon"]
+    },
+
+    herb:{
+        prefixes:["none"],
+        suffixes:["none", "night"],
+        forms:["herb", "bundle", "extract"],
+        rarities:["common", "uncommon", "rare"]
+    },
+
+    plant:{
+        prefixes:["none"],
+        suffixes:["none"],
+        forms:["fiber", "bundle", "seed"],
+        rarities:["common", "uncommon"]
+    },
+
+    mushroom:{
+        prefixes:["none"],
+        suffixes:["none", "night"],
+        forms:["mushroom", "dried", "extract"],
+        rarities:["common", "uncommon", "rare"]
+    },
+
+    animal:{
+        prefixes:["none", "massive"],
+        suffixes:["none"],
+        forms:["raw", "leather", "fur", "bone"],
+        rarities:["common", "uncommon", "rare"]
+    },
+
+    cloth:{
+        prefixes:["none"],
+        suffixes:["none"],
+        forms:["fiber", "thread", "fabric", "roll"],
+        rarities:["common", "uncommon", "rare"]
+    },
+
+    alchemy:{
+        prefixes:["none", "old", "sharp"],
+        suffixes:["none", "night"],
+        forms:["raw", "essence", "powder", "liquid"],
+        rarities:["uncommon", "rare", "epic"]
+    },
+
+    sea:{
+        prefixes:["none"],
+        suffixes:["none", "night"],
+        forms:["shell", "pearl", "coral", "algae"],
+        rarities:["common", "uncommon", "rare"]
+    },
+
+    monster:{
+        prefixes:["none", "massive", "old"],
+        suffixes:["none", "king", "night"],
+        forms:["scale", "hide", "core", "horn", "essence"],
+        rarities:["rare", "epic"]
+    }
+};
 
         const inventory = [
             {
