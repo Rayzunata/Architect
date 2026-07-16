@@ -188,7 +188,8 @@
 
                 <button class="testEintrag button" id="button1" title="zeigt Inventar">renderInventory()</button>
                 <button class="testEintrag button" id="button2" title="clear test">createRandomItem()</button>
-                <button class="testEintrag button" id="button3" title="clear test">testCreateItem() + pre/suffix</button>
+                <button class="testEintrag button" id="button3" title="clear test">testCreateItem() id Eingabe</button>
+                <button class="testEintrag button" id="button4" title="zeigt Inventar">interval</button>
 
             </div>
 
@@ -946,20 +947,14 @@
             addItemToInventory(item);
         }
 
-        function testCreateItem() { //DEBUG FUNKTION
+        function testCreateItem(id) { //DEBUG FUNKTION
 
-            const id = prompt(
-                "Item-ID eingeben:\n" +
-                "type:material:form:prefix:suffix:rarity:quality",
-                "metal:copper:ore:none:none:common:10"
-            );
-        
             if (!id) return;
         
             const parts = id.split(":");
         
             if (parts.length !== 7) {
-                console.log("Ungültige Item-ID!");
+                console.error("Ungültige Item-ID!");
                 return;
             }
         
@@ -977,25 +972,46 @@
             };
 
             if (!materials[item.type]?.items[item.material]) {
-            console.log("Material existiert nicht.");
+            console.error("Material existiert nicht.");
             return;
             }
             
             if (!forms[item.type]?.[item.form]) {
-                console.log("Form existiert nicht.");
+                console.error("Form existiert nicht.");
                 return;
             }
             
             if (!prefixes[item.prefix] ||
                 !suffixes[item.suffix] ||
                 !rarities[item.rarity]) {
-                console.log("Ungültige Eigenschaft.");
+                console.error("Ungültige Eigenschaft.");
                 return;
             }
         
             item.id = getItemId(item);
         
             addItemToInventory(item);
+        }
+
+        let testInterval = null;
+
+        function startTestItems() {
+            const id = prompt(
+                "Item-ID eingeben:\n" +
+                "type:material:form:prefix:suffix:rarity:quality",
+                "metal:copper:ore:none:none:common:10"
+            );
+            if (testInterval) {
+                clearInterval(testInterval);
+                testInterval = null;
+                console.info("Intervall gestoppt");
+                return;
+            }
+        
+            testInterval = setInterval(() => {
+                testCreateItem(id);
+            }, 10000);
+        
         }
 
         // ------------------------------------------------------------
@@ -1069,6 +1085,7 @@
         document.getElementById("button1").addEventListener("click",renderInventory);
         document.getElementById("button2").addEventListener("click",createRandomItem);
         document.getElementById("button3").addEventListener("click", testCreateItem);
+        document.getElementById("button3").addEventListener("click", startTestItems);
         
 
     </script>
