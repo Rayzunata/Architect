@@ -212,7 +212,7 @@
                 <!-- <div class="testEintrag"><p>testEintrag</p>
 
                 </div> -->
-
+                <p>Nächstes Item in: <span id="timer">-</span>s</p>
             </div>
 
         </div>
@@ -994,24 +994,34 @@
         }
 
         let testInterval = null;
-
-        function startTestItems() {
-            const id = prompt(
-                "Item-ID eingeben:\n" +
-                "type:material:form:prefix:suffix:rarity:quality",
-                "metal:copper:ore:none:none:common:10"
-            );
+        let countdownInterval = null;
+        let secondsLeft = 10;
+        
+        function toggleTestInterval() {
+        
             if (testInterval) {
                 clearInterval(testInterval);
+                clearInterval(countdownInterval);
+        
                 testInterval = null;
-                console.info("Intervall gestoppt");
+                countdownInterval = null;
+        
+                document.getElementById("timer").textContent = "-";
                 return;
             }
         
+            secondsLeft = 10;
+            document.getElementById("timer").textContent = secondsLeft;
+        
             testInterval = setInterval(() => {
-                testCreateItem(id);
+                testCreateItem();
+                secondsLeft = 10;
             }, 10000);
         
+            countdownInterval = setInterval(() => {
+                secondsLeft--;
+                document.getElementById("timer").textContent = secondsLeft;
+            }, 1000);
         }
 
         // ------------------------------------------------------------
