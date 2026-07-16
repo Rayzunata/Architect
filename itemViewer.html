@@ -872,7 +872,7 @@
             const values = Object.entries(array);
             
             const [key,random] = values[Math.floor(Math.random() * values.length)];
-            // console.log(key);
+            
             return key;
 
         }
@@ -890,7 +890,6 @@
         }
 
         function addItemToInventory(item){
-            //item.id = createItemId(item);
 
             let existing = null;
             
@@ -936,7 +935,7 @@
             item.id = getItemId(item);
             console.log(item.id);
             addItemToInventory(item)
-            //inventory.push(item);
+
             renderInventory();
         }
 
