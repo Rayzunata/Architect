@@ -887,6 +887,7 @@
                     inventory.push(item);
                     console.log("items ++");
                 }
+            renderInventory();
             }
 
         function createRandomItem(){
@@ -958,7 +959,7 @@
             const parts = id.split(":");
         
             if (parts.length !== 7) {
-                alert("Ungültige Item-ID!");
+                console.log("Ungültige Item-ID!");
                 return;
             }
         
