@@ -129,6 +129,16 @@
             border-left: 5px solid gold;
         }
 
+        .inventoryDetailsSlot{
+            margin: 5px;
+            height: 275px;
+            overflow-x: auto;
+            border-top: 1px solid rgb(21, 61, 217);
+            border-right: 1px solid rgb(21, 61, 217);
+            border-left: 5px solid rgb(21, 61, 217);
+            border-radius: 5px;
+        }
+
         .iconTag{
             width: 24px;
             height: 24px;
@@ -1168,8 +1178,8 @@
             const entry = document.getElementById("entryRightItemdetailsContainer");
             entry.innerHTML = '';
             
-                const inventorySlot = document.createElement("div");
-                inventorySlot.className = "inventorySlot";
+                const inventoryDetailsSlot = document.createElement("div");
+                inventoryDetailsSlot.className = "inventoryDetailsSlot";
                 
                 const item = inventory[inventoryID];
                 let itemName = "";
@@ -1234,7 +1244,7 @@
                 
                 inventorySlot.appendChild(detailsTag);
 
-                entry.appendChild(inventorySlot);
+                entry.appendChild(inventoryDetailsSlot);
                 
         }
         
