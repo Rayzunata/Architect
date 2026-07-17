@@ -907,11 +907,11 @@
         // Helper
         // ------------------------------------------------------------
 
-        function addLogMessage(){
+        function addLogMessage(item){
             const logEntry = document.getElementById("entryRightLogContainer");
 
             const logMessage = document.createElement("div");
-            logMessage.innerHTML =`testLogEintrag`;
+            logMessage.innerHTML =`${item.name}${item.amount}`;
             logEntry.appendChild(logMessage);
         }
 
@@ -955,12 +955,14 @@
                 
                 if (existing) {
                     existing.amount += item.amount;
+                    addLogMessage(existing);
                     console.log("Anzahl ++");
                 } else {
                     inventory.push(item);
+                    addLogMessage(item);
                     console.log("items ++");
                 }
-            const logEntry = document.getElementById("entryRightLogContainer");
+            
             
             renderInventory();
             }
