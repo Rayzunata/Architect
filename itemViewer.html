@@ -1153,6 +1153,63 @@
 
         function showItemDetails(inventoryID){
             console.log(inventoryID);
+
+            const entry = document.getElementById("entryRightContainer");
+            entry.innerHTML = '';
+            
+                const inventorySlot = document.createElement("div");
+                inventorySlot.className = "inventorySlot";
+                
+                const item = inventory[inventoryID];
+                let itemName = "";
+
+                if(!forms[item.type][item.form].visible){
+                    itemName = materials[item.type].items[item.material].name;
+                
+                }else{
+                    itemName = materials[item.type].items[item.material].name + forms[item.type][item.form].name ;
+                
+                };
+
+                const nameTag = document.createElement("span");
+                nameTag.className = "nameTag";
+                nameTag.style.color = types[item.type].color;
+                nameTag.innerHTML = `${prefixes[item.prefix].name} ${itemName} ${suffixes[item.suffix].name} ` ;
+                
+                const rarityTag = document.createElement("span");
+                rarityTag.className = "rarityTag";
+                rarityTag.style.color = rarities[item.rarity].color;
+                rarityTag.innerHTML = `(${item.rarity})`;
+
+                const iconTag = document.createElement("img");
+                iconTag.className = "iconTag";
+                iconTag.src = types[item.type].icon
+
+                const detailsTag = document.createElement("p");
+                detailsTag.className = "detailsTag";
+                detailsTag.innerHTML = `
+                    <p>Anzahl: ${item.amount}</p>
+                    <p>Qualität: ${item.quality}</p>
+                `;
+
+                const titleDiv = document.createElement("div");
+                titleDiv.className = "titleDiv";
+
+                const titleSpan = document.createElement("div");
+                titleSpan.className = "titleSpan";
+
+                titleSpan.appendChild(iconTag);
+                titleSpan.appendChild(nameTag);
+                titleDiv.appendChild(titleSpan);
+                
+                titleDiv.appendChild(rarityTag);
+                
+                inventorySlot.appendChild(titleDiv);
+                
+                inventorySlot.appendChild(detailsTag);
+
+                entry.appendChild(inventorySlot);
+                
         }
         
         renderInventory();
