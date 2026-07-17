@@ -1141,18 +1141,18 @@
                 const rarityTag = document.createElement("span");
                 rarityTag.className = "rarityTag";
                 rarityTag.style.color = rarities[item.rarity].color;
-                rarityTag.innerHTML = `(${item.rarity})`;
+                rarityTag.innerHTML = `(${item.rarity}) x ${item.amount}`;
 
                 const iconTag = document.createElement("img");
                 iconTag.className = "iconTag";
                 iconTag.src = types[item.type].icon
 
-                const detailsTag = document.createElement("p");
-                detailsTag.className = "detailsTag";
-                detailsTag.innerHTML = `
-                    <p>Anzahl: ${item.amount}</p>
-                    <p>Qualität: ${item.quality}</p>
-                `;
+                //const detailsTag = document.createElement("p");
+                //detailsTag.className = "detailsTag";
+                //detailsTag.innerHTML = `
+                //    <p>Anzahl: ${item.amount}</p>
+                //    <p>Qualität: ${item.quality}</p>
+                //`;
 
                 const titleDiv = document.createElement("div");
                 titleDiv.className = "titleDiv";
