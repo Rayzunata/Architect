@@ -1097,7 +1097,7 @@
                     // Diesen Slot auswählen
                     inventorySlot.classList.add("selected");
                 
-                    showItemDetails(inventoryID);
+                    renderItemDetails(inventoryID);
                 });
                 
                 const item = inventory[inventoryID];
@@ -1154,7 +1154,7 @@
 
         }
 
-        function showItemDetails(inventoryID){
+        function renderItemDetails(inventoryID){
             console.log(inventoryID);
 
             const entry = document.getElementById("entryRightItemdetailsContainer");
@@ -1193,6 +1193,9 @@
                 detailsTag.innerHTML = `
                     <p>Anzahl: ${item.amount}</p>
                     <p>Qualität: ${item.quality}</p>
+                    <p>ID: ${item.id}</p>
+                    <p>Prefix: ${item.prefix}</p>
+                    <p>Suffix: ${item.suffix}</p>
                 `;
 
                 const titleDiv = document.createElement("div");
