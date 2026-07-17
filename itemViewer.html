@@ -1094,7 +1094,7 @@
                     // Diesen Slot auswählen
                     inventorySlot.classList.add("selected");
                 
-                    selectItem(inventoryID);
+                    showItemDetails(inventoryID);
                 });
                 
                 const item = inventory[inventoryID];
@@ -1149,6 +1149,10 @@
                 
             }
 
+        }
+
+        showItemDetails(inventoryID){
+            console.log(inventoryID);
         }
         
         renderInventory();
