@@ -169,6 +169,9 @@
         .detailsTag p{
             margin: 0px;
         }
+        .detailsTag h3{
+            margin: 1px;
+        }
 
         .progressContainer {
             width: 300px;
@@ -1194,12 +1197,18 @@
                 detailsTag.innerHTML = `
                     <h3>ID</h3>
                     <p>${item.id}</p>
-                    <p>Type: ${item.type}</p>
-                    <p>Prefix: ${item.prefix}</p>
-                    <p>Material: ${item.material}</p>
-                    <p>Form: ${item.form}</p>
-                    <p>Suffix: ${item.suffix}</p>
-                    <p>Rarity: ${item.rarity}</p>
+                    <h3>Type</h3>
+                    <p>${item.type}</p>
+                    <h3>Prefix</h3>
+                    <p>${item.prefix}</p>
+                    <h3>Material</h3>
+                    <p>${item.material}</p>
+                    <h3>Form</h3>
+                    <p>${item.form}</p>
+                    <h3>Suffix</h3>
+                    <p>${item.suffix}</p>
+                    <h3>Rarity</h3>
+                    <p>${item.rarity}</p>
                     <p>Anzahl: ${item.amount}</p>
                     <p>Qualität: ${item.quality}</p>
                     
