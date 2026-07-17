@@ -123,6 +123,10 @@
             border-left: 5px solid rgb(21, 61, 217);
             border-radius: 5px;
         }
+        .inventorySlot.selected {
+            border: 2px solid gold;
+            background-color: rgba(255, 215, 0, 0.15);
+        }
 
         .iconTag{
             width: 24px;
@@ -1081,6 +1085,18 @@
             for(const inventoryID in inventory){
                 const inventorySlot = document.createElement("div");
                 inventorySlot.className = "inventorySlot";
+
+                inventorySlot.addEventListener("click", () => {
+                    // Alte Auswahl entfernen
+                    document.querySelectorAll(".inventorySlot.selected")
+                        .forEach(slot => slot.classList.remove("selected"));
+                
+                    // Diesen Slot auswählen
+                    inventorySlot.classList.add("selected");
+                
+                    selectItem(inventoryID);
+                });
+                
                 const item = inventory[inventoryID];
                 let itemName = "";
 
