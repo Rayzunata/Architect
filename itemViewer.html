@@ -242,6 +242,7 @@
                 <button class="testEintrag button" id="button2" title="clear test">createRandomItem()</button>
                 <button class="testEintrag button" id="button3" title="clear test">testCreateItem() id Eingabe</button>
                 <button class="testEintrag button" id="button4" title="zeigt Inventar">interval</button>
+                <button class="testEintrag button" id="button5" >add testmessage to Log</button>
 
             </div>
 
@@ -906,6 +907,14 @@
         // Helper
         // ------------------------------------------------------------
 
+        function addLogMessage(){
+            const logEntry = document.getElementById("entryRightLogContainer");
+
+            const logMessage = document.createElement("div);
+            logMessage.innerTEXT =`testLogEintrag`;
+            logEntry.appendChild(logMessage);
+        }
+
         function random(array){
 
             if(Array.isArray(array)){
@@ -951,6 +960,8 @@
                     inventory.push(item);
                     console.log("items ++");
                 }
+            const logEntry = document.getElementById("entryRightLogContainer");
+            
             renderInventory();
             }
 
@@ -1273,6 +1284,7 @@
         document.getElementById("button2").addEventListener("click",createRandomItem);
         document.getElementById("button3").addEventListener("click", testCreateItem);
         document.getElementById("button4").addEventListener("click", toggleTestInterval);
+        document.getElementById("button5").addEventListener("click", addLogMessage);   
         
 
     </script>
