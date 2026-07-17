@@ -1191,11 +1191,16 @@
                 const detailsTag = document.createElement("p");
                 detailsTag.className = "detailsTag";
                 detailsTag.innerHTML = `
+                    <p>ID: ${item.id}</p>
+                    <p>Type: ${item.type}</p>
+                    <p>Prefix: ${item.prefix}</p>
+                    <p>Material: ${item.material}</p>
+                    <p>Form: ${item.form}</p>
+                    <p>Suffix: ${item.suffix}</p>
+                    <p>Rarity: ${item.rarity}</p>
                     <p>Anzahl: ${item.amount}</p>
                     <p>Qualität: ${item.quality}</p>
-                    <p>ID: ${item.id}</p>
-                    <p>Prefix: ${item.prefix}</p>
-                    <p>Suffix: ${item.suffix}</p>
+                    
                 `;
 
                 const titleDiv = document.createElement("div");
