@@ -907,11 +907,13 @@
         // Helper
         // ------------------------------------------------------------
 
+        
+
         function addLogMessage(item){
             const logEntry = document.getElementById("entryRightLogContainer");
-
+            const itemName = getItemName(item);
             const logMessage = document.createElement("div");
-            logMessage.innerHTML =`${item.name}${item.amount}`;
+            logMessage.innerHTML =`${itemName}${item.amount}`;
             logEntry.appendChild(logMessage);
         }
 
@@ -939,6 +941,15 @@
                 item.suffix,
                 item.rarity,
                 item.quality
+            ].join(":");
+        }
+
+        function getItemName(item){
+            return [
+                item.prefix,
+                item.material,
+                item.form,
+                item.suffix,
             ].join(":");
         }
 
