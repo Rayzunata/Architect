@@ -486,6 +486,10 @@
                     name: "Pilz",
                     visible: false,
                 },
+                spore: {
+                    name: "Sporen",
+                    visible: true,
+                }
                 dried: {
                     name: "Getrocknet",
                     visible: true,
@@ -635,7 +639,7 @@
                     ash: { name: "Eschen", visible: true },
                     yew: { name: "Eiben", visible: true },
                     ebony: { name: "Ebenholz", visible: true },
-                    ironwood: { name: "Eisenholz", visible: true }
+                    
                 }
             },
             stone: {
@@ -812,22 +816,22 @@
             },
         
             wood:{
-                prefixes:["none", "old", "massive"],
+                prefixes:["none", ],
                 suffixes:["none"],
                 forms:["log", "plank", "branch", "bark"],
                 rarities:["common", "uncommon", "rare"]
             },
         
             stone:{
-                prefixes:["none", "massive", "old"],
-                suffixes:["none", "king"],
+                prefixes:["none", ],
+                suffixes:["none", ],
                 forms:["rock", "block", "slab", "shard"],
                 rarities:["common", "uncommon", "rare"]
             },
         
             gem:{
-                prefixes:["none", "old", "sharp"],
-                suffixes:["none", "king", "night"],
+                prefixes:["none", ],
+                suffixes:["none", ],
                 forms:["rough", "cut", "shard"],
                 rarities:["rare", "epic"]
             },
@@ -856,12 +860,12 @@
             mushroom:{
                 prefixes:["none"],
                 suffixes:["none", "night"],
-                forms:["mushroom", "dried", "extract"],
+                forms:["mushroom", "dried", "extract", "spore",],
                 rarities:["common", "uncommon", "rare"]
             },
         
             animal:{
-                prefixes:["none", "massive"],
+                prefixes:["none", ],
                 suffixes:["none"],
                 forms:["raw", "leather", "fur", "bone"],
                 rarities:["common", "uncommon", "rare"]
@@ -875,7 +879,7 @@
             },
         
             alchemy:{
-                prefixes:["none", "old", "sharp"],
+                prefixes:["none", ],
                 suffixes:["none", "night"],
                 forms:["raw", "essence", "powder", "liquid"],
                 rarities:["uncommon", "rare", "epic"]
