@@ -306,7 +306,53 @@
         // Definitionen
         // -----------------------------------------------------------
 
-        const types = {
+        
+
+        const weaponTypes = {
+            sword:{
+                name:"Schwert",
+                crafting:{
+                    station: "blacksmith",
+                    materials:[
+                        {
+                            type:"metal",
+                            form:"bar",
+                            amount:3
+                        },
+                        {
+                            type:"wood",
+                            form:"handle", //form hinzufügen
+                            amount:1
+                        }
+                    ]
+                }
+            }
+        };
+
+        const toolTypes = {
+            pickaxe: {
+                name: "Spitzhacke",
+        
+                efficiency: 10,
+        
+                modSlots: [
+                    "head",
+                    "handle"
+                ]
+            },
+            axe: {
+                name: "Axt",
+        
+                efficiency: 8,
+        
+                modSlots: [
+                    "head",
+                    "handle"
+                ]
+            }
+        };
+        
+        const types = { //rename -> resourceTypes
             metal: {
                 name: "Metall",
                 color: "grey",
@@ -747,6 +793,23 @@
                     demon_horn: { name: "Dämonenhorn", visible: true },
                     spider_silk: { name: "Spinnenseide", visible: true },
                     griffin_feather: { name: "Greifenfeder", visible: true }
+                }
+            }
+        };
+
+        const mods = {
+            flashlight: {
+                slot: "underbarrel",
+        
+                stats: {
+                    accuracy: 10
+                }
+            },
+            reinforcedHandle: {
+                slot: "handle",
+        
+                stats: {
+                    efficiency: 15
                 }
             }
         };
