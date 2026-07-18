@@ -1004,7 +1004,8 @@
                 quality: 10,
             }
 
-            item.type = random(materials);
+            //item.type = random(materials);
+            item.type = "metal";
             item.material = random(materials[item.type].items);
             item.form = random(itemRules[item.type].forms);
             item.prefix = random(itemRules[item.type].prefixes);
