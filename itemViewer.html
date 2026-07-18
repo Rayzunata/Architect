@@ -306,26 +306,56 @@
         // Definitionen
         // -----------------------------------------------------------
 
+        const categories = {
+            resource: "",
+            weapon: "",
+            tool: "",
+        }
         
 
         const weaponTypes = {
-            sword:{
-                name:"Schwert",
-                crafting:{
-                    station: "blacksmith",
-                    materials:[
+            pistol: {
+                name: "Pistole",
+        
+                icon: "iconPistol.svg",
+        
+                baseStats: {
+                    damage: 20,
+                    accuracy: 65,
+                    fireRate: 4
+                },
+        
+                crafting: {
+                    station: "gunsmith",
+        
+                    components: [
                         {
-                            type:"metal",
-                            form:"bar",
-                            amount:3
+                            slot: "frame",
+                            type: "metal",
+                            form: "bar",
+                            amount: 2
                         },
                         {
-                            type:"wood",
-                            form:"handle", //form hinzufügen
-                            amount:1
+                            slot: "barrel",
+                            type: "metal",
+                            form: "bar",
+                            amount: 1
+                        },
+                        {
+                            slot: "grip",
+                            type: "wood",
+                            form: "plank",
+                            amount: 1
                         }
                     ]
-                }
+                },
+        
+                modSlots: [
+                    "barrel",
+                    "sight",
+                    "underbarrel",
+                    "magazine"
+                ]
             }
         };
 
@@ -352,7 +382,7 @@
             }
         };
         
-        const types = { //rename -> resourceTypes
+        const types = { //name,color,icon in materials integrieren
             metal: {
                 name: "Metall",
                 color: "grey",
