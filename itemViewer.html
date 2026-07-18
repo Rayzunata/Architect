@@ -1006,7 +1006,8 @@
 
             //item.type = random(materials);
             item.type = "metal";
-            item.material = random(materials[item.type].items);
+            //item.material = random(materials[item.type].items);
+            item.material = "iron";
             item.form = random(itemRules[item.type].forms);
             item.prefix = random(itemRules[item.type].prefixes);
             item.suffix = random(itemRules[item.type].suffixes);
