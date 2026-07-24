@@ -15,7 +15,7 @@ export function renderLeftNav(game){
     player.style.width = "270px";
         const playerTitle = document.createElement("div");
         playerTitle.innerText = "Playerdetails";
-
+//
         player.appendChild(playerTitle);
         player.addEventListener("click", function () {
             game.ui.currentScreen = "player";

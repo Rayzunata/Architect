@@ -4,7 +4,7 @@ export function renderWorld(){
 
     const entry = document.getElementById("entryMidContainer");
     entry.innerHTML = ``;
-
+//
     const worldDetailsContainer = document.createElement("div");
     worldDetailsContainer.className = "testelementContainer";
 
