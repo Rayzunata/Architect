@@ -1,6 +1,7 @@
-
+import { icons } from "../../../constants/iconConstants.js";
 export const materials = {
             metal: {
+                icon: "iconMetalBar",
                 items: {
                     copper: { name: "Kupfer", visible: true },
                     iron: { name: "Eisen", visible: true },
@@ -14,6 +15,7 @@ export const materials = {
                 }
             },
             wood: {
+                icon: "iconWoodLog",
                 items: {
                     oak: { name: "Eichen", visible: true },
                     birch: { name: "Birken", visible: true },
@@ -27,6 +29,7 @@ export const materials = {
                 }
             },
             stone: {
+                icon: "iconStone",
                 items: {
                     granite: { name: "Granit", visible: true },
                     limestone: { name: "Kalkstein", visible: true },
@@ -37,6 +40,7 @@ export const materials = {
                 }
             },
             gem: {
+                icon: "iconGem",
                 items: {
                     ruby: { name: "Rubin", visible: true },
                     sapphire: { name: "Saphir", visible: true },
@@ -47,6 +51,7 @@ export const materials = {
                 }
             },
             herb: {
+                icon: "iconHerb",
                 items: {
                     nettle: { name: "Nessel", visible: true },
                     mint: { name: "Minze", visible: true },
@@ -59,6 +64,7 @@ export const materials = {
                 }
             },
             plant: {
+                icon: "iconPlant",
                 items: {
                     cotton: { name: "Baumwolle", visible: true },
                     flax: { name: "Flachs", visible: true },
@@ -68,6 +74,7 @@ export const materials = {
                 }
             },
             mushroom: {
+                icon: "iconMushroom",
                 items: {
                     champignon: { name: "Champignon", visible: true },
                     fly_agaric: { name: "Fliegenpilz", visible: true },
@@ -77,6 +84,7 @@ export const materials = {
                 }
             },
             fish: {
+                icon: "iconFish",
                 items: {
                     pike: { name: "Hecht", visible: true },
                     carp: { name: "Karpfen", visible: true },
@@ -87,6 +95,7 @@ export const materials = {
                 }
             },
             animal: {
+                icon: "iconAnimal",
                 items: {
                     leather: { name: "Leder", visible: true },
                     fur: { name: "Fell", visible: true },
@@ -97,6 +106,7 @@ export const materials = {
                 }
             },
             cloth: {
+                icon: "iconCloth",
                 items: {
                     linen: { name: "Leinen", visible: true },
                     cotton: { name: "Baumwollstoff", visible: true },
@@ -105,6 +115,7 @@ export const materials = {
                 }
             },
             alchemy: {
+                icon: "iconAlchemy",
                 items: {
                     resin: { name: "Harz", visible: true },
                     oil: { name: "Öl", visible: true },
@@ -115,6 +126,7 @@ export const materials = {
                 }
             },
             sea: {
+                icon: "iconSea",
                 items: {
                     algae: { name: "Algen", visible: true },
                     shell: { name: "Muschel", visible: true },
@@ -124,6 +136,7 @@ export const materials = {
                 }
             },
             monster: {
+                icon: "iconMonster",
                 items: {
                     dragon_scale: { name: "Drachenschuppe", visible: true },
                     troll_hide: { name: "Trollhaut", visible: true },
