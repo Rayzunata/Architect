@@ -429,3 +429,6 @@ FodyWeavers.xsd
 *.msp
 docs/note.png
 docs/todo.txt
+docs/itemObjectsDependancies.mmd
+docs/itemObjectsDependancies.png
+docs/itemObjectsDependancies.svg

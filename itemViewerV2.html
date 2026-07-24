@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+        /*##################### GERÜST - START  #####################*/
+        body{
+            background-color: black;
+            color: #d8bfd8;
+            font-family:Arial, sans-serif;
+            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 12px;
+        }
+
+        .headContainer{
+            border: 1px solid rgb(217, 21, 150);
+            margin-bottom: 5px;
+            display: grid;
+            grid-template-columns: 20% 60% 20%;
+
+        }
+
+        .logoContainer{
+            border: 1px solid rgb(217, 21, 150);
+            margin: 5px;
+            margin-left: 0px;
+            
+        }
+
+        .testelementContainer{
+            border: 1px solid rgb(217, 21, 150);
+            margin: 5px;
+
+        }
+        .settingsContainer{
+            border: 1px solid rgb(217, 21, 150);
+            margin: 5px;
+        }
+
+        .gameContainer{
+            display: grid;
+            grid-template-columns: 20% 60% 20%;
+            height: 650px
+            
+        }
+
+        .leftContainer{
+            border: 1px solid rgb(217, 21, 150);
+            margin: 5px;
+            margin-left: 0px;
+        }
+
+        .midContainer{
+            border: 1px solid rgb(217, 21, 150);
+            margin: 5px;
+            
+        }
+        .entryMidContainer{
+            height: 640px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            grid-template-rows: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 10px;
+            overflow-y: auto;
+        }
+
+        .rightContainer{
+            border: 1px solid rgb(217, 21, 150);
+            margin: 5px;
+            margin-right: 0px;
+        }
+        .entryRightLogContainer{
+            height: 270px;
+            overflow-x: auto;
+            margin: 5px;
+            padding: 5px;
+            border: 1px solid rgb(217, 21, 150);
+        }
+
+        .bottomContainer{
+            border: 1px solid rgb(217, 21, 150);
+            margin: 5px;
+        }
+
+        .footContainer{
+            border: 1px solid rgb(217, 21, 150);
+            margin-top: 5px;
+
+        }
+
+        /*##################### GERÜST - END  #####################*/
+
+        .testEintrag{
+            margin: 5px;
+            padding: 5px;
+            /* color: rgb(182, 138, 167); */
+            background-color: #15071a;
+            border: 1px solid rgb(217, 21, 150);
+            border-radius: 5px;
+            border-left: 7px solid rgb(217, 21, 150);
+        }
+        .testEintrag p{
+            margin: 5px;
+            
+        }
+
+        /*##################### EINGEHÄNGTES CSS - START  #####################*/
+
+        .button{
+            background:#220a2b;
+            color:#d8bfd8;
+
+            width: 287px;
+            height: 25px;
+            border-radius:4px;
+            cursor:pointer;
+            text-align: left;
+        }
+        .button:hover{
+            border-left: 7px solid rgb(245, 135, 207);
+
+            background:#3b103f;
+            
+        }
+        .saveButton{
+            color: aqua;
+        }
+
+        .inventorySlot{
+            margin: 5px;
+            height: max-content;
+            border-top: 1px solid rgb(21, 61, 217);
+            border-right: 1px solid rgb(21, 61, 217);
+            border-left: 5px solid rgb(21, 61, 217);
+            border-radius: 5px;
+        }
+        .inventorySlot.selected {
+            border: 1px solid gold;
+            /* background-color: rgba(255, 215, 0, 0.15); */
+            border-left: 5px solid gold;
+            box-shadow: 2px 2px 10px 1px #ffd70066;
+        }
+
+        .inventoryDetailsSlot{
+            margin: 5px;
+            border-top: 1px solid rgb(21, 61, 217);
+            border-right: 1px solid rgb(21, 61, 217);
+            border-left: 5px solid rgb(21, 61, 217);
+            border-radius: 5px;
+        }
+        .inventoryDetailsSlot .detailsTag{
+            margin: 5px;
+            height: 200px;
+            overflow-x: auto;
+            
+        }
+
+        .iconTag{
+            width: 24px;
+            height: 24px;
+            border-bottom: 1px solid white;
+            border-right: 1px solid white;
+            border-radius: 5px;
+            margin-left: 3px;
+            margin-top: 3px;
+            padding-right: 3px;
+            padding-bottom: 3px;
+        }
+        .nameTag{
+            margin: 0px;
+            padding: 0px;
+            /*border-left: 3px solid rgb(217, 21, 150);
+            border-radius: 5px;*/
+        }
+        .titleDiv{
+            margin: 3px;
+            padding: 3px;
+            border-left: 3px solid rgb(87 85 87);
+            border-radius: 5px;
+        }
+        .titleSpan{
+            border-bottom: 1px solid;
+            margin-bottom: 3px;
+            padding-bottom: 3px;
+            background: #161616;
+            border-radius: 3px;
+        }
+        .detailsTag{
+            margin: 3px;
+            padding: 3px;
+            color: #efffff;
+            border-left: 3px solid rgb(87 85 87);
+            border-radius: 5px;
+        }
+        .detailsTag p{
+            margin: 5px;
+        }
+        .detailsTag h3{
+            margin: 1px;
+            background: #161616;
+            border-radius: 3px;
+            border-left: 3px solid #403f3f;
+            padding: 3px;
+        }
+
+        .progressContainer {
+            width: 300px;
+            height: 20px;
+            background-color: #333;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        #progressBar {
+            width: 100%;
+            height: 100%;
+            background-color: limegreen;
+            transition: width 1s linear;
+        }
+
+        /*##################### EINGEHÄNGTES CSS - ENDE  #####################*/
+        
+        
+    </style>
+</head>
+<body>
+
+    <div class="headContainer" id="headContainer">
+        <div class="logoContainer" id="logoContainer"><p>LOGO</p></div>
+        <div class="testelementContainer" id="testelementContainer"><p>TESTEINTRAG</p></div>
+        <div class="settingsContainer" id="settingsContainer">
+            
+            <button class="saveButton" id="saveButton" title="speichern"></button>
+        </div>
+    </div>
+    <div class="gameContainer" id="gameContainer">
+
+        <div class="leftContainer" id="leftContainer">
+
+            <div class="entryLeftContainer" id="entryLeftContainer">
+
+                <!-- <div class="testEintrag"><p>testEintrag</p>
+                    
+                </div> -->
+
+                
+                <button class="testEintrag button" id="button1" title="zeigt Inventar">createRandomItem()</button>
+                
+
+            </div>
+
+        </div>
+        <div class="midContainer" id="midContainer">
+
+            <div class="entryMidContainer" id="entryMidContainer">
+
+                <!-- <div class="testEintrag"><p>testEintrag</p>
+
+                </div> -->
+
+            </div>
+
+        </div>
+        <div class="rightContainer" id="rightContainer">
+
+            <div class="entryRightContainer" id="entryRightContainer">
+
+                <!-- <div class="testEintrag"><p>testEintrag</p>
+
+                </div> -->
+                   
+                <div class="" id="entryRightItemdetailsContainer">
+                    
+                </div>
+
+                <div class="entryRightLogContainer" id="entryRightLogContainer">
+                    
+                </div>
+                
+            </div>
+
+        </div>
+
+
+    </div>
+    
+    <div class="footContainer" id="footContainer"><p>foot</p></div>
+
+    <script type="module">
+
+        import {renderInventory} from "./ui/renderInventory.js";
+        import {item} from "./systems/items/item.js";
+
+        const inventory = [
+        ];
+
+        //----------------------------------------------------
+        //                  start
+        //----------------------------------------------------
+        item.addItemToInventory(item.createItem({
+            category: "resource",
+            materialGroup: "metal",
+            material: "iron",
+            form: "bar",
+            amount: 25
+        }),inventory)
+
+        // createItem({
+        //     category: "tool",
+        //     materialGroup: "metal",
+        //     material: "steel",
+        //     form: "pickaxe"
+        // });
+        // createItem({
+        //     category: "tool",
+        //     materialGroup: "metal",
+        //     material: "steel",
+        //     form: "pickaxe"
+        // });
+
+        // createItem({
+        //     category: "weapon",
+        //     materialGroup: "metal",
+        //     material: "mithril",
+        //     form: "pistol",
+        //     rarity: "epic",
+        //     mods:{
+        //         underbarrel:"flashlight"
+        //     }
+        // });
+        //createItem();
+        item.addItemToInventory(item.createRandomItem(),inventory);
+        renderInventory(inventory);
+          
+        document.getElementById("button1").addEventListener("click", function () {
+
+            item.addItemToInventory(item.createRandomItem(), inventory);
+        });
+
+    </script>
+</body>
+</html>
