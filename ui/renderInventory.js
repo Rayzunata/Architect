@@ -10,44 +10,7 @@ import { icons } from "../data/constants/iconConstants.js";
 
 export function renderInventory(inventory) {
 
-            // const container = document.getElementById("entryMidContainer");
-            
-            // container.innerHTML = "";
-
-            // inventory.forEach(item => {
-
-            //     const div = document.createElement("div");
-
-            //     let name = "";
-
-            //     if (item.category === "resource") {
-
-            //         name =
-            //             materials[item.materialGroup].items[item.material].name +
-            //             " " +
-            //             resourceForms[item.materialGroup][item.form].name;
-
-            //     } else {
-
-            //         name =
-            //             materials[item.materialGroup].items[item.material].name +
-            //             " " +
-            //             categories[item.category].forms[item.form].name;
-            //     }
-
-            //     div.className = "inventorySlot";
-
-            //     div.innerHTML = `
-            //         <strong>${name}</strong><br>
-            //         ${item.rarity}<br>
-            //         Anzahl: ${item.amount}
-            //     `;
-
-                
-
-            //     container.appendChild(div);
-
-            // });
+           
 
             const entry = document.getElementById("entryMidContainer");
             entry.innerHTML = '';
