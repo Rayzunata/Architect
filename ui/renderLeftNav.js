@@ -4,6 +4,7 @@ import {renderInventory} from "../ui/renderInventory.js"
 import { renderPlayer } from "./renderPlayer.js";
 import { renderBank } from "./renderBank.js";
 import { renderShop } from "./renderShop.js";
+import { renderWorld } from "./renderWorld.js";
 
 export function renderLeftNav(game){
 
@@ -59,10 +60,25 @@ export function renderLeftNav(game){
             renderShop();
         });
 
+    const world = document.createElement("div");
+    world.className = "button testEintrag";
+    world.style.width = "270px";
+        const worldTitle = document.createElement("div");
+        worldTitle.innerText = "Worlds";
+
+        world.appendChild(worldTitle);
+        world.addEventListener("click", function () {
+            game.ui.currentScreen = "world";
+            renderWorld();
+        });
+
     entry.appendChild(player);
     entry.appendChild(bank);
     entry.appendChild(inventory);
     entry.appendChild(shop);
+
+    //überschrift hinzufügen??
+    entry.appendChild(world);
 
     const skillHeader = document.createElement("h3");
     skillHeader.innerText = "~ Skills ~"
