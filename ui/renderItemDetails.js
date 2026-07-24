@@ -4,9 +4,9 @@ import {materials} from "./../data/registries/economy/items/materials.js";
 import {resourceForms} from "./../data/registries/economy/items/resourceForms.js";
 import {categories} from "./../data/registries/economy/items/categories.js";
 
-export function renderInventory(inventory) {
+export function renderItemDetails(inventory) {
 
-            const container = document.getElementById("entryMidContainer");
+            const container = document.getElementById("entryRightItemdetailsContainer");
             
             container.innerHTML = "";
 
@@ -31,12 +31,35 @@ export function renderInventory(inventory) {
                         categories[item.category].forms[item.form].name;
                 }
 
-                div.className = "inventorySlot";
+                let modsHTML = "";
+
+                if (item.mods) {
+
+                    modsHTML += "<br><b>Mods:</b><br>";
+
+                    for (const slot in item.mods) {
+
+                        modsHTML += `${slot}: `;
+
+                        if (item.mods[slot]) {
+                            modsHTML += item.mods[slot];
+                        } else {
+                            modsHTML += "-";
+                        }
+
+                        modsHTML += "<br>";
+                    }
+
+                }
+
+                div.className = "inventoryItem";
 
                 div.innerHTML = `
                     <strong>${name}</strong><br>
-                    ${item.rarity}<br>
+                    Seltenheit: ${item.rarity}<br>
+                    Qualität: ${item.quality}<br>
                     Anzahl: ${item.amount}
+                    ${modsHTML}
                 `;
 
                 

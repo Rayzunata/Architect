@@ -177,7 +177,7 @@ export const item = {
                         }
                     
                     
-                    renderInventory(inventory); //<-- SPÄTER ENTFERNEN HIER NICHT SINVOLL!!
+                    //renderInventory(inventory); //<-- SPÄTER ENTFERNEN HIER NICHT SINVOLL!!
                 }
 //##################################################################################################
 }

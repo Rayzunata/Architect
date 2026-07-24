@@ -5,14 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style/architect.css">
+    <!-- STYLESHEETS AUFTEILEN-->
 </head>
 <body>
 
     <div class="headContainer" id="headContainer">
         <div class="logoContainer" id="logoContainer"><p>LOGO</p></div>
-        <div class="testelementContainer" id="testelementContainer"><p>TESTEINTRAG</p></div>
+        <div class="testelementContainer" id="testelementContainer"><p>Current (Region/ Activity/ Skill) Info</p></div>
         <div class="settingsContainer" id="settingsContainer">
-            
+            <p>Utils etc.</p>
             <button class="saveButton" id="saveButton" title="speichern"></button>
         </div>
     </div>
@@ -23,6 +24,27 @@
             <div class="entryLeftContainer" id="entryLeftContainer">
 
                 <!-- <div class="testEintrag"><p>testEintrag</p>
+                    
+                </div> -->
+
+                <!-- <div class="testelementContainer">
+                    <p>PlayerDetails (Anzeige) + (render MID)</p>
+                    
+                </div>
+                <div class="testelementContainer">
+                    <p>BANK (render MID)</p>
+                    
+                </div>
+                <div class="testelementContainer">
+                    <p>INVENTORY (render MID)</p>
+                    
+                </div>
+                <div class="testelementContainer">
+                    <p>SHOP (render MID)</p>
+                    
+                </div>
+                <div class="testelementContainer">
+                    <p>SKILLS anzeige + (render MID)</p>
                     
                 </div> -->
 
@@ -53,11 +75,11 @@
                 </div> -->
                    
                 <div class="" id="entryRightItemdetailsContainer">
-                    
+                    <p>ITEMDETAILS</p>
                 </div>
 
                 <div class="entryRightLogContainer" id="entryRightLogContainer">
-                    
+                    <p>LOG</p>
                 </div>
                 
             </div>
@@ -71,22 +93,26 @@
 
     <script type="module">
 
+        import {createGame} from "./data/game/createGame.js";
         import {renderInventory} from "./ui/renderInventory.js";
+        import {renderLeftNav} from "./ui/renderLeftNav.js";
         import {item} from "./systems/items/item.js";
 
-        const inventory = [
-        ];
+        const game = createGame();
+        
+        // const inventory = [
+        // ];
 
         //----------------------------------------------------
         //                  start
         //----------------------------------------------------
-        item.addItemToInventory(item.createItem({
-            category: "resource",
-            materialGroup: "metal",
-            material: "iron",
-            form: "bar",
-            amount: 25
-        }),inventory)
+        // item.addItemToInventory(item.createItem({
+        //     category: "resource",
+        //     materialGroup: "metal",
+        //     material: "iron",
+        //     form: "bar",
+        //     amount: 25
+        // }),game.player.inventory)
 
         // createItem({
         //     category: "tool",
@@ -111,14 +137,17 @@
         //         underbarrel:"flashlight"
         //     }
         // });
-        //createItem();
-        item.addItemToInventory(item.createRandomItem(),inventory);
 
-        renderInventory(inventory);
+        //item.addItemToInventory(item.createRandomItem(),game.player.inventory);
+
+        renderLeftNav(game);
           
         document.getElementById("button1").addEventListener("click", function () {
 
-            item.addItemToInventory(item.createRandomItem(), inventory);
+            item.addItemToInventory(item.createRandomItem(), game.player.inventory);
+            if( game.ui.currentScreen === "inventory"){
+                renderInventory(game.player.inventory)
+            }
         });
 
     </script>

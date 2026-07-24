@@ -35,7 +35,7 @@
         .gameContainer{
             display: grid;
             grid-template-columns: 20% 60% 20%;
-            height: 650px
+            height: 650px;
             
         }
 
@@ -43,6 +43,20 @@
             border: 1px solid rgb(217, 21, 150);
             margin: 5px;
             margin-left: 0px;
+        }
+        .leftNavSkillProgress{
+            margin-top: 5px;
+            margin-bottom: 1px;
+            border: 1px solid #aeafbb;
+            border-radius: 3px;
+            height: 4px;
+        }
+        .leftNavSkillProgressFill{
+            margin: 0px;
+            background-color: green;
+            border-radius: 3px;
+            height: 4px;
+            width: 50%;
         }
 
         .midContainer{
