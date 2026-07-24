@@ -16,7 +16,7 @@ import {prefixes} from "./../../data/registries/economy/items/prefixes.js";
 import {suffixes} from "./../../data/registries/economy/items/suffixes.js";
 import {rarities} from "./../../data/registries/economy/items/rarities.js";
 
-import {renderInventory} from "./../../ui/renderInventory.js";
+import {renderInventory} from "./../../ui/renderInventory.js"; //<-- SPÄTER ENTFERNEN
 
 
 function randomKey(object) {
