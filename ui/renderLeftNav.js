@@ -4,7 +4,7 @@ import {renderInventory} from "../ui/renderInventory.js"
 import { renderPlayer } from "./renderPlayer.js";
 import { renderBank } from "./renderBank.js";
 import { renderShop } from "./renderShop.js";
-import { renderWorld } from "./renderWorld.js";
+import { renderWorldSelection } from "./renderWorldSelection.js";
 
 export function renderLeftNav(game){
 
@@ -69,7 +69,7 @@ export function renderLeftNav(game){
         world.appendChild(worldTitle);
         world.addEventListener("click", function () {
             game.ui.currentScreen = "world";
-            renderWorld();
+            renderWorldSelection();
         });
 
     entry.appendChild(player);

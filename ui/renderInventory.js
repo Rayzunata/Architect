@@ -14,6 +14,9 @@ export function renderInventory(inventory) {
 
             const entry = document.getElementById("entryMidContainer");
             entry.innerHTML = '';
+
+            const inventoryContainer = document.createElement("div");
+            inventoryContainer.className = "inventoryContainer";
             
             for(const inventoryID in inventory){
                 const inventorySlot = document.createElement("div");
@@ -50,25 +53,25 @@ export function renderInventory(inventory) {
                 
 
                 const nameTag = document.createElement("span");
-                nameTag.className = "nameTag";
+                nameTag.className = "inventoryItemNameTag";
                 //nameTag.style.color = types[item.type].color;
                 nameTag.innerHTML = `${prefixes[item.prefix].name} ${itemName} ${suffixes[item.suffix].name} ` ;
                 
                 const rarityTag = document.createElement("span");
-                rarityTag.className = "rarityTag";
+                rarityTag.className = "inventoryItemRarityTag";
                 rarityTag.style.color = rarities[item.rarity].color;
                 rarityTag.innerHTML = `(${item.rarity}) x ${item.amount}`;
 
                 const iconTag = document.createElement("img");
-                iconTag.className = "iconTag";
+                iconTag.className = "inventoryItemIconTag";
                 iconTag.src = icons[materials[item.materialGroup].icon]
                 //console.log(icons[materials[item.materialGroup].icon]);
 
                 const titleDiv = document.createElement("div");
-                titleDiv.className = "titleDiv";
+                titleDiv.className = "inventoryItemNameTagTitleDiv";
 
                 const titleSpan = document.createElement("div");
-                titleSpan.className = "titleSpan";
+                titleSpan.className = "inventoryItemNameTagTitleSpan";
 
                 titleSpan.appendChild(iconTag);
                 titleSpan.appendChild(nameTag);
@@ -80,10 +83,11 @@ export function renderInventory(inventory) {
                 
                 //inventorySlot.appendChild(detailsTag);
 
-                entry.appendChild(inventorySlot);
+                inventoryContainer.appendChild(inventorySlot);
+                
                 
             }
 
-        
+        entry.appendChild(inventoryContainer);
 
         }
