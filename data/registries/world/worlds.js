@@ -26,11 +26,10 @@ export const worlds = {
         description: "Hier ist alles verzaubert - nur der Zauberer nicht",
 
         regions: [
-            // "defaultRegion",
-            // "defaultMountain",
-            // "defaultDesert",
-            // "mainRegion",
-            // "secRegion",
+            "regionRashar",
+            "defaultRegion",
+            "defaultMountain",
+            "defaultDesert",
         ],
 
         factions: [],

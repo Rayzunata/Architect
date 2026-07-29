@@ -75,8 +75,17 @@ export const regions = {
         civilization: null,
         danger: null,
         //Array`s
-        modifiers: [],
-        settlements: ["settlementTigris"],
+        modifiers: [
+            "cold",
+            "highAltitude"
+        ],
+        settlements: [
+            "settlementTigris",
+            "defaultCity",
+            "defaultCity2",
+            "mainCity",
+
+        ],
         locations: ["locationMainforest"],
         npcs: ["npcDefaultNpc","npcDefaultNpc","npcDefaultNpc"],
         enemies: [],
