@@ -4,7 +4,7 @@ import {renderInventory} from "../ui/renderInventory.js"
 import { renderPlayer } from "./renderPlayer.js";
 import { renderBank } from "./renderBank.js";
 import { renderShop } from "./renderShop.js";
-import { renderWorldSelection } from "./renderWorldSelection.js";
+import { renderWorldSelection, renderWorldStructure } from "./renderWorldSelection.js";
 
 export function renderLeftNav(game){
 
@@ -18,7 +18,7 @@ export function renderLeftNav(game){
 //
         player.appendChild(playerTitle);
         player.addEventListener("click", function () {
-            game.ui.currentScreen = "player";
+            game.ui.viewPath.push("player");
             renderPlayer();
         });
 
@@ -30,7 +30,7 @@ export function renderLeftNav(game){
 
         bank.appendChild(bankTitle);
         bank.addEventListener("click", function () {
-            game.ui.currentScreen = "bank";
+            game.ui.viewPath.push("bank");
             renderBank();
         });
 
@@ -42,7 +42,7 @@ export function renderLeftNav(game){
 
         inventory.appendChild(inventoryTitle);
         inventory.addEventListener("click", function () {
-            game.ui.currentScreen = "inventory";
+            game.ui.viewPath.push("inventory");
       
             renderInventory(game.player.inventory);
        
@@ -56,7 +56,7 @@ export function renderLeftNav(game){
 
         shop.appendChild(shopTitle);
         shop.addEventListener("click", function () {
-            game.ui.currentScreen = "shop";
+            game.ui.viewPath.push("shop");
             renderShop();
         });
 
@@ -68,8 +68,10 @@ export function renderLeftNav(game){
 
         world.appendChild(worldTitle);
         world.addEventListener("click", function () {
-            game.ui.currentScreen = "world";
-            renderWorldSelection();
+            
+            
+            renderWorldStructure();
+            renderWorldSelection(game);
         });
 
     entry.appendChild(player);

@@ -10,14 +10,16 @@ const defaultCity = {
     faction: "architekt",
     sicherheit: 100,
     npcs: ["npcDefaultNpc"],
-    modifiers: [],
+    modifiers: ["cold"],
     districts: [
         "districtTradedist"
     ],
     locations: [
         "mainforest"
     ],
-    quests: [],
+    quests: [
+        "testquest",
+    ],
 };
 
 export function createSettlement(data = {}) {

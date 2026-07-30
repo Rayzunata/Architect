@@ -33,7 +33,7 @@ export function createGame(){
         totalTicks: 0,
         playTime: 0,
         deltaTime: 0,
-        lastUpdate: 0
+        lastUpdate: 0,
     },
 
     player: createPlayer(),
@@ -44,37 +44,37 @@ export function createGame(){
         biome: "",
         region: "",
         enemies: [],
-        structures: []
+        structures: [],
     },
 
     crafting: {
 
         unlockedRecipes: [],
-        queue: []
+        queue: [],
     },
 
     production: {
 
         workers: [],
         machines: [],
-        automation: {}
+        automation: {},
     },
 
     quests: {
 
         active: [],
-        completed: []
+        completed: [],
     },
 
     research: {
 
         unlocked: [],
-        progress: {}
+        progress: {},
     },
 
     achievements: {
 
-        unlocked: []
+        unlocked: [],
     },
 
     settings: {
@@ -94,7 +94,9 @@ export function createGame(){
 
     ui: {
 
-        currentScreen: "player",
+        currentScreen: "player", //DURCH viewPath NICHT MEHR NOTWENDIG
+
+        viewPath: [], //DIENT DEM AUFBAU DES MOMENTANEN UI PFADES
 
         dirty: {
             

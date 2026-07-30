@@ -4,6 +4,7 @@ const defaultDistrict = {
     name: "Defaultdiestrict",
     description: "Der erste aller Distrikte",
     image: null,
+    icon: "img/icons/iconTrade.svg",
     modifiers: [
 
     ],

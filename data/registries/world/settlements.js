@@ -14,7 +14,7 @@ export const settlements = {
         faction: "architekt",
         sicherheit: 100,
         npcs:[
-
+            "npcDefaultNpc",
         ],
         modifiers:[
 

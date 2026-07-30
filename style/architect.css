@@ -45,6 +45,10 @@
             margin: 5px;
             margin-left: 0px;
         }
+        .entryLeftContainer{
+            height: 630px;
+            overflow-y: auto;
+        }
         .leftNavSkillProgress{
             margin-top: 5px;
             margin-bottom: 1px;

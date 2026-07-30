@@ -1,13 +1,15 @@
+
+/* ######################################### WORLD CONTAINER ##################################################*/
 .worldContainer{
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 5px;
 }
 
 .worldListContainer{
     border: 1px solid rgb(217, 21, 150);
-    display: grid;
-    grid-template-columns: 1fr;
+    /* display: grid;
+    grid-template-columns: 1fr; */
 }
 
 .worldListContainer details{
@@ -19,9 +21,21 @@
     font-size:large;
 }
 
-.worldDetailsContainer{
+/* ######################################### REGION CONTAINER ##################################################*/
+.worldRegionContainer{
     border: 1px solid rgb(217, 21, 150);
 }
+
+.worldRegionDetailsContainer{
+    border: 1px solid rgb(217, 21, 150);
+}
+
+.worldDetailsContainer{
+    border: 1px solid rgb(217, 21, 150);
+    height: 640px;
+    overflow-y: auto;
+}
+
 
 .regionEntry{
     border: 1px solid rgb(217, 21, 150);
@@ -40,7 +54,7 @@
 
 .regionDetails{
     margin: 5px;
-    margin-left: 10px;
+    margin-left: 5px;
     border: 1px solid aliceblue;
     border-left: 5px solid aliceblue;
     background-color: #220a2b;
@@ -119,4 +133,57 @@
     border-bottom: 1px solid white;
     border-radius: 5px;
     padding: 5px;
+}
+/* ######################################### SETTLEMENT CONTAINER ##################################################*/
+
+.settlementDetails{
+    background-color: #220a2b;
+    border: 1px solid aliceblue;
+    border-left: 5px solid aliceblue;
+    border-radius: 5px;
+    margin: 5px;
+    margin-left: 5px;
+}
+
+.settlementnName{
+    font-size: large;
+    margin: 5px;
+}
+.settlementDetailsIcon{
+    margin-right: 5px;
+}
+
+.settlementDetails h4{
+    margin: 5px;
+    margin-left: 5px;
+    border-bottom: 1px solid rgb(217, 21, 150);
+}
+.settlementDetails p{
+    margin: 0px;
+    margin-left: 5px;
+}
+.settlementDetails .npcEntry{
+    margin-left: 0px;
+}
+.settlementDetails .modifierEntry{
+    margin-left: 10px;
+}
+.settlementDetails .districtEntry{
+    margin-left: 10px;
+}
+
+/* #################################################### NPC #################################### */
+
+.npcRow{
+    display: flex;
+  align-items: anchor-center;
+}
+.settlementNpcIcon{
+    width: 25px;
+  height: 25px;
+}
+
+/* #################################################### DISTRICT #################################### */
+.districtRow{
+    margin-left: 5px;
 }
