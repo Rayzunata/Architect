@@ -2,7 +2,7 @@ const defaultCity = {
     id: "defaultcity",
     name: "Defaultcity",
     description: "Die Stadt des Architekten, um die Welt zu testen",
-
+    icon: "./img/icons/iconCity.svg",
     type: "metro",
     population: 1,
     img: "TESTIMG.png",

@@ -86,7 +86,12 @@ export const regions = {
             "mainCity",
 
         ],
-        locations: ["locationMainforest"],
+        locations: [
+            "locationMainforest",
+            "locationDefaultLocation",
+            "locationSmith",
+            "locationGeneralstore",
+        ],
         npcs: ["npcDefaultNpc","npcDefaultNpc","npcDefaultNpc"],
         enemies: [],
         quests: []

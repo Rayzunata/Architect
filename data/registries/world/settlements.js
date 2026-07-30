@@ -3,7 +3,7 @@ import { createSettlement } from "../../factories/world/settlementsFactory.js"
 
 export const settlements = {
     defaultCity2:createSettlement({name:"def2"}),
-    defaultCity: {
+    defaultCity: createSettlement({
         id: "defaultcity",
         name: "Defaultcity",
         description: "Die stadt des Architekten um die Welt zu testen",
@@ -27,8 +27,8 @@ export const settlements = {
         locations:[
             "locationMainforest"
         ]
-    },
-    mainCity: {
+    },),
+    mainCity: createSettlement({
         id: "mainCity",
         name: "Maincity",
         description: "Die stadt des Architekten - MainCity",
@@ -51,8 +51,8 @@ export const settlements = {
             "locationMainforest"
 
         ]
-    },
-    testCity: {
+    },),
+    testCity: createSettlement({
         id: "testCity",
         name: "Testcity",
         description: "Die stadt des Architekten - MainCity",
@@ -74,7 +74,7 @@ export const settlements = {
         locations:[
             "locationMainforest"
         ]
-    },
+    },),
 
     settlementTigris: createSettlement({
         id: "settlementTigris",

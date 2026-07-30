@@ -68,8 +68,18 @@ export function renderRegionDetails(world, region){
     worldDetailsContainer.innerHTML = ``;
 
     const regionName = document.createElement("div");
-    regionName.textContent = region.name;
     regionName.className = "regionName";
+
+    const regionIcon = document.createElement("img");
+    regionIcon.src = region.icon;
+    regionIcon.alt = region.name;
+    regionIcon.className = "regionIcon";
+
+    const regionTitle = document.createElement("span");
+    regionTitle.textContent = region.name;
+
+    regionName.appendChild(regionIcon);
+    regionName.appendChild(regionTitle);
 
     const regionDetails = document.createElement("div");
         regionDetails.className = "regionDetails";
@@ -120,16 +130,29 @@ export function renderRegionDetails(world, region){
 
         const settlement = settlementRegistry[settlementID];
 
-        const settlementEntry = document.createElement("p");
-        settlementEntry.textContent = settlement.name;
+        const settlementEntry = document.createElement("div");
         settlementEntry.className = "settlementEntry";
 
+        const settlementIcon = document.createElement("img");
+        settlementIcon.src = settlement.icon;
+        settlementIcon.className = "settlementIcon";
+        settlementIcon.alt = settlement.name;
+        settlementIcon.className = "settlementIcon";
+
+        const settlementName = document.createElement("span");
+        settlementName.textContent = settlement.name;
+        settlementName.className = "settlementName";
+
+        settlementEntry.appendChild(settlementIcon);
+        settlementEntry.appendChild(settlementName);
+
         settlementEntry.addEventListener("click", () => {
-                    console.log(settlement);
-                });
+            console.log(settlement);
+        });
 
         regionDetailsSettlements.appendChild(settlementEntry);
     }
+
 
 regionDetails.appendChild(regionDetailsSettlements);
 
@@ -147,20 +170,32 @@ regionDetailsLocations.appendChild(locationTitle);
 
         const location = locationRegistry[locationID];
 
-        const locationEntry = document.createElement("p");
-        locationEntry.textContent = location.name;
+        const locationEntry = document.createElement("div");
         locationEntry.className = "locationEntry";
 
+        const locationIcon = document.createElement("img");
+        locationIcon.src = location.icon;
+        locationIcon.className = "locationIcon";
+        locationIcon.alt = location.name;
+        locationIcon.className = "locationIcon";
+
+        const locationName = document.createElement("span");
+        locationName.textContent = location.name;
+        locationName.className = "locationName";
+
+        locationEntry.appendChild(locationIcon);
+        locationEntry.appendChild(locationName);
+
         locationEntry.addEventListener("click", () => {
-                    console.log(location);
-                });
+            console.log(location);
+        });
 
         regionDetailsLocations.appendChild(locationEntry);
     }
 
 regionDetails.appendChild(regionDetailsLocations);
 
-    worldDetailsContainer.appendChild(regionName);
-    worldDetailsContainer.appendChild(regionDetails);
+worldDetailsContainer.appendChild(regionName);
+worldDetailsContainer.appendChild(regionDetails);
 
 }

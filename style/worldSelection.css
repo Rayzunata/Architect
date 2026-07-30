@@ -34,14 +34,16 @@
     font-size: large;
     margin: 5px;
 }
+.regionIcon{
+    margin-right: 5px;
+}
 
 .regionDetails{
     margin: 5px;
-    margin-left: 5px;
-    margin-left: 5px;
     margin-left: 10px;
     border: 1px solid aliceblue;
     border-left: 5px solid aliceblue;
+    background-color: #220a2b;
     border-radius: 5px;
     padding: 5px;
     
@@ -60,14 +62,26 @@
 }
 
 .regionDetailsSettlements{
+    margin: 5px;
     margin-left: 0px;
+    border: 1px solid aliceblue;
+    border-left: 5px solid aliceblue;
+    border-radius: 5px;
    
 }
 .regionDetailsSettlements .settlementEntry{
-    margin-left: 10px;
-     border: 1px solid rgb(217, 21, 150);
-     cursor: pointer;
+    margin: 5px;
+    margin-left: 5px;
+  border: 1px solid rgb(217, 21, 150);
+  cursor: pointer;
+  border-left: 6px solid rgb(217, 21, 150);
+  border-radius: 5px;
     
+}
+
+.settlementEntry:hover{
+    border-left: 7px solid rgb(245, 135, 207);
+    background: #3b103f;
 }
 .regionDetailsSettlements h4{
     border-bottom: 1px solid rgb(217, 21, 150);
@@ -75,13 +89,34 @@
 }
 
 .regionDetailsLocations{
+    margin: 5px;
     margin-left: 0px;
+    border: 1px solid aliceblue;
+    border-left: 5px solid aliceblue;
+    border-radius: 5px;
     
 }
 
 .regionDetailsLocations .locationEntry{
-    margin-left: 10px;
-    border: 1px solid rgb(217, 21, 150);
-     cursor: pointer;
+    margin: 5px;
+    margin-left: 5px;
+  border: 1px solid rgb(217, 21, 150);
+  cursor: pointer;
+  border-left: 6px solid rgb(217, 21, 150);
+  border-radius: 5px;
     
+}
+
+.locationEntry:hover{
+    border-left: 7px solid rgb(245, 135, 207);
+    background: #3b103f;
+}
+
+.settlementIcon ,.locationIcon{
+    margin: 5px;
+    margin-bottom: 0px;
+    border-right: 1px solid white;
+    border-bottom: 1px solid white;
+    border-radius: 5px;
+    padding: 5px;
 }

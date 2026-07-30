@@ -8,6 +8,7 @@ const locationDefault = {
     enemies: [],
     quests: [],
     resources:{},
+    icon: "./img/icons/iconLocation.svg",
     img : "/img/missing_artwork.png",
     modifiers: [],
 };

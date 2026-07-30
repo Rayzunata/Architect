@@ -32,6 +32,7 @@ const defaults = {
     id: "regionDefault",
     name: "Defaultregion",
     img:"/img/missing_artwork.png",
+    icon: "./img/icons/iconRegion.svg",
     unlockLevel: 1,
     description: "Der Ursprung aller Regionen",
     biome: "biomDefault",
