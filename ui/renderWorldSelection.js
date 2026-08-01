@@ -32,9 +32,15 @@ export function renderWorldStructure(){
     worldRegionDetailsContainer.id = "worldRegionDetailsContainer";
     worldRegionDetailsContainer.textContent = "test";
 
+    const worldRegionDistrictContainer = document.createElement("div");
+    worldRegionDistrictContainer.className = "worldRegionDistrictContainer";
+    worldRegionDistrictContainer.id = "worldRegionDistrictContainer";
+    worldRegionDistrictContainer.textContent = "test";
+
     worldContainer.appendChild(worldListContainer);
     worldContainer.appendChild(worldRegionContainer);
     worldContainer.appendChild(worldRegionDetailsContainer);
+    worldContainer.appendChild(worldRegionDistrictContainer);
 
     entry.appendChild(worldContainer);
 }
@@ -287,8 +293,6 @@ export function renderSettlementDetails(game, world, region, settlement){
     const settlementNpcs = document.createElement("div");
     settlementNpcs.className = "settlementNpcs";
 
-    
-
     const npcsTitle = document.createElement("h4");
     npcsTitle.textContent = "NPC´s";
 
@@ -296,25 +300,25 @@ export function renderSettlementDetails(game, world, region, settlement){
 
         for (const npcID of settlement.npcs) {
 
-    const npc = npcRegistry[npcID];
+            const npc = npcRegistry[npcID];
 
-    const npcRow = document.createElement("div");
-    npcRow.className = "npcRow";
+            const npcRow = document.createElement("div");
+            npcRow.className = "npcRow";
 
-    const settlementNpcIcon = document.createElement("img");
-    settlementNpcIcon.src = npc.icon;
-    settlementNpcIcon.alt = npc.name;
-    settlementNpcIcon.className = "settlementNpcIcon";
+            const settlementNpcIcon = document.createElement("img");
+            settlementNpcIcon.src = npc.icon;
+            settlementNpcIcon.alt = npc.name;
+            settlementNpcIcon.className = "settlementNpcIcon";
 
-    const npcEntry = document.createElement("span");
-    npcEntry.textContent = npc.name;
-    npcEntry.className = "npcEntry";
+            const npcEntry = document.createElement("span");
+            npcEntry.textContent = npc.name;
+            npcEntry.className = "npcEntry";
 
-    npcRow.appendChild(settlementNpcIcon);
-    npcRow.appendChild(npcEntry);
+            npcRow.appendChild(settlementNpcIcon);
+            npcRow.appendChild(npcEntry);
 
-    settlementNpcs.appendChild(npcRow);
-}
+            settlementNpcs.appendChild(npcRow);
+        }
 
 settlementDetails.appendChild(settlementNpcs);
 
@@ -368,7 +372,18 @@ for (const districtID of settlement.districts) {
     districtRow.appendChild(districtIcon);
     districtRow.appendChild(districtEntry);
 
+    districtRow.addEventListener("click", () => {
+
+            // game.ui.viewPath.splice(2);
+            // game.ui.viewPath.push(settlement.id);
+            // getCurrentViewPath(game);
+
+            renderDistrictDetails(game, world, region, settlement, district);
+
+        });
+
     settlementDistricts.appendChild(districtRow);
+
 }
 
 settlementDetails.appendChild(settlementDistricts);
@@ -441,5 +456,75 @@ export function renderLocationDetails(game, world, region, location){
     
 
     entry.appendChild(locationDetails);
+
+}
+
+export function renderDistrictDetails(game, world, region, settlement, district){
+
+    const entry = document.getElementById("worldRegionDistrictContainer");
+    entry.innerHTML = ``;
+    
+    const districtName = document.createElement("div");
+    districtName.className = "districtName";
+
+    const districtIcon = document.createElement("img");
+    districtIcon.src = district.icon;
+    districtIcon.alt = district.name;
+    districtIcon.className = "districtIcon";
+
+    const districtTitle = document.createElement("span");
+    districtTitle.textContent = district.name;
+
+    districtName.appendChild(districtIcon);
+    districtName.appendChild(districtTitle);
+
+
+    // const settlementDetails = document.createElement("div");
+    // settlementDetails.className = "settlementDetails";
+    // settlementDetails.innerHTML = `
+    //     <p>id: ${settlement.id}</p>
+    //     <p>description: ${settlement.description}</p>
+        
+    //     <p>type: ${settlement.type}</p>
+    //     <p>population: ${settlement.population}</p>
+        
+    //     <p>wealth: ${settlement.wealth}</p>
+    //     <p>faction: ${settlement.faction}</p>
+    //     <p>sicherheit: ${settlement.sicherheit}</p>
+    
+    // `;const entry = document.getElementById("worldRegionDetailsContainer");
+    // entry.innerHTML = ``;
+    
+    // const settlementnName = document.createElement("div");
+    // settlementnName.className = "settlementnName";
+
+    // const settlementIcon = document.createElement("img");
+    // settlementIcon.src = settlement.icon;
+    // settlementIcon.alt = settlement.name;
+    // settlementIcon.className = "settlementDetailsIcon";
+
+    // const settlementTitle = document.createElement("span");
+    // settlementTitle.textContent = settlement.name;
+
+    // settlementnName.appendChild(settlementIcon);
+    // settlementnName.appendChild(settlementTitle);
+
+
+    // const settlementDetails = document.createElement("div");
+    // settlementDetails.className = "settlementDetails";
+    // settlementDetails.innerHTML = `
+    //     <p>id: ${settlement.id}</p>
+    //     <p>description: ${settlement.description}</p>
+        
+    //     <p>type: ${settlement.type}</p>
+    //     <p>population: ${settlement.population}</p>
+        
+    //     <p>wealth: ${settlement.wealth}</p>
+    //     <p>faction: ${settlement.faction}</p>
+    //     <p>sicherheit: ${settlement.sicherheit}</p>
+    
+    // `;
+    
+    entry.appendChild(districtName);
 
 }
