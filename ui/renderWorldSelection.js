@@ -8,34 +8,46 @@ import { npcs as npcRegistry  } from "../data/registries/characters/npcs.js";
 import { getCurrentViewPath } from "../systems/getCurrentViewPath.js";
 
 
-export function renderWorldStructure(){
+function element(tag, { className, text, html, attrs = {} } = {}, children = []) {
+  const e = document.createElement(tag);
+  if (className) e.className = className;
+  if (text !== undefined) e.textContent = text;
+  if (html !== undefined) e.innerHTML = html;
+  for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v);
+  for (const child of children) if (child) e.appendChild(child);
+  return e;
+}
 
-    const entry = document.getElementById("entryMidContainer");
-    entry.innerHTML = ``;
+function makePane(id, className, placeholder = '') {
+  const node = element('div', { className, attrs: { id } });
+  if (placeholder) node.textContent = placeholder;
+  return node;
+}
 
-    const worldContainer = document.createElement("div");
-    worldContainer.className = "worldContainer";
-    worldContainer.id = "worldContainer";
+function getFromRegistry(registry, id) {
+  const item = registry?.[id];
+  if (!item) console.warn(`Missing registry item: ${id}`);
+  return item || null;
+}
 
-    const worldListContainer = document.createElement("div");
-    worldListContainer.className = "worldListContainer";
-    worldListContainer.id = "worldListContainer";
-    worldListContainer.textContent = "test";
+function setViewPath(game, ids = []) {
+  game.ui.viewPath.length = 0;
+  for (const id of ids) game.ui.viewPath.push(id);
 
-    const worldRegionContainer = document.createElement("div");
-    worldRegionContainer.className = "worldRegionContainer";
-    worldRegionContainer.id = "worldRegionContainer";
-    worldRegionContainer.textContent = "test";
+  getCurrentViewPath(game);
+}
 
-    const worldRegionDetailsContainer = document.createElement("div");
-    worldRegionDetailsContainer.className = "worldRegionDetailsContainer";
-    worldRegionDetailsContainer.id = "worldRegionDetailsContainer";
-    worldRegionDetailsContainer.textContent = "test";
+export function renderWorldStructure() {
+    const entry = document.getElementById('entryMidContainer');
+    if (!entry) return;
+    entry.textContent = '';
 
-    const worldRegionDistrictContainer = document.createElement("div");
-    worldRegionDistrictContainer.className = "worldRegionDistrictContainer";
-    worldRegionDistrictContainer.id = "worldRegionDistrictContainer";
-    worldRegionDistrictContainer.textContent = "test";
+    const worldContainer = element('div', { className: 'worldContainer', attrs: { id: 'worldContainer' } });
+
+    const worldListContainer = makePane('worldListContainer', 'worldListContainer', 'test');
+    const worldRegionContainer = makePane('worldRegionContainer', 'worldRegionContainer', 'test');
+    const worldRegionDetailsContainer = makePane('worldRegionDetailsContainer', 'worldRegionDetailsContainer', 'test');
+    const worldRegionDistrictContainer = makePane('worldRegionDistrictContainer', 'worldRegionDistrictContainer', 'test');
 
     worldContainer.appendChild(worldListContainer);
     worldContainer.appendChild(worldRegionContainer);
@@ -45,400 +57,351 @@ export function renderWorldStructure(){
     entry.appendChild(worldContainer);
 }
 
-export function renderWorldSelection(game){
+export function renderWorldSelection(game) {
+  const worldListContainer = document.getElementById('worldListContainer');
+  if (!worldListContainer) return;
 
-    const worldListContainer = document.getElementById("worldListContainer");
+  worldListContainer.textContent = '';
 
-    worldListContainer.innerHTML = ``;
+  const frag = document.createDocumentFragment();
 
-    for (const worldID in worldRegistry) {
+  for (const world of Object.values(worldRegistry)) {
 
-        const world = worldRegistry[worldID];
+    const details = element('details');
+    const summary = element('summary', { text: world.name });
+    details.appendChild(summary);
 
-        const details = document.createElement("details");
-
-        const summary = document.createElement("summary");
-        summary.textContent = world.name;
-
-        const worldOverview = document.createElement("div");
-        worldOverview.innerHTML = `
-            <p>${world.description}</p>
-        `;
-
-        details.appendChild(summary);
-        details.appendChild(worldOverview);
-
-        for (const regionID of world.regions) {
-
-            const region = regionRegistry[regionID];
-
-            const regionEntry = document.createElement("div");
-            regionEntry.textContent = region.name;
-            regionEntry.className = "regionEntry";
-
-            regionEntry.addEventListener("click", () => {
-
-                game.ui.viewPath.length = 0;
-
-                game.ui.viewPath.push(world.id);
-                game.ui.viewPath.push(region.id);
-
-                getCurrentViewPath(game);
-
-                renderRegionDetails(game, world, region);
-            });
-
-            details.appendChild(regionEntry);
-        }
-
-        worldListContainer.appendChild(details);
+    // overview using safe DOM (avoid innerHTML)
+    const worldOverview = element('div', { className: 'worldOverview' });
+    if (world.description) {
+      worldOverview.appendChild(element('p', { text: world.description }));
     }
+    details.appendChild(worldOverview);
+
+    // region list (build sub-fragment)
+    const regionsFrag = document.createDocumentFragment();
+    const regionsContainer = element('div', { className: 'worldRegionsContainer' });
+
+    // ensure world.regions is iterable
+    const regionIDs = Array.isArray(world.regions) ? world.regions : [];
+    for (const regionID of regionIDs) {
+      const region = getFromRegistry(regionRegistry, regionID);
+      if (!region) continue;
+
+      const regionEntry = element('div', { className: 'regionEntry', text: region.name });
+
+      // click handler: centralize viewPath changes
+      regionEntry.addEventListener('click', () => {
+        setViewPath(game, [world.id, region.id]);
+        
+        renderRegionDetails(game, world, region);
+      });
+
+      regionsFrag.appendChild(regionEntry);
+    }
+
+    regionsContainer.appendChild(regionsFrag);
+    details.appendChild(regionsContainer);
+
+    frag.appendChild(details);
+  }
+
+  worldListContainer.appendChild(frag);
 }
 
-//###########################################################################################################
+export function renderRegionDetails(game, world, region) {
+    const worldRegionContainer = document.getElementById('worldRegionContainer');
+    if (!worldRegionContainer) return;
+    worldRegionContainer.textContent = '';
 
-export function renderRegionDetails(game, world, region){
+    // Header: icon + title
+    const header = element('div', { className: 'regionName' }, [
+        element('img', { attrs: { src: region?.icon || '', alt: region?.name || '' }, className: 'regionIcon' }),
+        element('span', { text: region?.name || '' })
+    ]);
 
-    const worldRegionContainer = document.getElementById("worldRegionContainer");
-    worldRegionContainer.innerHTML = "";
-
-    const regionName = document.createElement("div");
-    regionName.className = "regionName";
-
-    const regionIcon = document.createElement("img");
-    regionIcon.src = region.icon;
-    regionIcon.alt = region.name;
-    regionIcon.className = "regionIcon";
-
-    const regionTitle = document.createElement("span");
-    regionTitle.textContent = region.name;
-
-    regionName.appendChild(regionIcon);
-    regionName.appendChild(regionTitle);
-
-
-    const regionDetails = document.createElement("div");
-    regionDetails.className = "regionDetails";
-
-    regionDetails.innerHTML = `
-        <p>id: ${region.id}</p>
-        <p>description: ${region.description}</p>
-        <p>biome: ${region.biome}</p>
-        <p>climate: ${region.climate}</p>
-        <p>size: ${region.size}</p>
-        <p>difficulty: ${region.difficulty}</p>
-        <p>wealth: ${region.wealth}</p>
-        <p>civilization: ${region.civilization}</p>
-        <p>danger: ${region.danger}</p>
-    `;
-
-    // ===== Modifier =====
-
-    const regionDetailsModifiers = document.createElement("div");
-    regionDetailsModifiers.className = "regionDetailsModifiers";
-
-    const modifierTitle = document.createElement("h4");
-    modifierTitle.textContent = "Modifier";
-
-    regionDetailsModifiers.appendChild(modifierTitle);
-
-    for (const modifier of region.modifiers) {
-
-        const modifierEntry = document.createElement("p");
-        modifierEntry.textContent = modifier;
-        modifierEntry.className = "modifierEntry";
-
-        regionDetailsModifiers.appendChild(modifierEntry);
+    // Info list
+    const regionDetails = element('div', { className: 'regionDetails' });
+    const infoPairs = [
+        ['id', region?.id],
+        ['description', region?.description],
+        ['biome', region?.biome],
+        ['climate', region?.climate],
+        ['size', region?.size],
+        ['difficulty', region?.difficulty],
+        ['wealth', region?.wealth],
+        ['civilization', region?.civilization],
+        ['danger', region?.danger]
+    ];
+    for (const [label, value] of infoPairs) {
+        regionDetails.appendChild(element('p', { text: `${label}: ${value !== undefined && value !== null ? value : ''}` }));
     }
 
-    regionDetails.appendChild(regionDetailsModifiers);
+    // Modifiers
+    const modifiersBox = element('div', { className: 'regionDetailsModifiers' }, [
+        element('h4', { text: 'Modifiers' })
+    ]);
+    if (Array.isArray(region?.modifiers) && region.modifiers.length) {
+        for (const mod of region.modifiers) {
+            modifiersBox.appendChild(element('p', { text: mod, className: 'modifierEntry' }));
+        }
+    } else {
+        modifiersBox.appendChild(element('p', { text: '—', className: 'modifierEmpty' }));
+    }
+    regionDetails.appendChild(modifiersBox);
 
-    // ===== Siedlungen =====
+    // Settlements
+    const settlementsBox = element('div', { className: 'regionDetailsSettlements' }, [
+        element('h4', { text: 'Settlements' })
+    ]);
 
-    const regionDetailsSettlements = document.createElement("div");
-    regionDetailsSettlements.className = "regionDetailsSettlements";
+    if (Array.isArray(region?.settlements) && region.settlements.length) {
+        const sFrag = document.createDocumentFragment();
+        for (const settlementID of region.settlements) {
+        const settlement = getFromRegistry(settlementRegistry, settlementID);
+        if (!settlement) continue;
 
-    const settlementTitle = document.createElement("h4");
-    settlementTitle.textContent = "Settlements";
+        const row = element('div', { className: 'settlementEntry' });
+        row.appendChild(element('img', { attrs: { src: settlement.icon || '', alt: settlement.name || '' }, className: 'settlementIcon' }));
+        row.appendChild(element('span', { text: settlement.name, className: 'settlementName' }));
 
-    regionDetailsSettlements.appendChild(settlementTitle);
-
-
-    for (const settlementID of region.settlements) {
-
-        const settlement = settlementRegistry[settlementID];
-
-        const settlementEntry = document.createElement("div");
-        settlementEntry.className = "settlementEntry";
-
-        const settlementIcon = document.createElement("img");
-        settlementIcon.src = settlement.icon;
-        settlementIcon.alt = settlement.name;
-        settlementIcon.className = "settlementIcon";
-
-        const settlementName = document.createElement("span");
-        settlementName.textContent = settlement.name;
-        settlementName.className = "settlementName";
-
-        settlementEntry.appendChild(settlementIcon);
-        settlementEntry.appendChild(settlementName);
-
-        settlementEntry.addEventListener("click", () => {
-
-            game.ui.viewPath.splice(2);
-            game.ui.viewPath.push(settlement.id);
-            getCurrentViewPath(game);
-
-            renderSettlementDetails(game,world,region,settlement);
-
+        row.addEventListener('click', () => {
+            setViewPath(game, [world.id, region.id, settlement.id]);
+            renderSettlementDetails(game, world, region, settlement);
         });
 
-        regionDetailsSettlements.appendChild(settlementEntry);
+        sFrag.appendChild(row);
+        }
+        settlementsBox.appendChild(sFrag);
+    } else {
+        settlementsBox.appendChild(element('p', { text: 'No settlements.' }));
     }
+    regionDetails.appendChild(settlementsBox);
 
-    regionDetails.appendChild(regionDetailsSettlements);
+    // Locations
+    const locationsBox = element('div', { className: 'regionDetailsLocations' }, [
+        element('h4', { text: 'Locations' })
+    ]);
+    if (Array.isArray(region?.locations) && region.locations.length) {
+        const lFrag = document.createDocumentFragment();
+        for (const locationID of region.locations) {
+        const location = getFromRegistry(locationRegistry, locationID);
+        if (!location) continue;
 
-    // ===== Locations =====
+        const row = element('div', { className: 'locationEntry' });
+        row.appendChild(element('img', { attrs: { src: location.icon || '', alt: location.name || '' }, className: 'locationIcon' }));
+        row.appendChild(element('span', { text: location.name, className: 'locationName' }));
 
-    const regionDetailsLocations = document.createElement("div");
-    regionDetailsLocations.className = "regionDetailsLocations";
-
-    const locationTitle = document.createElement("h4");
-    locationTitle.textContent = "Locations";
-
-    regionDetailsLocations.appendChild(locationTitle);
-
-    for (const locationID of region.locations) {
-
-        const location = locationRegistry[locationID];
-
-        const locationEntry = document.createElement("div");
-        locationEntry.className = "locationEntry";
-
-        const locationIcon = document.createElement("img");
-        locationIcon.src = location.icon;
-        locationIcon.alt = location.name;
-        locationIcon.className = "locationIcon";
-
-        const locationName = document.createElement("span");
-        locationName.textContent = location.name;
-        locationName.className = "locationName";
-
-        locationEntry.appendChild(locationIcon);
-        locationEntry.appendChild(locationName);
-
-        locationEntry.addEventListener("click", () => {
-
-            game.ui.viewPath.splice(2);
-            game.ui.viewPath.push(location.id);
-            getCurrentViewPath(game);
-
-            renderLocationDetails(game,world,region,location);
-
+        row.addEventListener('click', () => {
+            setViewPath(game, [world.id, region.id, location.id]);
+            renderLocationDetails(game, world, region, location);
         });
 
-        regionDetailsLocations.appendChild(locationEntry);
+        lFrag.appendChild(row);
+        }
+        locationsBox.appendChild(lFrag);
+    } else {
+        locationsBox.appendChild(element('p', { text: 'No locations.' }));
     }
+    regionDetails.appendChild(locationsBox);
 
-    regionDetails.appendChild(regionDetailsLocations);
-
-    // Einfügen in mittleren Container
-
-    worldRegionContainer.appendChild(regionName);
+    // Append to container
+    worldRegionContainer.appendChild(header);
     worldRegionContainer.appendChild(regionDetails);
 
-    const worldRegionDetailsContainer = document.getElementById(
-        "worldRegionDetailsContainer"
-    );
-
-    worldRegionDetailsContainer.innerHTML = "";
-
+    // Clear the details panel to avoid stale content
+    const worldRegionDetailsContainer = document.getElementById('worldRegionDetailsContainer');
+    if (worldRegionDetailsContainer) worldRegionDetailsContainer.textContent = '';
 }
 
-export function renderSettlementDetails(game, world, region, settlement){
-    const entry = document.getElementById("worldRegionDetailsContainer");
-    entry.innerHTML = ``;
-    
-    const settlementnName = document.createElement("div");
-    settlementnName.className = "settlementnName";
+export function renderSettlementDetails(game, world, region, settlement) {
+    const entry = document.getElementById('worldRegionDetailsContainer');
+    if (!entry) return;
+    entry.textContent = '';
 
-    const settlementIcon = document.createElement("img");
-    settlementIcon.src = settlement.icon;
-    settlementIcon.alt = settlement.name;
-    settlementIcon.className = "settlementDetailsIcon";
+    // Header: icon + name
+    const header = element('div', { className: 'settlementName' }, [
+        element('img', { className: 'settlementDetailsIcon', attrs: { src: settlement?.icon || '', alt: settlement?.name || '' } }),
+        element('span', { text: settlement?.name || '' })
+    ]);
 
-    const settlementTitle = document.createElement("span");
-    settlementTitle.textContent = settlement.name;
+    // Details
+    const details = element('div', { className: 'settlementDetails' });
+    const infoPairs = [
+        ['id', settlement?.id],
+        ['description', settlement?.description],
+        ['type', settlement?.type],
+        ['population', settlement?.population],
+        ['wealth', settlement?.wealth],
+        ['faction', settlement?.faction],
+        ['sicherheit', settlement?.sicherheit]
+    ];
+    for (const [label, value] of infoPairs) {
+        details.appendChild(element('p', { text: `${label}: ${value !== undefined && value !== null ? value : ''}` }));
+    }
 
-    settlementnName.appendChild(settlementIcon);
-    settlementnName.appendChild(settlementTitle);
+    // NPCs
+    const settlementNpcs = element('div', { className: 'settlementNpcs' }, [element('h4', { text: "NPCs" })]);
+    if (Array.isArray(settlement?.npcs) && settlement.npcs.length) {
+        const nFrag = document.createDocumentFragment();
 
+            for (const npcID of settlement.npcs) {
+                const npc = getFromRegistry(npcRegistry, npcID);
+                if (!npc) continue;
+                const npcRow = element('div', { className: 'npcRow' }, [
+                    element('img', { className: 'settlementNpcIcon', attrs: { src: npc.icon || '', alt: npc.name || '' } }),
+                    element('span', { text: npc.name, className: 'npcEntry' })
+                ]);
+                // attach click if you plan to show NPC details in the future
+                nFrag.appendChild(npcRow);
+            }
 
-    const settlementDetails = document.createElement("div");
-    settlementDetails.className = "settlementDetails";
-    settlementDetails.innerHTML = `
-        <p>id: ${settlement.id}</p>
-        <p>description: ${settlement.description}</p>
-        
-        <p>type: ${settlement.type}</p>
-        <p>population: ${settlement.population}</p>
-        
-        <p>wealth: ${settlement.wealth}</p>
-        <p>faction: ${settlement.faction}</p>
-        <p>sicherheit: ${settlement.sicherheit}</p>
-    
-    `;
+        settlementNpcs.appendChild(nFrag);
+    } else {
+        settlementNpcs.appendChild(element('p', { text: 'No NPCs.' }));
+    }
+    details.appendChild(settlementNpcs);
 
-    //NPC´s SETTLEMENT
-    const settlementNpcs = document.createElement("div");
-    settlementNpcs.className = "settlementNpcs";
-
-    const npcsTitle = document.createElement("h4");
-    npcsTitle.textContent = "NPC´s";
-
-    settlementNpcs.appendChild(npcsTitle);
-
-        for (const npcID of settlement.npcs) {
-
-            const npc = npcRegistry[npcID];
-
-            const npcRow = document.createElement("div");
-            npcRow.className = "npcRow";
-
-            const settlementNpcIcon = document.createElement("img");
-            settlementNpcIcon.src = npc.icon;
-            settlementNpcIcon.alt = npc.name;
-            settlementNpcIcon.className = "settlementNpcIcon";
-
-            const npcEntry = document.createElement("span");
-            npcEntry.textContent = npc.name;
-            npcEntry.className = "npcEntry";
-
-            npcRow.appendChild(settlementNpcIcon);
-            npcRow.appendChild(npcEntry);
-
-            settlementNpcs.appendChild(npcRow);
+    // Modifiers
+    const settlementModifiers = element('div', { className: 'settlementModifiers' }, [element('h4', { text: 'Modifiers' })]);
+    if (Array.isArray(settlement?.modifiers) && settlement.modifiers.length) {
+        for (const mod of settlement.modifiers) {
+        settlementModifiers.appendChild(element('p', { text: mod, className: 'modifierEntry' }));
         }
+    } else {
+        settlementModifiers.appendChild(element('p', { text: '—' }));
+    }
+    details.appendChild(settlementModifiers);
 
-settlementDetails.appendChild(settlementNpcs);
+    // Districts
+    const settlementDistricts = element('div', { className: 'settlementDistricts' }, [element('h4', { text: 'Districts' })]);
+    if (Array.isArray(settlement?.districts) && settlement.districts.length) {
+        const dFrag = document.createDocumentFragment();
+        for (const districtID of settlement.districts) {
+        const district = getFromRegistry(districtRegistry, districtID);
+        if (!district) continue;
 
-    //MODIFIERS SETTLEMENT
-    const settlementModifiers = document.createElement("div");
-    settlementModifiers.className = "settlementModifiers";
+        const districtRow = element('div', { className: 'districtRow' }, [
+            element('img', { className: 'districtIcon', attrs: { src: district.icon || '', alt: district.name || '' } }),
+            element('span', { text: district.name, className: 'districtEntry' })
+        ]);
 
-    const modifierTitle = document.createElement("h4");
-    modifierTitle.textContent = "Modifiers";
-
-    settlementModifiers.appendChild(modifierTitle);
-
-        for (const modifierID in settlement.modifiers) {
-
-            const modifier = settlement.modifiers[modifierID];
-
-            const modifierEntry = document.createElement("p");
-            modifierEntry.textContent = modifier;
-            modifierEntry.className = "modifierEntry";
-
-            settlementModifiers.appendChild(modifierEntry);
-        }
-
-    settlementDetails.appendChild(settlementModifiers);
-
-    //DISTRICTS SETTLEMENT
-const settlementDistricts = document.createElement("div");
-settlementDistricts.className = "settlementDistricts";
-
-const districtTitle = document.createElement("h4");
-districtTitle.textContent = "Distrikte";
-
-settlementDistricts.appendChild(districtTitle);
-
-for (const districtID of settlement.districts) {
-
-    const district = districtRegistry[districtID];
-
-    const districtRow = document.createElement("div");
-    districtRow.className = "districtRow";
-
-    const districtIcon = document.createElement("img");
-    districtIcon.src = district.icon;
-    districtIcon.alt = district.name;
-    districtIcon.className = "districtIcon";
-
-    const districtEntry = document.createElement("span");
-    districtEntry.textContent = district.name;
-    districtEntry.className = "districtEntry";
-
-    districtRow.appendChild(districtIcon);
-    districtRow.appendChild(districtEntry);
-
-    districtRow.addEventListener("click", () => {
-
-            // game.ui.viewPath.splice(2);
-            // game.ui.viewPath.push(settlement.id);
-            // getCurrentViewPath(game);
-
+        districtRow.addEventListener('click', () => {
+            setViewPath(game, [world.id, region.id, settlement.id, district.id]);
             renderDistrictDetails(game, world, region, settlement, district);
-
         });
 
-    settlementDistricts.appendChild(districtRow);
+        dFrag.appendChild(districtRow);
+        }
+        settlementDistricts.appendChild(dFrag);
+    } else {
+        settlementDistricts.appendChild(element('p', { text: 'No districts.' }));
+    }
+    details.appendChild(settlementDistricts);
 
+    // Locations (settlement.locations might be IDs or simple names)
+    const settlementLocations = element('div', { className: 'settlementLocations' }, [element('h4', { text: 'Locations' })]);
+    const locations = Array.isArray(settlement?.locations) ? settlement.locations : Object.values(settlement?.locations || {});
+    if (locations.length) {
+        const lFrag = document.createDocumentFragment();
+        for (const locItem of locations) {
+        // if it's an ID pointing to locationRegistry, resolve it
+        const location = getFromRegistry(locationRegistry, locItem) || (typeof locItem === 'object' ? locItem : null);
+        if (location) {
+            const locationEntry = element('div', { className: 'locationEntry' }, [
+            element('img', { className: 'locationIcon', attrs: { src: location.icon || '', alt: location.name || '' } }),
+            element('span', { text: location.name || String(locItem) })
+            ]);
+            locationEntry.addEventListener('click', () => {
+            setViewPath(game, [world.id, region.id, settlement.id, location.id || locItem]);
+            renderLocationDetails(game, world, region, location);
+            });
+            lFrag.appendChild(locationEntry);
+        } else {
+            // fallback: show raw string value
+            lFrag.appendChild(element('p', { text: String(locItem), className: 'locationEntry' }));
+        }
+        }
+        settlementLocations.appendChild(lFrag);
+    } else {
+        settlementLocations.appendChild(element('p', { text: 'No locations.' }));
+    }
+    details.appendChild(settlementLocations);
+
+    // Quests (display raw entries if not registry-backed)
+    const settlementQuests = element('div', { className: 'settlementQuests' }, [element('h4', { text: 'Quests' })]);
+    const quests = Array.isArray(settlement?.quests) ? settlement.quests : Object.values(settlement?.quests || {});
+    if (quests.length) {
+        const qFrag = document.createDocumentFragment();
+            for (const q of quests) {
+                qFrag.appendChild(element('p', { text: String(q), className: 'questEntry' }));
+            }
+        settlementQuests.appendChild(qFrag);
+    } else {
+        settlementQuests.appendChild(element('p', { text: 'No quests.' }));
+    }
+    details.appendChild(settlementQuests);
+
+  // Append header + details
+  entry.appendChild(header);
+  entry.appendChild(details);
 }
 
-settlementDetails.appendChild(settlementDistricts);
+export function renderDistrictDetails(game, world, region, settlement, district) {
+  const entry = document.getElementById('worldRegionDistrictContainer');
+  if (!entry) return;
+  entry.textContent = '';
 
-    //LOCATIONS SETTLEMENT
-    const settlementLocations = document.createElement("div");
-    settlementLocations.className = "settlementLocations";
+  // Header
+  const header = element('div', { className: 'districtName' }, [
+    element('img', { className: 'districtIcon', attrs: { src: district?.icon || '', alt: district?.name || '' } }),
+    element('span', { text: district?.name || '' })
+  ]);
 
-    const locationTitle = document.createElement("h4");
-    locationTitle.textContent = "Locations";
+  const details = element('div', { className: 'districtDetails' });
+  // Basic known fields
+  const infoPairs = [
+    ['id', district?.id],
+    ['description', district?.description],
+    ['type', district?.type],
+    ['population', district?.population]
+  ];
+  for (const [label, value] of infoPairs) {
+    details.appendChild(element('p', { text: `${label}: ${value !== undefined && value !== null ? value : ''}` }));
+  }
 
-    settlementLocations.appendChild(locationTitle);
+  // District modifiers / features (if any)
+  const featuresBox = element('div', { className: 'districtFeatures' }, [element('h4', { text: 'Features' })]);
+  if (Array.isArray(district?.features) && district.features.length) {
+    for (const f of district.features) {
+      featuresBox.appendChild(element('p', { text: f }));
+    }
+  } else {
+    featuresBox.appendChild(element('p', { text: '—' }));
+  }
+  details.appendChild(featuresBox);
 
-        for (const locationID in settlement.locations) {
+  // District NPCs
+  const districtNpcs = element('div', { className: 'districtNpcs' }, [element('h4', { text: 'NPCs' })]);
+  if (Array.isArray(district?.npcs) && district.npcs.length) {
+    const nFrag = document.createDocumentFragment();
+    for (const npcID of district.npcs) {
+      const npc = getFromRegistry(npcRegistry, npcID);
+      if (!npc) continue;
+      nFrag.appendChild(element('div', { className: 'npcRow' }, [
+        element('img', { className: 'settlementNpcIcon', attrs: { src: npc.icon || '', alt: npc.name || '' } }),
+        element('span', { text: npc.name, className: 'npcEntry' })
+      ]));
+    }
+    districtNpcs.appendChild(nFrag);
+  } else {
+    districtNpcs.appendChild(element('p', { text: 'No NPCs.' }));
+  }
+  details.appendChild(districtNpcs);
 
-            const location = settlement.locations[locationID];
-
-            const locationEntry = document.createElement("p");
-            locationEntry.textContent = location;
-            locationEntry.className = "locationEntry";
-
-            settlementLocations.appendChild(locationEntry);
-
-            //SOMETHING IN LOCATIONS??? ACTIVITIES?? NPCS ??
-        }
-
-    settlementDetails.appendChild(settlementLocations);
-    
-    //QUEST´s SETTLEMENT
-    const settlementQuests = document.createElement("div");
-    settlementQuests.className = "settlementQuests";
-
-    const questTitle = document.createElement("h4");
-    questTitle.textContent = "Quests";
-
-    settlementQuests.appendChild(questTitle);
-
-        for (const questID in settlement.quests) {
-
-            const quest = settlement.quests[questID];
-
-            const questEntry = document.createElement("p");
-            questEntry.textContent = quest;
-            questEntry.className = "questEntry";
-
-            settlementQuests.appendChild(questEntry);
-
-            //SOMETHING IN LOCATIONS??? ACTIVITIES?? NPCS ??
-        }
-
-    settlementDetails.appendChild(settlementQuests);
-
-    entry.appendChild(settlementnName);
-    entry.appendChild(settlementDetails);
-
+  // Append
+  entry.appendChild(header);
+  entry.appendChild(details);
 }
 
 export function renderLocationDetails(game, world, region, location){
@@ -456,75 +419,5 @@ export function renderLocationDetails(game, world, region, location){
     
 
     entry.appendChild(locationDetails);
-
-}
-
-export function renderDistrictDetails(game, world, region, settlement, district){
-
-    const entry = document.getElementById("worldRegionDistrictContainer");
-    entry.innerHTML = ``;
-    
-    const districtName = document.createElement("div");
-    districtName.className = "districtName";
-
-    const districtIcon = document.createElement("img");
-    districtIcon.src = district.icon;
-    districtIcon.alt = district.name;
-    districtIcon.className = "districtIcon";
-
-    const districtTitle = document.createElement("span");
-    districtTitle.textContent = district.name;
-
-    districtName.appendChild(districtIcon);
-    districtName.appendChild(districtTitle);
-
-
-    // const settlementDetails = document.createElement("div");
-    // settlementDetails.className = "settlementDetails";
-    // settlementDetails.innerHTML = `
-    //     <p>id: ${settlement.id}</p>
-    //     <p>description: ${settlement.description}</p>
-        
-    //     <p>type: ${settlement.type}</p>
-    //     <p>population: ${settlement.population}</p>
-        
-    //     <p>wealth: ${settlement.wealth}</p>
-    //     <p>faction: ${settlement.faction}</p>
-    //     <p>sicherheit: ${settlement.sicherheit}</p>
-    
-    // `;const entry = document.getElementById("worldRegionDetailsContainer");
-    // entry.innerHTML = ``;
-    
-    // const settlementnName = document.createElement("div");
-    // settlementnName.className = "settlementnName";
-
-    // const settlementIcon = document.createElement("img");
-    // settlementIcon.src = settlement.icon;
-    // settlementIcon.alt = settlement.name;
-    // settlementIcon.className = "settlementDetailsIcon";
-
-    // const settlementTitle = document.createElement("span");
-    // settlementTitle.textContent = settlement.name;
-
-    // settlementnName.appendChild(settlementIcon);
-    // settlementnName.appendChild(settlementTitle);
-
-
-    // const settlementDetails = document.createElement("div");
-    // settlementDetails.className = "settlementDetails";
-    // settlementDetails.innerHTML = `
-    //     <p>id: ${settlement.id}</p>
-    //     <p>description: ${settlement.description}</p>
-        
-    //     <p>type: ${settlement.type}</p>
-    //     <p>population: ${settlement.population}</p>
-        
-    //     <p>wealth: ${settlement.wealth}</p>
-    //     <p>faction: ${settlement.faction}</p>
-    //     <p>sicherheit: ${settlement.sicherheit}</p>
-    
-    // `;
-    
-    entry.appendChild(districtName);
 
 }
