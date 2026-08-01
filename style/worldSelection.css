@@ -1,3 +1,9 @@
+:root{
+    --accent: rgb(217,21,150);
+    --accent-hover: rgb(245,135,207);
+    --panel-bg: #220a2b;
+    --panel-border: aliceblue;
+}
 
 /* ######################################### WORLD CONTAINER ##################################################*/
 .worldContainer{
@@ -6,127 +12,110 @@
     gap: 5px;
 }
 
-.worldListContainer{
-    border: 1px solid rgb(217, 21, 150);
-    /* display: grid;
-    grid-template-columns: 1fr; */
-}
-
-.worldListContainer details{
-    border: 1px solid rgb(217, 21, 150);
-    font-size: small;
-}
+/* shared thin pink border used across many containers */
+.worldListContainer,
+.worldRegionContainer,
+.worldRegionDetailsContainer,
+.worldRegionDistrictContainer,
+.worldDetailsContainer,
+.worldListContainer details,
 .worldListContainer summary{
-    border: 1px solid rgb(217, 21, 150);
-    font-size:large;
+    border: 1px solid var(--accent);
 }
 
-/* ######################################### REGION CONTAINER ##################################################*/
-.worldRegionContainer{
-    border: 1px solid rgb(217, 21, 150);
-}
-
-.worldRegionDetailsContainer{
-    border: 1px solid rgb(217, 21, 150);
-}
-
+/* world details keeps explicit height/scroll */
 .worldDetailsContainer{
-    border: 1px solid rgb(217, 21, 150);
     height: 640px;
     overflow-y: auto;
 }
 
+/* worldListContainer details/summary font sizing */
+.worldListContainer details{
+    font-size: small;
+}
+.worldListContainer summary{
+    font-size: large;
+}
 
-.regionEntry{
-    border: 1px solid rgb(217, 21, 150);
+/* ######################################### PANEL / CARD LAYOUT (reuse instead of duplicating) ############# */
+.panel{
+    border: 1px solid var(--panel-border);
+    border-left: 5px solid var(--panel-border);
+    background-color: var(--panel-bg);
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px;
+}
+
+/* apply .panel to the elements that shared the same style */
+.regionDetails,
+.regionDetailsSettlements,
+.regionDetailsLocations,
+.settlementDetails,
+.settlementDistricts{
+    /* reuse the panel styling */
+    border: 1px solid var(--panel-border);
+    border-left: 5px solid var(--panel-border);
+    background-color: var(--panel-bg);
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px;
+}
+
+/* region header inside panels */
+.regionDetails h4,
+.regionDetailsSettlements h4,
+.settlementDetails h4{
+     border-bottom: 1px solid var(--accent);
+     margin: 5px;
+}
+
+/* small text spacing inside panels */
+.regionDetails p,
+.settlementDetails p{
+    margin: 2px 0;
+}
+
+/* ######################################### ENTRY ROWS / LIST ITEMS ###################################### */
+/* group all items that behave like clickable list entries */
+.regionEntry,
+.regionDetailsSettlements .settlementEntry,
+.regionDetailsLocations .locationEntry,
+.districtRow{
+    border: 1px solid var(--accent);
     margin: 5px;
     margin-left: 10px;
     cursor: pointer;
+    border-left: 6px solid var(--accent);
+    border-radius: 5px;
+    transition: background .12s, border-left .08s;
 }
 
-.regionName{
+/* hover state reused */
+.regionEntry:hover,
+.regionDetailsSettlements .settlementEntry:hover,
+.regionDetailsLocations .locationEntry:hover,
+.districtRow:hover{
+    border-left: 7px solid var(--accent-hover);
+    background: #3b103f;
+}
+
+/* names & icons */
+.regionName,
+.settlementName{
     font-size: large;
     margin: 5px;
 }
-.regionIcon{
+.regionIcon,
+.settlementDetailsIcon,
+.settlementNpcIcon{
     margin-right: 5px;
 }
 
-.regionDetails{
-    margin: 5px;
-    margin-left: 5px;
-    border: 1px solid aliceblue;
-    border-left: 5px solid aliceblue;
-    background-color: #220a2b;
-    border-radius: 5px;
-    padding: 5px;
-    
-    
-}
-.regionDetails h4{
-     border-bottom: 1px solid rgb(217, 21, 150);
-     margin: 5px;
-}
-.regionDetails p{
-    margin: 2px;
-}
-
-.regionDetailsModifiers .modifierEntry{
-    margin-left: 10px;
-}
-
-.regionDetailsSettlements{
-    margin: 5px;
-    margin-left: 0px;
-    border: 1px solid aliceblue;
-    border-left: 5px solid aliceblue;
-    border-radius: 5px;
-   
-}
-.regionDetailsSettlements .settlementEntry{
-    margin: 5px;
-    margin-left: 5px;
-  border: 1px solid rgb(217, 21, 150);
-  cursor: pointer;
-  border-left: 6px solid rgb(217, 21, 150);
-  border-radius: 5px;
-    
-}
-
-.settlementEntry:hover{
-    border-left: 7px solid rgb(245, 135, 207);
-    background: #3b103f;
-}
-.regionDetailsSettlements h4{
-    border-bottom: 1px solid rgb(217, 21, 150);
-    
-}
-
-.regionDetailsLocations{
-    margin: 5px;
-    margin-left: 0px;
-    border: 1px solid aliceblue;
-    border-left: 5px solid aliceblue;
-    border-radius: 5px;
-    
-}
-
-.regionDetailsLocations .locationEntry{
-    margin: 5px;
-    margin-left: 5px;
-  border: 1px solid rgb(217, 21, 150);
-  cursor: pointer;
-  border-left: 6px solid rgb(217, 21, 150);
-  border-radius: 5px;
-    
-}
-
-.locationEntry:hover{
-    border-left: 7px solid rgb(245, 135, 207);
-    background: #3b103f;
-}
-
-.settlementIcon ,.locationIcon,.districtIcon{
+/* icons that share the same visual treatment */
+.settlementIcon,
+.locationIcon,
+.districtIcon{
     margin: 5px;
     margin-bottom: 0px;
     border-right: 1px solid white;
@@ -134,81 +123,34 @@
     border-radius: 5px;
     padding: 5px;
 }
-/* ######################################### SETTLEMENT CONTAINER ##################################################*/
 
-.settlementDetails{
-    background-color: #220a2b;
-    border: 1px solid aliceblue;
-    border-left: 5px solid aliceblue;
-    border-radius: 5px;
-    margin: 5px;
-    margin-left: 5px;
-}
-
-.settlementnName{
-    font-size: large;
-    margin: 5px;
-}
-.settlementDetailsIcon{
-    margin-right: 5px;
-}
-
-.settlementDetails h4{
-    margin: 5px;
-    margin-left: 5px;
-    border-bottom: 1px solid rgb(217, 21, 150);
-}
-.settlementDetails p{
-    margin: 0px;
-    margin-left: 5px;
-}
-.settlementDetails .npcEntry{
-    margin-left: 0px;
-}
-.settlementDetails .modifierEntry{
-    margin-left: 10px;
-}
+/* modifier/settlement/location/district specific indents */
+.regionDetailsModifiers .modifierEntry,
+.settlementDetails .modifierEntry,
 .settlementDetails .districtEntry{
     margin-left: 10px;
 }
+.regionDetailsSettlements .settlementEntry,
+.regionDetailsLocations .locationEntry,
+.districtRow{
+    margin-left: 5px;
+}
+
+/* settlement details specifics */
+.settlementDetails{
+    margin-left: 5px;
+}
+.settlementDetails p{
+    margin: 0;
+    margin-left: 5px;
+}
 
 /* #################################################### NPC #################################### */
-
 .npcRow{
     display: flex;
-  align-items: anchor-center;
+    align-items: center;
 }
 .settlementNpcIcon{
     width: 25px;
-  height: 25px;
-}
-
-/* #################################################### DISTRICT #################################### */
-
-.settlementDistricts{
-    margin: 5px;
-    margin-left: 5px;
-    border: 1px solid aliceblue;
-  border-left: 5px solid aliceblue;
-  border-radius: 5px;
-}
-
-.districtRow{
-    margin: 5px;
-    margin-left: 5px;
-  border: 1px solid rgb(217, 21, 150);
-  cursor: pointer;
-  border-left: 6px solid rgb(217, 21, 150);
-  border-radius: 5px;
-    
-}
-
-.districtRow:hover{
-    border-left: 7px solid rgb(245, 135, 207);
-    background: #3b103f;
-}
-
-
-.worldRegionDistrictContainer{
-    border: 1px solid rgb(217, 21, 150);
+    height: 25px;
 }
