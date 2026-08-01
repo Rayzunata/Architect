@@ -52,7 +52,8 @@
 .regionDetailsSettlements,
 .regionDetailsLocations,
 .settlementDetails,
-.settlementDistricts{
+.settlementDistricts,
+.districtDetails{
     /* reuse the panel styling */
     border: 1px solid var(--panel-border);
     border-left: 5px solid var(--panel-border);
@@ -65,7 +66,8 @@
 /* region header inside panels */
 .regionDetails h4,
 .regionDetailsSettlements h4,
-.settlementDetails h4{
+.settlementDetails h4,
+.districtDetails h4{
      border-bottom: 1px solid var(--accent);
      margin: 5px;
 }
@@ -81,7 +83,7 @@
 .regionEntry,
 .regionDetailsSettlements .settlementEntry,
 .regionDetailsLocations .locationEntry,
-.districtRow{
+.districtRow, .npcRow{
     border: 1px solid var(--accent);
     margin: 5px;
     margin-left: 10px;
@@ -95,7 +97,7 @@
 .regionEntry:hover,
 .regionDetailsSettlements .settlementEntry:hover,
 .regionDetailsLocations .locationEntry:hover,
-.districtRow:hover{
+.districtRow:hover, .npcRow:hover{
     border-left: 7px solid var(--accent-hover);
     background: #3b103f;
 }
@@ -103,7 +105,7 @@
 /* names & icons */
 .regionName,
 .settlementName{
-    font-size: large;
+    font-size: small;
     margin: 5px;
 }
 .regionIcon,
@@ -128,11 +130,11 @@
 .regionDetailsModifiers .modifierEntry,
 .settlementDetails .modifierEntry,
 .settlementDetails .districtEntry{
-    margin-left: 10px;
+    margin-left: 5px;
 }
 .regionDetailsSettlements .settlementEntry,
 .regionDetailsLocations .locationEntry,
-.districtRow{
+.districtRow, .npcRow{
     margin-left: 5px;
 }
 
