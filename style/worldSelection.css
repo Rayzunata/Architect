@@ -112,14 +112,16 @@
 }
 .regionIcon,
 .settlementDetailsIcon,
-.settlementNpcIcon{
+.settlementNpcIcon,
+.districtIcon{
     margin-right: 5px;
+    width: 25px;
+    height: 25px;
 }
 
 /* icons that share the same visual treatment */
 .settlementIcon,
-.locationIcon,
-.districtIcon{
+.locationIcon,{
     margin: 5px;
     margin-bottom: 0px;
     border-right: 1px solid white;
