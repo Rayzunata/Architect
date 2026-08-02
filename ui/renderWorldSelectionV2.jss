@@ -39,3 +39,20 @@ function element(tag, { className, text, html, attrs = {} } = {}, children = [])
   for (const child of children) if (child) e.appendChild(child);
   return e;
 }
+
+export function renderWorldStructure() {
+    const entry = document.getElementById('entryMidContainer');
+    if (!entry) return;
+    entry.textContent = '';
+
+    const worldContainer = element('div', { className: 'worldContainer', attrs: { id: 'worldContainer' } });
+
+    const worldListContainer = element('div', { className: 'worldListContainer', attrs: { id: 'worldListContainer' } });
+    const worldRegionContainer = element('div', { className: 'worldContainer', attrs: { id: 'worldContainer' } });
+    
+
+    worldContainer.appendChild(worldListContainer);
+    worldContainer.appendChild(worldRegionContainer);
+
+    entry.appendChild(worldContainer);
+}
