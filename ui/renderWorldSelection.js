@@ -7,7 +7,29 @@ import { npcs as npcRegistry  } from "../data/registries/characters/npcs.js";
 
 import { getCurrentViewPath } from "../systems/getCurrentViewPath.js";
 
-
+/**
+ * Creates a DOM element with optional className, text content, HTML content, attributes, and children.
+ * 
+ * @param {string} tag - The HTML tag name (e.g., 'div', 'span', 'button')
+ * @param {Object} options - Configuration object
+ * @param {string} [options.className] - CSS class name(s) to apply
+ * @param {string} [options.text] - Text content for the element
+ * @param {string} [options.html] - HTML content for the element
+ * @param {Object} [options.attrs={}] - Key-value pairs of HTML attributes
+ * @param {Array<HTMLElement>} [children=[]] - Array of child elements to append
+ * @returns {HTMLElement} The created DOM element
+ * 
+ * @example
+ * // Create a simple div with class and text
+ * const div = element('div', { className: 'container', text: 'Hello World' });
+ * 
+ * @example
+ * // Create a link with attributes and children
+ * const link = element('a', 
+ *   { text: 'Click me', attrs: { href: '/page', target: '_blank' } },
+ *   [element('span', { className: 'icon' })]
+ * );
+ */
 function element(tag, { className, text, html, attrs = {} } = {}, children = []) {
   const e = document.createElement(tag);
   if (className) e.className = className;
@@ -18,18 +40,61 @@ function element(tag, { className, text, html, attrs = {} } = {}, children = [])
   return e;
 }
 
+/**
+ * Creates a pane (div container) with optional placeholder text.
+ * 
+ * @param {string} id - The unique ID for the pane
+ * @param {string} className - CSS class name for styling
+ * @param {string} [placeholder=''] - Placeholder text to display initially
+ * @returns {HTMLElement} A div element configured as a pane
+ * 
+ * @example
+ * const pane = makePane('mainPanel', 'panel-style', 'Loading...');
+ * document.body.appendChild(pane);
+ */
 function makePane(id, className, placeholder = '') {
   const node = element('div', { className, attrs: { id } });
   if (placeholder) node.textContent = placeholder;
   return node;
 }
 
+/**
+ * Retrieves an item from a registry by ID.
+ * Logs a warning if the item is not found.
+ * 
+ * @param {Object} registry - The registry object containing items by ID
+ * @param {string|number} id - The ID of the item to retrieve
+ * @returns {Object|null} The registry item or null if not found
+ * 
+ * @example
+ * const region = getFromRegistry(regionRegistry, 'forest_01');
+ * if (region) {
+ *   console.log(region.name); // 'Enchanted Forest'
+ * }
+ */
 function getFromRegistry(registry, id) {
   const item = registry?.[id];
   if (!item) console.warn(`Missing registry item: ${id}`);
   return item || null;
 }
 
+/**
+ * Updates the game's view path (breadcrumb navigation) and triggers path calculation.
+ * 
+ * @param {Object} game - The game state object
+ * @param {string} game.ui - The UI state container
+ * @param {Array<string>} game.ui.viewPath - The current navigation path
+ * @param {Array<string>} [ids=[]] - Array of IDs representing the navigation path
+ * @returns {void}
+ * 
+ * @example
+ * // Navigate to: World -> Region -> Settlement
+ * setViewPath(game, ['world_01', 'region_forest', 'settlement_village']);
+ * 
+ * @example
+ * // Reset to root
+ * setViewPath(game, []);
+ */
 function setViewPath(game, ids = []) {
   game.ui.viewPath.length = 0;
   for (const id of ids) game.ui.viewPath.push(id);
@@ -37,6 +102,24 @@ function setViewPath(game, ids = []) {
   getCurrentViewPath(game);
 }
 
+/**
+ * Initializes the main world view structure with four container panes.
+ * Creates the base layout for world/region/settlement/district navigation.
+ * 
+ * @returns {void}
+ * 
+ * @example
+ * // Call once during app initialization
+ * renderWorldStructure();
+ * 
+ * // This creates a structure like:
+ * // entryMidContainer
+ * // └── worldContainer
+ * //     ├── worldListContainer (worlds list)
+ * //     ├── worldRegionContainer (region details)
+ * //     ├── worldRegionDetailsContainer (settlement details)
+ * //     └── worldRegionDistrictContainer (district details)
+ */
 export function renderWorldStructure() {
     const entry = document.getElementById('entryMidContainer');
     if (!entry) return;
@@ -57,6 +140,24 @@ export function renderWorldStructure() {
     entry.appendChild(worldContainer);
 }
 
+/**
+ * Renders a clickable list of all worlds with collapsible region details.
+ * Populates the worldListContainer with expandable world entries.
+ * 
+ * @param {Object} game - The game state object
+ * @returns {void}
+ * 
+ * @example
+ * // Initialize game structure first
+ * renderWorldStructure();
+ * 
+ * // Then render the worlds list
+ * renderWorldSelection(game);
+ * 
+ * // User can now:
+ * // 1. Click on a world name to expand/collapse regions
+ * // 2. Click on a region to view region details
+ */
 export function renderWorldSelection(game) {
   const worldListContainer = document.getElementById('worldListContainer');
   if (!worldListContainer) return;
@@ -109,6 +210,37 @@ export function renderWorldSelection(game) {
   worldListContainer.appendChild(frag);
 }
 
+/**
+ * Renders detailed information about a selected region.
+ * Displays region stats, modifiers, settlements, and locations in the worldRegionContainer.
+ * 
+ * @param {Object} game - The game state object
+ * @param {Object} world - The world object (parent context)
+ * @param {string} world.id - Unique world identifier
+ * @param {Object} region - The region object to display
+ * @param {string} region.id - Unique region identifier
+ * @param {string} region.name - Region display name
+ * @param {string} [region.icon] - URL to region icon image
+ * @param {string} [region.description] - Region description text
+ * @param {string} [region.biome] - Biome type (e.g., 'Forest', 'Desert')
+ * @param {Array<string>} [region.modifiers] - List of region modifiers
+ * @param {Array<string>} [region.settlements] - Array of settlement IDs
+ * @param {Array<string>} [region.locations] - Array of location IDs
+ * @returns {void}
+ * 
+ * @example
+ * // After user clicks a region in renderWorldSelection
+ * const world = worldRegistry['world_main'];
+ * const region = regionRegistry['region_forest'];
+ * renderRegionDetails(game, world, region);
+ * 
+ * // This displays:
+ * // - Region header with icon and name
+ * // - Region properties (biome, climate, difficulty, etc.)
+ * // - Modifiers list
+ * // - Clickable settlements
+ * // - Clickable locations
+ */
 export function renderRegionDetails(game, world, region) {
     const worldRegionContainer = document.getElementById('worldRegionContainer');
     if (!worldRegionContainer) return;
@@ -214,6 +346,43 @@ export function renderRegionDetails(game, world, region) {
     if (worldRegionDetailsContainer) worldRegionDetailsContainer.textContent = '';
 }
 
+/**
+ * Renders detailed information about a selected settlement.
+ * Displays settlement stats, NPCs, districts, locations, quests, and modifiers.
+ * 
+ * @param {Object} game - The game state object
+ * @param {Object} world - The world object (parent context)
+ * @param {string} world.id - Unique world identifier
+ * @param {Object} region - The region object (parent context)
+ * @param {string} region.id - Unique region identifier
+ * @param {Object} settlement - The settlement object to display
+ * @param {string} settlement.id - Unique settlement identifier
+ * @param {string} settlement.name - Settlement display name
+ * @param {string} [settlement.icon] - URL to settlement icon
+ * @param {string} [settlement.description] - Settlement description
+ * @param {string} [settlement.type] - Settlement type (e.g., 'village', 'city')
+ * @param {number} [settlement.population] - Population count
+ * @param {Array<string>} [settlement.npcs] - Array of NPC IDs
+ * @param {Array<string>} [settlement.districts] - Array of district IDs
+ * @param {Array<string>} [settlement.locations] - Array of location IDs or objects
+ * @param {Array<string|Object>} [settlement.quests] - Array of quest IDs or quest objects
+ * @param {Array<string>} [settlement.modifiers] - List of settlement modifiers
+ * @returns {void}
+ * 
+ * @example
+ * // After user clicks a settlement in renderRegionDetails
+ * const settlement = settlementRegistry['settlement_village_01'];
+ * renderSettlementDetails(game, world, region, settlement);
+ * 
+ * // This displays in worldRegionDetailsContainer:
+ * // - Settlement header with icon and name
+ * // - Settlement properties
+ * // - NPCs list with icons
+ * // - Districts (clickable)
+ * // - Locations
+ * // - Quests
+ * // - Modifiers
+ */
 export function renderSettlementDetails(game, world, region, settlement) {
     const entry = document.getElementById('worldRegionDetailsContainer');
     if (!entry) return;
@@ -347,6 +516,39 @@ export function renderSettlementDetails(game, world, region, settlement) {
   entry.appendChild(details);
 }
 
+/**
+ * Renders detailed information about a selected district.
+ * Displays district stats, features, and NPCs in the worldRegionDistrictContainer.
+ * 
+ * @param {Object} game - The game state object
+ * @param {Object} world - The world object (parent context)
+ * @param {string} world.id - Unique world identifier
+ * @param {Object} region - The region object (parent context)
+ * @param {string} region.id - Unique region identifier
+ * @param {Object} settlement - The settlement object (parent context)
+ * @param {string} settlement.id - Unique settlement identifier
+ * @param {Object} district - The district object to display
+ * @param {string} district.id - Unique district identifier
+ * @param {string} district.name - District display name
+ * @param {string} [district.icon] - URL to district icon
+ * @param {string} [district.description] - District description
+ * @param {string} [district.type] - District type (e.g., 'market', 'residential')
+ * @param {number} [district.population] - Population count
+ * @param {Array<string>} [district.features] - List of district features
+ * @param {Array<string>} [district.npcs] - Array of NPC IDs
+ * @returns {void}
+ * 
+ * @example
+ * // After user clicks a district in renderSettlementDetails
+ * const district = districtRegistry['district_market_01'];
+ * renderDistrictDetails(game, world, region, settlement, district);
+ * 
+ * // This displays in worldRegionDistrictContainer:
+ * // - District header with icon and name
+ * // - District properties (type, population)
+ * // - Features list
+ * // - NPCs in district
+ */
 export function renderDistrictDetails(game, world, region, settlement, district) {
   const entry = document.getElementById('worldRegionDistrictContainer');
   if (!entry) return;
@@ -404,6 +606,30 @@ export function renderDistrictDetails(game, world, region, settlement, district)
   entry.appendChild(details);
 }
 
+/**
+ * Renders detailed information about a selected location.
+ * Currently displays location name; can be extended with additional details.
+ * 
+ * @param {Object} game - The game state object
+ * @param {Object} world - The world object (parent context)
+ * @param {string} world.id - Unique world identifier
+ * @param {Object} region - The region object (parent context)
+ * @param {string} region.id - Unique region identifier
+ * @param {Object} location - The location object to display
+ * @param {string} location.name - Location display name
+ * @param {string} [location.id] - Unique location identifier
+ * @param {string} [location.description] - Location description
+ * @returns {void}
+ * 
+ * @example
+ * // After user clicks a location
+ * const location = locationRegistry['location_temple_01'];
+ * renderLocationDetails(game, world, region, location);
+ * 
+ * // This displays in worldRegionDetailsContainer:
+ * // - Location name as a heading
+ * // TODO: Extend with more location details (description, NPCs, items, etc.)
+ */
 export function renderLocationDetails(game, world, region, location){
     const entry = document.getElementById("worldRegionDetailsContainer");
     entry.innerHTML = ``;
@@ -416,8 +642,5 @@ export function renderLocationDetails(game, world, region, location){
 
     locationDetails.appendChild(locationTitle);
 
-    
-
     entry.appendChild(locationDetails);
-
 }
