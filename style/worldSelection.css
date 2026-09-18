@@ -8,7 +8,7 @@
 /* ######################################### WORLD CONTAINER ##################################################*/
 .worldContainer{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 4fr;
     gap: 5px;
 }
 
@@ -50,7 +50,7 @@
 /* apply .panel to the elements that shared the same style */
 .regionDetails,
 .regionDetailsSettlements,
-.regionDetailsLocations,
+
 .settlementDetails,
 .settlementDistricts,
 .districtDetails{
@@ -61,6 +61,20 @@
     border-radius: 5px;
     padding: 5px;
     margin: 5px;
+}
+
+.settlementContainer{
+    border: 3px solid fuchsia;
+  height: 250px;
+  overflow-y: auto;
+}
+.regionDetailsSettlements{
+    border: 1px solid aliceblue;
+    border-left: 5px solid aliceblue;
+}
+.settlementDistricts{
+    border: 1px solid rgb(0, 68, 128);
+    border-left: 5px solid rgb(0, 68, 128);
 }
 
 /* region header inside panels */
@@ -121,7 +135,7 @@
 
 /* icons that share the same visual treatment */
 .settlementIcon,
-.locationIcon,{
+.locationIcon{
     margin: 5px;
     margin-bottom: 0px;
     border-right: 1px solid white;
