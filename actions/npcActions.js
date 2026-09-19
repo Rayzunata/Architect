@@ -49,7 +49,7 @@ export function testNPC(game,npc) {
         'testNpcModalMain';
 
     main.innerHTML = `
-        <p>${npc.dialog}</p>
+        <p>${npc.description}</p>
     `;
 
 
