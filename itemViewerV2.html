@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="style/architect.css">
     <link rel="stylesheet" href="style/inventory.css">
     <link rel="stylesheet" href="style/worldSelection.css">
+    <link rel="stylesheet" href="style/modal.css">
     <!-- STYLESHEETS AUFTEILEN-->
 </head>
 <body>
@@ -88,49 +89,12 @@
 
         const game = createGame();
 
-        
-        // const inventory = [
-        // ];
-
-        //----------------------------------------------------
-        //                  start
-        //----------------------------------------------------
-        // item.addItemToInventory(item.createItem({
-        //     category: "resource",
-        //     materialGroup: "metal",
-        //     material: "iron",
-        //     form: "bar",
-        //     amount: 25
-        // }),game.player.inventory)
-
-        // createItem({
-        //     category: "tool",
-        //     materialGroup: "metal",
-        //     material: "steel",
-        //     form: "pickaxe"
-        // });
-        // createItem({
-        //     category: "tool",
-        //     materialGroup: "metal",
-        //     material: "steel",
-        //     form: "pickaxe"
-        // });
-
-        // createItem({
-        //     category: "weapon",
-        //     materialGroup: "metal",
-        //     material: "mithril",
-        //     form: "pistol",
-        //     rarity: "epic",
-        //     mods:{
-        //         underbarrel:"flashlight"
-        //     }
-        // });
-
-        //item.addItemToInventory(item.createRandomItem(),game.player.inventory);
 
         renderLeftNav(game);
-          
+
+        
+
+
         document.getElementById("button1").addEventListener("click", function () {
 
             item.addItemToInventory(item.createRandomItem(), game.player.inventory);

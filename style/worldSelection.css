@@ -48,12 +48,11 @@
 }
 
 /* apply .panel to the elements that shared the same style */
-.regionDetails,
-.regionDetailsSettlements,
 
-.settlementDetails,
-.settlementDistricts,
-.districtDetails{
+/* .regionDetailsSettlements, .settlementDistricts */
+.regionDetails
+
+{
     /* reuse the panel styling */
     border: 1px solid var(--panel-border);
     border-left: 5px solid var(--panel-border);
@@ -63,19 +62,35 @@
     margin: 5px;
 }
 
+.settlementDetails{
+    border: 1px solid var(--panel-border);
+    background-color: var(--panel-bg);
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px;
+
+}
+
+.districtDetails{
+    border-left: 1px solid white;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  margin-left: 15px;
+}
+
 .settlementContainer{
-    border: 3px solid fuchsia;
-  height: 250px;
+    /* border: 3px solid fuchsia; */
+  /* height: 250px; */
   overflow-y: auto;
 }
-.regionDetailsSettlements{
+/* .regionDetailsSettlements{
     border: 1px solid aliceblue;
     border-left: 5px solid aliceblue;
-}
-.settlementDistricts{
+} */
+/* .settlementDistricts{
     border: 1px solid rgb(0, 68, 128);
     border-left: 5px solid rgb(0, 68, 128);
-}
+} */
 
 /* region header inside panels */
 .regionDetails h4,

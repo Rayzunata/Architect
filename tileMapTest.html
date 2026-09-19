@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Tilemap</title>
+
+    <style>
+        body {
+            margin: 0;
+            background: #222;
+        }
+
+        canvas {
+            display: block;
+            margin: 20px;
+            image-rendering: pixelated;
+        }
+    </style>
+</head>
+
+<body>
+
+<canvas id="canvas"></canvas>
+
+<script>
+
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+const tileSize = 32;
+
+
+// =========================
+// Map
+// =========================
+
+const map = [
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 1, 1, 1, 0, 0, 0],
+    [0, 1, 1, 1, 1, 1, 0, 0],
+    [0, 0, 1, 1, 1, 0, 0, 0],
+    [0, 0, 0, 2, 0, 0, 0, 0],
+];
+
+
+// =========================
+// Canvas-Größe
+// =========================
+
+const mapWidth = map[0].length;
+const mapHeight = map.length;
+
+canvas.width = mapWidth * tileSize;
+canvas.height = mapHeight * tileSize;
+
+
+// =========================
+// Bilder
+// =========================
+
+const tiles = {
+    0: new Image(),
+    1: new Image(),
+    2: new Image()
+};
+
+tiles[0].src = "0027-mud-texture-seamless.jpg";
+tiles[1].src = "0027-mud-texture-seamless.jpg";
+tiles[2].src = "0027-mud-texture-seamless.jpg";
+
+
+// =========================
+// Map zeichnen
+// =========================
+
+function drawMap() {
+
+    for (let y = 0; y < map.length; y++) {
+
+        for (let x = 0; x < map[y].length; x++) {
+
+            const tile = map[y][x];
+
+            ctx.drawImage(
+                tiles[tile],
+                x * tileSize,
+                y * tileSize,
+                tileSize,
+                tileSize
+            );
+
+        }
+    }
+}
+
+
+// =========================
+// Warten bis alle Bilder geladen sind
+// =========================
+
+let loaded = 0;
+
+const tileImages = Object.values(tiles);
+
+for (const image of tileImages) {
+
+    image.onload = function () {
+
+        loaded++;
+
+        if (loaded === tileImages.length) {
+            drawMap();
+        }
+
+    };
+
+    image.onerror = function () {
+        console.error("Bild konnte nicht geladen werden:", image.src);
+    };
+}
+
+</script>
+
+</body>
+</html>

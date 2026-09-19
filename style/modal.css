@@ -1,0 +1,26 @@
+.testNpcModal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(0, 0, 0, 0.65);
+}
+
+
+.testNpcModalContent {
+    width: 500px;
+    height: 400px;
+
+    display: flex;
+    flex-direction: column;
+
+    background: #222222a3;
+    color: white;
+
+    border: 1px solid white;
+    border-radius: 12px;
+}

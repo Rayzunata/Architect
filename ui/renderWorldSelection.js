@@ -19,6 +19,8 @@ import { npcs as npcRegistry }
 import { getCurrentViewPath }
     from "../systems/getCurrentViewPath.js";
 
+import { testNPC } from "../actions/npcActions.js";
+
 
 // ============================================================
 // HELPER
@@ -221,9 +223,12 @@ export function renderWorldSelection(game) {
             element(
                 'details',
                 {
-                    className: 'worldEntry'
+                    className: 'worldEntry',
+                    // open:true
                 }
             );
+
+            worldDetails.open = true;
 
 
         const worldSummary =
@@ -236,9 +241,7 @@ export function renderWorldSelection(game) {
             );
 
 
-        worldDetails.appendChild(
-            worldSummary
-        );
+        worldDetails.appendChild(worldSummary);
 
 
         // ----------------------------------------------------
@@ -871,6 +874,16 @@ export function renderRegionHierarchy(
 
                             ]
                         );
+
+                        npcRow.addEventListener(
+                        'click',
+                        () => {
+                            testNPC(
+                                game,
+                                npc
+                            );
+                        }
+                    );
 
 
                     settlementNpcs.appendChild(
