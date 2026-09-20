@@ -48,17 +48,7 @@ export function renderLeftNav(game){
        
         });
 
-    const shop = document.createElement("div");
-    shop.className = "button testEintrag";
-    shop.style.width = "270px";
-        const shopTitle = document.createElement("div");
-        shopTitle.innerText = "Shop";
 
-        shop.appendChild(shopTitle);
-        shop.addEventListener("click", function () {
-            game.ui.viewPath.push("shop");
-            renderShop();
-        });
 
     const world = document.createElement("div");
     world.className = "button testEintrag";
@@ -77,7 +67,6 @@ export function renderLeftNav(game){
     entry.appendChild(player);
     entry.appendChild(bank);
     entry.appendChild(inventory);
-    entry.appendChild(shop);
 
     //überschrift hinzufügen??
     entry.appendChild(world);

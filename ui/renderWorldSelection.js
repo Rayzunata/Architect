@@ -19,7 +19,8 @@ import { npcs as npcRegistry }
 import { getCurrentViewPath }
     from "../systems/getCurrentViewPath.js";
 
-import { testNPC } from "../actions/npcActions.js";
+import { testNPC }
+    from "../actions/npcActions.js";
 
 
 // ============================================================
@@ -73,15 +74,16 @@ function makePane(
     className,
     placeholder = ''
 ) {
-    const node = element(
-        'div',
-        {
-            className,
-            attrs: {
-                id
+    const node =
+        element(
+            'div',
+            {
+                className,
+                attrs: {
+                    id
+                }
             }
-        }
-    );
+        );
 
     if (placeholder) {
         node.textContent = placeholder;
@@ -99,7 +101,8 @@ function getFromRegistry(
     registry,
     id
 ) {
-    const item = registry?.[id];
+    const item =
+        registry?.[id];
 
     if (!item) {
         console.warn(
@@ -151,9 +154,12 @@ export function renderWorldStructure() {
         element(
             'div',
             {
-                className: 'worldContainer',
+                className:
+                    'worldContainer',
+
                 attrs: {
-                    id: 'worldContainer'
+                    id:
+                        'worldContainer'
                 }
             }
         );
@@ -223,25 +229,30 @@ export function renderWorldSelection(game) {
             element(
                 'details',
                 {
-                    className: 'worldEntry',
-                    // open:true
+                    className:
+                        'worldEntry'
                 }
             );
 
-            worldDetails.open = true;
+        worldDetails.open = true;
 
 
         const worldSummary =
             element(
                 'summary',
                 {
-                    className: 'worldSummary',
-                    text: world.name
+                    className:
+                        'worldSummary',
+
+                    text:
+                        world.name
                 }
             );
 
 
-        worldDetails.appendChild(worldSummary);
+        worldDetails.appendChild(
+            worldSummary
+        );
 
 
         // ----------------------------------------------------
@@ -252,7 +263,8 @@ export function renderWorldSelection(game) {
             element(
                 'div',
                 {
-                    className: 'worldOverview'
+                    className:
+                        'worldOverview'
                 }
             );
 
@@ -291,7 +303,9 @@ export function renderWorldSelection(game) {
 
 
         const regionIDs =
-            Array.isArray(world.regions)
+            Array.isArray(
+                world.regions
+            )
                 ? world.regions
                 : [];
 
@@ -319,6 +333,7 @@ export function renderWorldSelection(game) {
                     {
                         className:
                             'regionEntry',
+
                         text:
                             region.name
                     }
@@ -402,9 +417,11 @@ export function renderRegionHierarchy(
         element(
             'div',
             {
-                className: 'regionName'
+                className:
+                    'regionName'
             },
             [
+
                 element(
                     'img',
                     {
@@ -413,10 +430,12 @@ export function renderRegionHierarchy(
 
                         attrs: {
                             src:
-                                region?.icon || '',
+                                region?.icon ||
+                                '',
 
                             alt:
-                                region?.name || ''
+                                region?.name ||
+                                ''
                         }
                     }
                 ),
@@ -425,9 +444,11 @@ export function renderRegionHierarchy(
                     'span',
                     {
                         text:
-                            region?.name || ''
+                            region?.name ||
+                            ''
                     }
                 )
+
             ]
         );
 
@@ -536,6 +557,7 @@ export function renderRegionHierarchy(
                     'regionDetailsModifiers'
             },
             [
+
                 element(
                     'h4',
                     {
@@ -543,12 +565,15 @@ export function renderRegionHierarchy(
                             'Modifiers'
                     }
                 )
+
             ]
         );
 
 
     if (
-        Array.isArray(region?.modifiers) &&
+        Array.isArray(
+            region?.modifiers
+        ) &&
         region.modifiers.length
     ) {
 
@@ -607,6 +632,7 @@ export function renderRegionHierarchy(
                     'regionDetailsSettlements'
             },
             [
+
                 element(
                     'h4',
                     {
@@ -614,12 +640,15 @@ export function renderRegionHierarchy(
                             'Settlements'
                     }
                 )
+
             ]
         );
 
 
     if (
-        Array.isArray(region?.settlements) &&
+        Array.isArray(
+            region?.settlements
+        ) &&
         region.settlements.length
     ) {
 
@@ -659,7 +688,7 @@ export function renderRegionHierarchy(
 
 
             // -------------------------------------------------
-            // STADT HEADER / SUMMARY
+            // STADT HEADER
             // -------------------------------------------------
 
             const settlementSummary =
@@ -788,7 +817,7 @@ export function renderRegionHierarchy(
 
 
             // =================================================
-            // NPCs
+            // STADT NPCs
             // =================================================
 
             const settlementNpcs =
@@ -799,6 +828,7 @@ export function renderRegionHierarchy(
                             'settlementNpcs'
                     },
                     [
+
                         element(
                             'h4',
                             {
@@ -806,6 +836,7 @@ export function renderRegionHierarchy(
                                     'NPCs'
                             }
                         )
+
                     ]
                 );
 
@@ -865,7 +896,7 @@ export function renderRegionHierarchy(
                                     'span',
                                     {
                                         text:
-                                            npc.name,
+                                            npc.name +" ~ "+ npc.title,
 
                                         className:
                                             'npcEntry'
@@ -875,13 +906,16 @@ export function renderRegionHierarchy(
                             ]
                         );
 
-                        npcRow.addEventListener(
+
+                    npcRow.addEventListener(
                         'click',
                         () => {
+
                             testNPC(
                                 game,
                                 npc
                             );
+
                         }
                     );
 
@@ -923,6 +957,7 @@ export function renderRegionHierarchy(
                             'settlementModifiers'
                     },
                     [
+
                         element(
                             'h4',
                             {
@@ -930,6 +965,7 @@ export function renderRegionHierarchy(
                                     'Modifiers'
                             }
                         )
+
                     ]
                 );
 
@@ -993,6 +1029,7 @@ export function renderRegionHierarchy(
                             'settlementDistricts'
                     },
                     [
+
                         element(
                             'h4',
                             {
@@ -1000,6 +1037,7 @@ export function renderRegionHierarchy(
                                     'Districts'
                             }
                         )
+
                     ]
                 );
 
@@ -1077,7 +1115,8 @@ export function renderRegionHierarchy(
                                     'span',
                                     {
                                         text:
-                                            district.name,
+                                            district.name ||
+                                            'Unnamed District',
 
                                         className:
                                             'districtEntry'
@@ -1162,6 +1201,7 @@ export function renderRegionHierarchy(
                                     'districtFeatures'
                             },
                             [
+
                                 element(
                                     'h4',
                                     {
@@ -1169,6 +1209,7 @@ export function renderRegionHierarchy(
                                             'Features'
                                     }
                                 )
+
                             ]
                         );
 
@@ -1229,6 +1270,7 @@ export function renderRegionHierarchy(
                                     'districtNpcs'
                             },
                             [
+
                                 element(
                                     'h4',
                                     {
@@ -1236,6 +1278,7 @@ export function renderRegionHierarchy(
                                             'NPCs'
                                     }
                                 )
+
                             ]
                         );
 
@@ -1264,8 +1307,11 @@ export function renderRegionHierarchy(
                             }
 
 
-                            districtNpcs.appendChild(
+                            // ---------------------------------
+                            // NPC ROW
+                            // ---------------------------------
 
+                            const npcRow =
                                 element(
                                     'div',
                                     {
@@ -1296,7 +1342,8 @@ export function renderRegionHierarchy(
                                             'span',
                                             {
                                                 text:
-                                                    npc.name,
+                                                    npc.name +" ~ "+ npc.title ||
+                                                    'Unnamed NPC',
 
                                                 className:
                                                     'npcEntry'
@@ -1304,7 +1351,28 @@ export function renderRegionHierarchy(
                                         )
 
                                     ]
-                                )
+                                );
+
+
+                            // ---------------------------------
+                            // NPC CLICK
+                            // ---------------------------------
+
+                            npcRow.addEventListener(
+                                'click',
+                                () => {
+
+                                    testNPC(
+                                        game,
+                                        npc
+                                    );
+
+                                }
+                            );
+
+
+                            districtNpcs.appendChild(
+                                npcRow
                             );
                         }
 
@@ -1327,6 +1395,10 @@ export function renderRegionHierarchy(
                         districtNpcs
                     );
 
+
+                    // -----------------------------------------
+                    // DISTRICT IN CONTAINER
+                    // -----------------------------------------
 
                     districtContainer.appendChild(
                         districtDetails
@@ -1370,6 +1442,7 @@ export function renderRegionHierarchy(
                             'settlementLocations'
                     },
                     [
+
                         element(
                             'h4',
                             {
@@ -1377,6 +1450,7 @@ export function renderRegionHierarchy(
                                     'Locations'
                             }
                         )
+
                     ]
                 );
 
@@ -1508,6 +1582,7 @@ export function renderRegionHierarchy(
                             'settlementQuests'
                     },
                     [
+
                         element(
                             'h4',
                             {
@@ -1515,6 +1590,7 @@ export function renderRegionHierarchy(
                                     'Quests'
                             }
                         )
+
                     ]
                 );
 
@@ -1573,7 +1649,7 @@ export function renderRegionHierarchy(
 
 
             // =================================================
-            // STADT DETAILS IN DETAILS
+            // STADT DETAILS ABSCHLIESSEN
             // =================================================
 
             settlementContainer.appendChild(
@@ -1623,6 +1699,7 @@ export function renderRegionHierarchy(
                     'regionDetailsLocations'
             },
             [
+
                 element(
                     'h4',
                     {
@@ -1630,12 +1707,15 @@ export function renderRegionHierarchy(
                             'Locations'
                     }
                 )
+
             ]
         );
 
 
     if (
-        Array.isArray(region?.locations) &&
+        Array.isArray(
+            region?.locations
+        ) &&
         region.locations.length
     ) {
 

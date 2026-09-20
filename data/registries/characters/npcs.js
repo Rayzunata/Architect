@@ -11,6 +11,7 @@ export const npcs = {
         name: "Default NPC",
         title: "Weltbewohner",
         icon: "img/icons/iconNpc.svg",
+        image: "img/defaultNPC.png",
 
         description:
             "Ein mysteriöser NPC, der dem Architekten bei der Erstellung und Verwaltung der Welt hilft.",
@@ -100,6 +101,7 @@ export const npcs = {
         name: "Aldric",
         title: "Bürgermeister",
         icon: "img/icons/iconNpc.svg",
+        image: "img/guard.png",
 
         description:
             "Der Bürgermeister der Stadt. Er kümmert sich um die Verwaltung, den Ausbau der Stadt und die Beziehungen zu anderen Orten.",
@@ -200,7 +202,7 @@ export const npcs = {
         name: "Marcus",
         title: "Stadtwache",
         icon: "img/icons/iconNpc.svg",
-
+        image: "img/guard.png",
         description:
             "Eine erfahrene Stadtwache, die den Eingang der Stadt bewacht und für Ordnung sorgt.",
 
@@ -300,6 +302,7 @@ export const npcs = {
         name: "Garron",
         title: "Hauptmann der Stadtwache",
         icon: "img/icons/iconNpc.svg",
+        image: "img/guard.png",
 
         description:
             "Der Hauptmann der Stadtwache. Er ist für die Sicherheit der gesamten Stadt und die Ausbildung der Wachen verantwortlich.",
@@ -490,8 +493,8 @@ export const npcs = {
     },
 
     // ==========================================
-// 6. HÄNDLER
-// ==========================================
+    // 6. HÄNDLER
+    // ==========================================
 
 npcMerchant: {
     id: "npc_merchant",
@@ -590,9 +593,9 @@ npcMerchant: {
 },
 
 
-// ==========================================
-// 7. BANKIER
-// ==========================================
+    // ==========================================
+    // 7. BANKIER
+    // ==========================================
 
 npcBanker: {
     id: "npc_banker",
@@ -699,9 +702,9 @@ npcBanker: {
 },
 
 
-// ==========================================
-// 8. SCHMIED
-// ==========================================
+    // ==========================================
+    // 8. SCHMIED
+    // ==========================================
 
 npcSmith: {
     id: "npc_smith",
@@ -710,7 +713,7 @@ npcSmith: {
     name: "Garrik",
     title: "Schmied",
     icon: "img/icons/iconNpc.svg",
-
+    image: "img/smithNPC.png",
     description:
         "Ein kräftiger und erfahrener Schmied, der seit Jahrzehnten Werkzeuge, Waffen und Ausrüstung für die Bewohner der Stadt herstellt.",
 
@@ -772,7 +775,7 @@ npcSmith: {
     faction: "town",
 
     // SHOP
-    shopinventory: "shopsSmith",
+    shopinventory: "shopsMiningStore",
 
     // PRODUKTION
     production: {

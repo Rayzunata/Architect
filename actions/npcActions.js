@@ -1,6 +1,9 @@
-export function testNPC(game,npc) {
+import { renderShop } from "../ui/renderShop.js";
+import { shops } from "../data/registries/economy/shops.js";
+export function testNPC(game, npc) {
 
-    console.log(npc);
+    //console.log(npc);
+
     // ========================================================
     // OVERLAY
     // ========================================================
@@ -48,9 +51,73 @@ export function testNPC(game,npc) {
     main.className =
         'testNpcModalMain';
 
-    main.innerHTML = `
+
+    // ========================================================
+    // MAIN LEFT
+    // ========================================================
+
+    const mainLeft =
+        document.createElement('div');
+
+    mainLeft.className =
+        'testNpcModalMainLeft';
+
+    mainLeft.innerHTML = `
         <p>${npc.description}</p>
     `;
+
+    // ========================================================
+    // MAIN LEFT if SHOP
+    // ========================================================
+
+    if (npc.shopinventory && shops[npc.shopinventory]) {
+        const testShopElement = renderShop(npc.shopinventory);
+        mainLeft.appendChild(testShopElement);
+    }
+
+    // ========================================================
+    // MAIN LEFT if QUESTS
+    // ========================================================
+
+    
+
+    // ========================================================
+    // MAIN RIGHT
+    // ========================================================
+
+    const mainRight =
+        document.createElement('div');
+
+    mainRight.className =
+        'testNpcModalMainRight';
+
+
+    const image =
+        document.createElement('img');
+
+    image.src =
+        npc.image;
+
+    image.alt =
+        npc.name;
+
+
+    mainRight.appendChild(
+        image
+    );
+
+
+    // ========================================================
+    // MAIN ZUSAMMENBAU
+    // ========================================================
+
+    main.appendChild(
+        mainLeft
+    );
+
+    main.appendChild(
+        mainRight
+    );
 
 
     // ========================================================

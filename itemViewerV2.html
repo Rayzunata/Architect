@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="style/inventory.css">
     <link rel="stylesheet" href="style/worldSelection.css">
     <link rel="stylesheet" href="style/modal.css">
+    <link rel="stylesheet" href="style/npcShop.css">
     <!-- STYLESHEETS AUFTEILEN-->
 </head>
 <body>
@@ -38,7 +39,7 @@
 
                 
                 <button class="testEintrag button" id="button1" title="zeigt Inventar">createRandomItem()</button>
-                
+                <button class="testEintrag button" id="button2" title="zeigt Inventar">getItemFromID()</button>
 
             </div>
 
@@ -94,7 +95,7 @@
 
         
 
-
+        //######################### randomitem creation test
         document.getElementById("button1").addEventListener("click", function () {
 
             item.addItemToInventory(item.createRandomItem(), game.player.inventory);
@@ -103,14 +104,26 @@
             }
         });
 
+        //######################### itemID to itemObject test
+        document.getElementById("button2").addEventListener("click", function () {
+
+            const testitem = item.getItemFromId("resource:stone:granite:shard:none:none:epic:61");
+            console.log(testitem);
+        });
+
+        //######################### save
         document.getElementById("saveButton").addEventListener("click", function () {
 
             saveManager.save(game);
         });
+
+        //######################### load
         document.getElementById("loadButton").addEventListener("click", function () {
 
             saveManager.load(game);
         });
+
+        //######################### delete
         document.getElementById("deleteButton").addEventListener("click", function () {
 
             saveManager.delete();

@@ -37,7 +37,8 @@ export const districts = {
             "cold"
         ],
         npcs: [
-             "npcDefaultNpc"
+             "npcDefaultNpc",
+             "npcGuard"
         ],
         events: [
 

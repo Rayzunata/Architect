@@ -154,6 +154,33 @@ export const item = {
 
             return item;
         },
+
+//##################################################################################
+// wandelt den ID string wieder in ein objekt um
+        getItemFromId(id) {
+
+            const [
+                category,
+                materialGroup,
+                material,
+                form,
+                prefix,
+                suffix,
+                rarity,
+                quality
+            ] = id.split(':');
+
+            return item.createItem({
+                category,
+                materialGroup,
+                material,
+                form,
+                prefix,
+                suffix,
+                rarity,
+                quality: Number(quality)
+            });
+        },
 //##################################################################################################
         addItemToInventory(item, inventory){
                     console.log(item);

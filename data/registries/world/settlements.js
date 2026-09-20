@@ -86,7 +86,7 @@ export const settlements = {
         wealth: "rich",
         faction: "architekt",
         sicherheit: 100,
-        npcs: ["npcDefaultNpc"],
+        npcs: ["npcMayor", "npcGuard","npcSmith"],
         modifiers: ["cold"],
         districts: [
             "districtTigrisAdministration",

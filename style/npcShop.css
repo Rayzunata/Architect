@@ -1,0 +1,75 @@
+.shop {
+    width: 100%;
+    background: #1e1e1e;
+    border: 1px solid #444;
+    border-radius: 8px;
+    height: 300px;
+    overflow-x: auto;
+}
+
+.shopHeader {
+    padding: 12px 16px;
+    background: #292929;
+    border-bottom: 1px solid #444;
+}
+
+.shopContent {
+    display: flex;
+    flex-direction: column;
+}
+
+.shopEntry {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 3px 11px;
+
+    border-bottom: 1px solid #333;
+}
+
+.shopEntry:last-child {
+    border-bottom: none;
+}
+
+.shopItemInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.shopItemName {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.shopItemStock {
+    font-size: 13px;
+    color: #999;
+}
+
+.shopItemAction {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.shopItemPrice {
+    color: #e0b84c;
+}
+
+.buyButton {
+    padding: 6px 12px;
+
+    background: #3a7d44;
+    color: white;
+
+    border: none;
+    border-radius: 4px;
+
+    cursor: pointer;
+}
+
+.buyButton:hover {
+    background: #4c9657;
+}

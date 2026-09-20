@@ -92,7 +92,7 @@ export const regions = {
             "locationSmith",
             "locationGeneralstore",
         ],
-        npcs: ["npcDefaultNpc","npcDefaultNpc","npcDefaultNpc"],
+        npcs: ["npcSmith,npcDefaultNpc","npcDefaultNpc","npcDefaultNpc"],
         enemies: [],
         quests: []
     })
